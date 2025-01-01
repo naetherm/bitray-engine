@@ -24,6 +24,7 @@ set(FILES
 
   # private/core
   private/core/default_assert.cpp
+  private/core/refcounted.cpp
 
   # private/memory
   private/memory/memory.cpp
