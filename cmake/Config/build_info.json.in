@@ -1,0 +1,14 @@
+{
+	"name": 			"${RE_PROJECT_NAME}",
+	
+	"version_major":	${RE_PROJECT_VERSION_MAJOR},
+	"version_minor": 	${RE_PROJECT_VERSION_MINOR},
+	"version_patch": 	${RE_PROJECT_VERSION_PATCH},
+	"version_rev": 		"${RE_PROJECT_VERSION_REV}",
+	"version_name": 	"${RE_PROJECT_VERSION_RELEASE}",
+	
+	"git_sha": 		"${RE_PROJECT_GIT_SHA}",
+	"git_branch":		"${RE_PROJECT_GIT_BRANCH}",
+	
+	"timestamp": 		"${RE_BUILD_TIME}"
+}
