@@ -150,13 +150,13 @@ private:
  * - See http://cnicholson.net/2009/02/stupid-c-tricks-adventures-in-assert/ - "2.  Wrap your macros in do { � } while(0)." for background information about the do-while wrap
  */
 #ifdef DEBUG
-#define RE_ASSERT(expression, format, ...) \
+#define BE_ASSERT(expression, format, ...) \
 			do { \
 				if (!(expression) && core::DefaultAssert().handle_assert(#expression, __FILE__, static_cast<core::uint32>(__LINE__), format, ##__VA_ARGS__)) { \
 					DEBUG_BREAK; \
 				} \
 			} while (0);
-#define RE_ASSERT_ONCE(expression, format, ...) \
+#define BE_ASSERT_ONCE(expression, format, ...) \
 			do { \
 				static bool loggedOnce = false; \
 				if (!loggedOnce && !(expression)) { \
@@ -167,6 +167,6 @@ private:
 				} \
 			} while (0);
 #else
-#define RE_ASSERT(expression, format, ...)
-#define RE_ASSERT_ONCE(expression, format, ...)
+#define BE_ASSERT(expression, format, ...)
+#define BE_ASSERT_ONCE(expression, format, ...)
 #endif

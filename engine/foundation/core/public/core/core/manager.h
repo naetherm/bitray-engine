@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/core/non_copyable.h"
 
 
 //[-------------------------------------------------------]
@@ -38,54 +39,26 @@ namespace core {
 
 
 //[-------------------------------------------------------]
-//[ Public functions                                      ]
+//[ Classes                                               ]
 //[-------------------------------------------------------]
-inline int32 AtomicIncrement(volatile int32 * p32)
-{
-#if defined(BE_COMPILER_GNUC)
-int32 result;
-      __asm__ __volatile__ ("lock; xaddl %0, %1"
-      : "=r" (result), "=m" (*p32)
-      : "0" (1), "m" (*p32)
-      : "memory"
-      );
-      return result + 1;
-#endif
-  return ++*p32;
-}
+class Manager : public NonCopyable {
 
-inline int32 AtomicDecrement(volatile int32 * p32)
-{
-#if defined(BE_COMPILER_GNUC)
-int32 result;
-      __asm__ __volatile__ ("lock; xaddl %0, %1"
-      : "=r" (result), "=m" (*p32)
-      : "0" (-1), "m" (*p32)
-      : "memory"
-      );
-      return result - 1;
-#endif
-  return --*p32;
-}
+  //[-------------------------------------------------------]
+  //[ Public methods                                        ]
+  //[-------------------------------------------------------]
+public:
+  /**
+   * @brief
+   * Default constructor
+   */
+  Manager() = default;
 
-inline bool AtomicCompareAndSwap(int32 * p32, int32 newValue, int32 nCondition)
-{
-#if defined(BE_COMPILER_GNUC)
-int32 result;
-      __asm__ __volatile__(
-      "lock; cmpxchgl %3, (%1) \n"                    // Test *p32 against EAX, if same, then *p32 = newValue
-      : "=a" (result), "=r" (p32)                     // outputs
-      : "a" (nCondition), "r" (newValue), "1" (p32)    // inputs
-      : "memory"                                      // clobbered
-      );
-      return result == nCondition;
-#endif
-  if (*p32 == nCondition) {
-    *p32 = newValue;
-    return true;
-  }
-  return false;
-}
+  /**
+   * @brief
+   * Destructor
+   */
+  virtual ~Manager() = default;
+};
 
 
 //[-------------------------------------------------------]
