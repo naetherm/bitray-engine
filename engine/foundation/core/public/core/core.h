@@ -51,8 +51,8 @@
 	#define CORE_API			// -
 #elif defined(CORE_EXPORTS)
 // To export classes, methods and variables
-#define CORE_API			RE_GENERIC_API_EXPORT
+#define CORE_API			BE_GENERIC_API_EXPORT
 #else
 // To import classes, methods and variables
-#define CORE_API			RE_GENERIC_API_IMPORT
+#define CORE_API			BE_GENERIC_API_IMPORT
 #endif
