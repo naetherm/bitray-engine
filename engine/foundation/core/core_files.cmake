@@ -21,4 +21,7 @@
 
 set(FILES
   private/core.cpp
+
+  # private/core
+  private/core/default_assert.cpp
 )
