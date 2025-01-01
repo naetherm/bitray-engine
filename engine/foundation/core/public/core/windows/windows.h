@@ -26,33 +26,49 @@
 
 
 //[-------------------------------------------------------]
-//[ Includes                                              ]
+//[ Macros                                                ]
 //[-------------------------------------------------------]
-#include "bitray_engine.h"
-#include "core/core/compiler.h"
+#include <cstdint>
 
 
 //[-------------------------------------------------------]
-//[ OS definitions                                        ]
+//[ Data types                                            ]
 //[-------------------------------------------------------]
-// Linux platform
-#if defined(LINUX)
-#include "core/linux/linux.h"
-#elif defined(WIN32)
-#include "core/windows/windows.h"
-#endif
+// Standard types
+namespace core {
 
 
-//[-------------------------------------------------------]
-//[ Import/Export                                         ]
-//[-------------------------------------------------------]
-#ifdef CORE_STATIC
-// Static library
-	#define CORE_API			// -
-#elif defined(CORE_EXPORTS)
-// To export classes, methods and variables
-#define CORE_API			RE_GENERIC_API_EXPORT
+typedef std::int8_t int8;
+typedef std::uint8_t uint8;
+
+typedef std::int16_t int16;
+typedef std::uint16_t uint16;
+
+typedef std::int32_t int32;
+typedef std::uint32_t uint32;
+
+typedef std::int64_t int64;
+typedef std::uint64_t uint64;
+
+typedef float scalar;
+typedef float float32;
+typedef double float64;
+
+#if X64_ARCHITECTURE
+typedef std::uint64_t uint_ptr;
+typedef std::uint64_t handle;
+typedef std::uint64_t sizeT;
 #else
-// To import classes, methods and variables
-#define CORE_API			RE_GENERIC_API_IMPORT
+typedef std::uint32_t 	uint_ptr;
+typedef std::uint32_t 	handle;
+typedef std::uint32_t   sizeT;
 #endif
+
+}
+
+/**
+*  @brief
+*    Invalid handle value (for data type core::handle)
+*/
+static const core::handle NULL_HANDLE    = 0;
+static const core::handle INVALID_HANDLE = -1;

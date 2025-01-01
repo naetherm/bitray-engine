@@ -28,31 +28,83 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "bitray_engine.h"
-#include "core/core/compiler.h"
+#include <X11/X.h>
+#include <X11/keysym.h>
+#include <cmath>
+#include <xcb/randr.h>
+#include <xcb/xcb.h>
+#include <xcb/xcb_atom.h>
+#include <xcb/xcb_aux.h>
+#include <xcb/xcb_cursor.h>
+#include <xcb/xcb_event.h>
+#include <xcb/xcb_ewmh.h>
+#include <xcb/xcb_icccm.h>
+#include <xcb/xcb_image.h>
+#include <xcb/xcb_xrm.h>
+#include <xcb/xcb_keysyms.h>
+#include <xkbcommon/xkbcommon-x11.h>
+#include <xkbcommon/xkbcommon.h>
 
 
-//[-------------------------------------------------------]
-//[ OS definitions                                        ]
-//[-------------------------------------------------------]
-// Linux platform
-#if defined(LINUX)
-#include "core/linux/linux.h"
-#elif defined(WIN32)
-#include "core/windows/windows.h"
-#endif
 
+enum AtomTypes {
+  WM_DELETE_WINDOW = 0,
+  WM_CHANGE_STATE,
+  _MOTIF_WM_HINTS,
+  CLIPBOARD,
+  CLIP_PROP,
+  XDND_PROP,
+  TARGETS,
+  UTF8,
+  TEXT,
+  STRING,
+  PLAIN_UTF8,
+  PLAIN,
+  URI_LIST,
+  XDND_TYPE_LIST,
+  XDND_AWARE,
+  XDND_SELECTION,
+  XDND_ENTER,
+  XDND_POSITION,
+  XDND_ACTION_COPY,
+  XDND_ACTION_MOVE,
+  XDND_ACTION_LINK,
+  XDND_ACTION_ASK,
+  XDND_ACTION_PRIVATE,
+  XDND_STATUS,
+  XDND_LEAVE,
+  XDND_DROP,
+  XDND_FINISHED,
 
-//[-------------------------------------------------------]
-//[ Import/Export                                         ]
-//[-------------------------------------------------------]
-#ifdef CORE_STATIC
-// Static library
-	#define CORE_API			// -
-#elif defined(CORE_EXPORTS)
-// To export classes, methods and variables
-#define CORE_API			RE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define CORE_API			RE_GENERIC_API_IMPORT
-#endif
+  ATOMS_COUNT
+};
+
+static const char *SXcbAtomNames[27] = {
+  "WM_DELETE_WINDOW",
+  "WM_CHANGE_STATE",
+  "_MOTIF_WM_HINTS",
+  "CLIPBOARD",
+  "CLIP_PROP",
+  "XDND_PROP",
+  "TARGETS",
+  "UTF8_STRING",
+  "TEXT",
+  "STRING",
+  "text/plain;charset=utf-8",
+  "text/plain",
+  "text/uri-list",
+  "XdndTypeList",
+  "XdndAware",
+  "XdndSelection",
+  "XdndEnter",
+  "XdndPosition",
+  "XdndActionCopy",
+  "XdndActionMove",
+  "XdndActionLink",
+  "XdndActionAsk",
+  "XdndActionPrivate",
+  "XdndStatus",
+  "XdndLeave",
+  "XdndDrop",
+  "XdndFinished"
+};
