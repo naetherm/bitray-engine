@@ -30,6 +30,11 @@ set(FILES
   private/container/stack.cpp
   private/container/vector.cpp
 
+  private/core/ptr.cpp
+  private/core/weak_ptr.cpp
+
+  private/io/path.cpp
+
   private/string/string.cpp
   private/string/string_view.cpp
 )
