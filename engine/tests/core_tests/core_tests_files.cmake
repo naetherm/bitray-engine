@@ -22,6 +22,11 @@ set(FILES
   private/main.cpp
 
   private/container/array.cpp
+  private/container/container_objects.cpp
+  private/container/hash_map.cpp
+  private/container/heap.cpp
+  private/container/list.cpp
+  private/container/map.cpp
   private/container/stack.cpp
   private/container/vector.cpp
 
