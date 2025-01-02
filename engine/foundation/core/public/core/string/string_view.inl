@@ -24,7 +24,8 @@
 //[-------------------------------------------------------]
 #include "core/std/algorithm.h"
 #include "core/std/limits.h"
-#include "core/std/utils.h"
+#include "core/std/algorithm.h"
+#include "core/string/string_utils.h"
 
 
 //[-------------------------------------------------------]
@@ -167,7 +168,7 @@ int BasicStringView<TCharType>::compare(const TCharType *pBegin1, const TCharTyp
   const ptrdiff_t n1 = pEnd1 - pBegin1;
   const ptrdiff_t n2 = pEnd2 - pBegin2;
   const ptrdiff_t nMin = core::MinAlt(n1, n2);
-  const int cmp = compare(pBegin1, pBegin2, (size_type) nMin);
+  const int cmp = core::char_string_compare(pBegin1, pBegin2, static_cast<size_type>(nMin));
 
   return (cmp != 0 ? cmp : (n1 < n2 ? -1 : (n1 > n2 ? 1 : 0)));
 }
