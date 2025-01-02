@@ -20,5 +20,6 @@
 
 
 set(FILES
+  private/windows/windows_file.cpp
 )
 

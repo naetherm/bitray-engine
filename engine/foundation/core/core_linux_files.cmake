@@ -20,5 +20,6 @@
 
 
 set(FILES
+  private/linux/linux_file.cpp
 )
 

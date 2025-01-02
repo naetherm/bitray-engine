@@ -26,6 +26,10 @@ set(FILES
   private/core/default_assert.cpp
   private/core/refcounted.cpp
 
+  # private/io
+  private/io/file.cpp
+  private/io/file_impl.cpp
+
   # private/memory
   private/memory/memory.cpp
   private/memory/mimalloc_allocator.cpp
