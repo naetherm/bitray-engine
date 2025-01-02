@@ -1,5 +1,5 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
-#// Copyright (c) 2025 RacoonStudios
+#// Copyright (c) 2021 RacoonStudios
 #//
 #// Permission is hereby granted, free of charge, to any person obtaining a copy of this
 #// software and associated documentation files (the "Software"), to deal in the Software
@@ -19,8 +19,41 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(tests)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME core_tests EXECUTABLE
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/core_tests_files.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+      unit_tests
+  RUNTIME_DEPENDENCIES
+    PUBLIC
+      core
+      unit_tests
+  COMPILE_DEFINITIONS
+    PUBLIC
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+      GLM_FORCE_CXX2A GLM_FORCE_INLINE GLM_FORCE_AVX2 GLM_FORCE_QUAT_DATA_XYZW GLM_FORCE_LEFT_HANDED GLM_FORCE_DEPTH_ZERO_TO_ONE GLM_FORCE_RADIANS GLM_ENABLE_EXPERIMENTAL GLM_FORCE_SILENT_WARNINGS
+  TARGET_PROPERTIES
+    -fPIC
+)
+
+
+##################################################
+## Project
+##################################################
+#add_custom_command(TARGET core_tests POST_BUILD
+#  COMMAND ${CMAKE_COMMAND} -E copy_directory
+#  ${CMAKE_CURRENT_SOURCE_DIR}/../sample_data $<TARGET_FILE_DIR:core_tests>/sample_data
+#)

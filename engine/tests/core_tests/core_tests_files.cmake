@@ -1,5 +1,5 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
-#// Copyright (c) 2025 RacoonStudios
+#// Copyright (c) 2021 RacoonStudios
 #//
 #// Permission is hereby granted, free of charge, to any person obtaining a copy of this
 #// software and associated documentation files (the "Software"), to deal in the Software
@@ -18,9 +18,12 @@
 #// DEALINGS IN THE SOFTWARE.
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
+set(FILES
+  private/main.cpp
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(tests)
+  private/container/array.cpp
+  private/container/stack.cpp
+  private/container/vector.cpp
+
+  private/string/string.cpp
+)

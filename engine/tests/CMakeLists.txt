@@ -22,5 +22,5 @@
 ################################################################################
 # Current package
 ################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(tests)
+re_add_subdirectory(unit_tests)
+re_add_subdirectory(core_tests)
