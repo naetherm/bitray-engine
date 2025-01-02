@@ -20,6 +20,7 @@
 
 
 set(FILES
+  private/linux/linux_console.cpp
   private/linux/linux_file.cpp
   private/linux/linux_platform.cpp
 )

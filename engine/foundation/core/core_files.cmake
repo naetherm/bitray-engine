@@ -37,6 +37,7 @@ set(FILES
   private/memory/std_allocator.cpp
 
   # private/platform
+  private/platform/console.cpp
   private/platform/platform.cpp
 
   # private/tools
