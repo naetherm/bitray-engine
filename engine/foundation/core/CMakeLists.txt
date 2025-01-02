@@ -38,9 +38,11 @@ re_add_target(
   BUILD_DEPENDENCIES
     PUBLIC
       External::mimalloc
+      External::pcre
   RUNTIME_DEPENDENCIES
     PUBLIC
       External::mimalloc
+      External::pcre
   COMPILE_DEFINITIONS
     PUBLIC
       CORE_EXPORTS
