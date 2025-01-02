@@ -28,32 +28,54 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "bitray_engine.h"
-#include "core/core/config.h"
-#include "core/core/compiler.h"
+#include "core/core.h"
 
 
 //[-------------------------------------------------------]
-//[ OS definitions                                        ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-// Linux platform
-#if defined(LINUX)
-#include "core/linux/linux.h"
-#elif defined(WIN32)
-#include "core/windows/windows.h"
-#endif
+namespace core {
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Global definitions                                    ]
 //[-------------------------------------------------------]
-#ifdef CORE_STATIC
-// Static library
-	#define CORE_API			// -
-#elif defined(CORE_EXPORTS)
-// To export classes, methods and variables
-#define CORE_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define CORE_API			BE_GENERIC_API_IMPORT
-#endif
+
+
+
+//[-------------------------------------------------------]
+//[ Enumerations                                          ]
+//[-------------------------------------------------------]
+enum class EFileMode {
+  Read,
+  Write,
+  Append
+};
+
+enum class EAccessPattern {
+  Random,
+  Sequential
+};
+
+enum class EFileSeek {
+  Set,
+  Current,
+  End
+};
+
+enum class EEnumerationMode {
+  /** Enumerate files as well as directories */
+  All,
+  /** Do only enumerate files */
+  Files,
+  /** Do only enumerate directories */
+  Directories
+};
+
+static const constexpr char INVALID_CHARACTER = '?';
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // core
