@@ -430,7 +430,6 @@ Path& Path::collapse() {
 }
 
 void Path::normalize() {
-  // TODO(naetherm): Do we also want to have an absolute path in the end?
   // Rebuild the path
   core::Vector<core::uint32> indexes;
   for (core::uint32 i = 0; i < mPathParts.size(); ++i) {
@@ -443,7 +442,7 @@ void Path::normalize() {
     mPathParts.erase_at(indexes[i]);
   }
 
-  // No remove all ".."
+  // Now remove all ".."
   while (mPathParts.contains("..")) {
     for (core::uint32 i = 0; i < mPathParts.size(); ++i) {
       if (mPathParts[i] == "..") {

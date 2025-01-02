@@ -29,6 +29,7 @@ set(FILES
   # private/io
   private/io/file.cpp
   private/io/file_impl.cpp
+  private/io/path.cpp
 
   # private/memory
   private/memory/memory.cpp
