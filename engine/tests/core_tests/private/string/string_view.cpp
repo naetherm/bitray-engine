@@ -36,7 +36,7 @@ namespace core_tests {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 StringViewTests::StringViewTests()
-  : UnitTest("StringViewTests") {
+: UnitTest("core::StringViewests") {
 
 }
 
@@ -50,7 +50,112 @@ void StringViewTests::test() {
     core::StringView sv;
 
     be_expect(sv.length() == 0)
+    be_expect(sv.size() == 0)
     be_expect_true(sv.empty())
+    be_expect(sv.data() == nullptr)
+  }
+
+  {
+    {
+      core::StringView sw(nullptr);
+      be_expect(sw.empty())
+      be_expect(sw.data() == nullptr)
+      be_expect(sw.size() == 0)
+      be_expect(sw.size() == sw.length())
+    }
+    {
+      core::StringView sw(0);
+      be_expect(sw.empty())
+      be_expect(sw.data() == nullptr)
+      be_expect(sw.size() == 0)
+      be_expect(sw.size() == sw.length())
+    }
+    {
+      core::StringView sw(NULL);
+      be_expect(sw.empty())
+      be_expect(sw.data() == nullptr)
+      be_expect(sw.size() == 0)
+      be_expect(sw.size() == sw.length())
+    }
+  }
+
+  {
+    const char* pLiteral = "Hello, World";
+    core::StringView sw1(pLiteral);
+    core::StringView sw2(sw1);
+    be_expect(sw1.size() == sw2.size())
+    be_expect_str_eq(sw1.data(), sw2.data())
+  }
+
+  {
+    {
+      core::StringView sw("Hello, World", 12);
+      be_expect(!sw.empty());
+      be_expect(sw.data() != nullptr);
+      be_expect(sw.size() == 12);
+      be_expect(sw.size() == sw.length());
+    }
+
+    {
+      core::StringView sw("Hello, World", 5);
+      be_expect(!sw.empty());
+      be_expect(sw.data() != nullptr);
+      be_expect(sw.size() == 5);
+      be_expect(sw.size() == sw.length());
+      be_expect(sw.compare(0, 5, sw.data()) == 0)
+    }
+  }
+
+  {
+    core::StringView sw("abcdefg");
+    {
+      auto i = sw.begin();
+      auto ci = sw.cbegin();
+
+      be_expect(*i++ == 'a');
+      be_expect(*i++ == 'b');
+
+      be_expect(*ci++ == 'a');
+      be_expect(*ci++ == 'b');
+    }
+
+    {
+      auto i = sw.end();
+      auto ci = sw.cend();
+
+      be_expect(*i-- == '\0');
+      be_expect(*i-- == 'g');
+
+      be_expect(*ci-- == '\0');
+      be_expect(*ci-- == 'g');
+    }
+  }
+
+  {
+    {
+      core::StringView sw("Vancouver, Canada");
+      be_expect(sw.front() == 'V');
+      be_expect(sw.back() == 'a');
+
+    }
+    {
+      core::StringView sw("Canada");
+      be_expect(sw.front() == 'C');
+      be_expect(sw.back() == 'a');
+    }
+  }
+
+  {
+    core::StringView sw("Vancouver");
+    be_expect(sw[0] == 'V');
+    be_expect(sw[1] == 'a');
+    be_expect(sw[2] == 'n');
+    be_expect(sw[3] == 'c');
+    be_expect(sw[4] == 'o');
+    be_expect(sw[5] == 'u');
+    be_expect(sw[6] == 'v');
+    be_expect(sw[7] == 'e');
+    be_expect(sw[8] == 'r');
   }
 }
 
