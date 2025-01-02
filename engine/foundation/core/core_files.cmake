@@ -35,6 +35,9 @@ set(FILES
   private/memory/mimalloc_allocator.cpp
   private/memory/std_allocator.cpp
 
+  # private/platform
+  private/platform/platform.cpp
+
   # private/tools
   private/tools/version.cpp
 )
