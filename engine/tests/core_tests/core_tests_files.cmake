@@ -31,4 +31,5 @@ set(FILES
   private/container/vector.cpp
 
   private/string/string.cpp
+  private/string/string_view.cpp
 )
