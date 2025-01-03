@@ -39,10 +39,12 @@ re_add_target(
     PUBLIC
       External::mimalloc
       External::pcre
+      External::lz4
   RUNTIME_DEPENDENCIES
     PUBLIC
       External::mimalloc
       External::pcre
+      External::lz4
   COMPILE_DEFINITIONS
     PUBLIC
       CORE_EXPORTS

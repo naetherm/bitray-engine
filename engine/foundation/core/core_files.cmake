@@ -45,5 +45,6 @@ set(FILES
   # private/tools
   private/tools/command_line.cpp
   private/tools/command_line_option.cpp
+  private/tools/compression_lz4.cpp
   private/tools/version.cpp
 )
