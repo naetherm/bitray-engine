@@ -38,6 +38,8 @@ set(FILES
 
   # private/platform
   private/platform/console.cpp
+  private/platform/library.cpp
+  private/platform/library_impl.cpp
   private/platform/platform.cpp
 
   # private/tools
