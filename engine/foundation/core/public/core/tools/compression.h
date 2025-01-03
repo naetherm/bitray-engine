@@ -63,10 +63,47 @@ public:
   virtual ~Compression() = default;
 
 
+  /**
+   * @brief
+   * Compresses the input data using the LZ4 algorithm.
+   *
+   * Compresses the data in `src` and stores the compressed output in `dst`.
+   *
+   * @param[in] dst Pointer to the destination buffer where compressed data will be stored.
+   * @param[in] src Pointer to the source buffer containing data to compress.
+   * @param[in] srcSize Size of the input data in bytes.
+   * @param[in] dstCapacity Size of the destination buffer in bytes.
+   *
+   * @return The size of the compressed data written to `dst`.
+   */
   virtual core::sizeT compress(core::uint8* dst, const core::uint8* src, core::sizeT srcSize, core::sizeT dstCapacity) const = 0;
 
+  /**
+   * @brief
+   * Decompresses the input data using the LZ4 algorithm.
+   *
+   * Decompresses the data in `src` and stores the decompressed output in `dst`.
+   *
+   * @param[in] dst Pointer to the destination buffer where decompressed data will be stored.
+   * @param[in] src Pointer to the source buffer containing compressed data.
+   * @param[in] srcSize Size of the compressed data in bytes.
+   * @param[in] dstSize Expected size of the decompressed data in bytes.
+   *
+   * @return The size of the decompressed data written to `dst`.
+   */
   virtual core::sizeT decompress(core::uint8* dst, const core::uint8* src, core::sizeT srcSize, core::sizeT dstSize) const = 0;
 
+  /**
+   * @brief
+   * Calculates the maximum size required for compression.
+   *
+   * Determines the upper bound for the compressed size of data with `srcSize`
+   * bytes, which can be used to allocate a sufficient buffer for compression.
+   *
+   * @param[in] srcSize Size of the input data in bytes.
+   *
+   * @return The maximum size in bytes that the compressed data may occupy.
+   */
   [[nodiscard]] virtual core::sizeT compress_bound(core::uint32 srcSize) const = 0;
 };
 
