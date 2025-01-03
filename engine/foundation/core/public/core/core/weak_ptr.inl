@@ -20,65 +20,93 @@
 
 
 //[-------------------------------------------------------]
-//[ Includes                                              ]
-//[-------------------------------------------------------]
-#include "core/platform/console.h"
-#if defined(LINUX)
-#include "core/linux/linux_console.h"
-#endif
-
-
-//[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 namespace core {
 
 
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-Console &Console::instance() {
-  static Console SInstance;
-  return SInstance;
+template<class TType>
+WeakPtr<TType>::WeakPtr() : mPtr(nullptr) {
+  // empty
 }
 
-
-Console::Console() {
-#if defined(LINUX)
-  mConsoleImpl = new LinuxConsole();
-#endif
+template<class TType>
+WeakPtr<TType>::WeakPtr(TType *p) : mPtr(p) {
+  // empty
 }
 
-Console::~Console() {
-  delete mConsoleImpl;
+template<class TType>
+WeakPtr<TType>::WeakPtr(const Ptr<TType> &p) : mPtr(p.get_unsafe()) {
+  // empty
 }
 
-void Console::print(const String &sString) const {
-  mConsoleImpl->print(sString);
+template<class TType>
+WeakPtr<TType>::WeakPtr(const WeakPtr<TType> &p) : mPtr(p.mPtr) {
+  // empty
 }
 
-int Console::is_key_hit() const {
-  return mConsoleImpl->is_key_hit();
+template<class TType>
+WeakPtr<TType>::~WeakPtr() {
+  mPtr = nullptr;
 }
 
-int Console::get_character(bool bEcho) const {
-  return mConsoleImpl->get_character(bEcho);
+template<class TType>
+WeakPtr<TType> &WeakPtr<TType>::operator=(const Ptr<TType> &rhs) {
+  mPtr = rhs.get_unsafe();
+
+  return *this;
 }
 
-void Console::clear_screens() const {
-  mConsoleImpl->clear_screens();
+template<class TType>
+WeakPtr<TType> &WeakPtr<TType>::operator=(const WeakPtr<TType> &rhs) {
+  mPtr = rhs.mPtr;
+
+  return *this;
 }
 
-void Console::get_cursor_position(uint16 &nX, uint16 &nY) const {
-  mConsoleImpl->get_cursor_position(nX, nY);
+template<class TType>
+WeakPtr<TType> &WeakPtr<TType>::operator=(TType *rhs) {
+  mPtr = rhs;
+
+  return *this;
 }
 
-void Console::set_cursor_position(uint16 nX, uint16 nY) const {
-  mConsoleImpl->set_cursor_position(nX, nY);
+template<class TType>
+TType *WeakPtr<TType>::operator->() const {
+  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator->()!");
+  return mPtr;
+}
+
+template<class TType>
+TType &WeakPtr<TType>::operator*() const {
+  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator*()!");
+  return *mPtr;
+}
+
+template<class TType>
+WeakPtr<TType>::operator TType *() const {
+  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator TType*()!");
+  return mPtr;
+}
+
+template<class TType>
+bool WeakPtr<TType>::is_valid() const {
+  return (nullptr != mPtr);
+}
+
+template<class TType>
+TType *WeakPtr<TType>::get() const {
+  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::get()!");
+  return mPtr;
+}
+
+template<class TType>
+TType *WeakPtr<TType>::get_unsafe() const {
+  return mPtr;
 }
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // namespace core

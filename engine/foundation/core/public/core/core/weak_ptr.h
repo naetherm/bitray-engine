@@ -29,7 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/platform/console_impl.h"
+#include "core/core/ptr.h"
 
 
 //[-------------------------------------------------------]
@@ -41,74 +41,41 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @brief
- * Abstract base class for platform specific 'ConsoleImpl' implementations
- */
-class LinuxConsole : public ConsoleImpl {
-
-
-  //[-------------------------------------------------------]
-  //[ Public ConsoleImpl functions                          ]
-  //[-------------------------------------------------------]
+template<class TType>
+class WeakPtr {
 public:
-  /**
-   * @brief
-   * Print a string to the console
-   *
-   * @param[in] sString
-   * String that shall be printed
-   */
-  void print(const String &sString) const override;
+  /// constructor
+  WeakPtr();
+  /// construct from C++ pointer
+  WeakPtr(TType* p);
+  /// construct from Ptr<> pointer
+  WeakPtr(const Ptr<TType>& p);
+  /// construct from WeakPtr<> pointer
+  WeakPtr(const WeakPtr<TType>& p);
+  /// destructor
+  ~WeakPtr();
 
-  /**
-   * @brief
-   * Checks whether or not there's some keyboard input waiting on the console ('_kbhit()')
-   *
-   * @return
-   * 0 if no key has been pressed, else not null
-   */
-  int is_key_hit() const override;
+  /// assignment operator from Ptr<>
+  WeakPtr<TType>& operator=(const Ptr<TType>& rhs);
+  /// assignment operator from WeakPtr<>
+  WeakPtr<TType>& operator=(const WeakPtr<TType>& rhs);
+  /// assignment operator
+  WeakPtr<TType>& operator=(TType* rhs);
+  /// safe -> operator
+  TType* operator->() const;
+  /// safe dereference operator
+  TType& operator*() const;
+  /// safe pointer cast operator
+  operator TType*() const;
+  /// check if pointer is valid
+  bool is_valid() const;
+  /// return direct pointer (asserts if null pointer)
+  TType* get() const;
+  /// return direct pointer (returns null pointer)
+  TType* get_unsafe() const;
 
-  /**
-   * @brief
-   * Reads a single character from the console ('_getch()')
-   *
-   * @param[in] bEcho
-   * Echo on the console?
-   *
-   * @return
-   * The read character - note that there's no error code
-   */
-  int get_character(bool bEcho = false) const override;
-
-  /**
-   * @brief
-   * Clears the console screen ('clrscr()')
-   */
-  void clear_screens() const override;
-
-  /**
-   * @brief
-   * Gets the absolute console cursor position ('wherex()' and 'wherey()')
-   *
-   * @param[out] nX
-   * Receives the absolute x position of the console cursor, (0,0)=(left,top)
-   * @param[out] nY
-   * Receives the absolute y position of the console cursor, (0,0)=(left,top)
-   */
-  void get_cursor_position(uint16 &nX, uint16 &nY) const override;
-
-  /**
-   * @brief
-   * Sets the absolute console cursor position ('gotoxy()')
-   *
-   * @param[in] nX
-   * New x absolute position of the console cursor, (0,0)=(left,top)
-   * @param[in] nY
-   * New y absolute position of the console cursor, (0,0)=(left,top)
-   */
-  void set_cursor_position(uint16 nX, uint16 nY) const override;
+private:
+  TType* mPtr;
 };
 
 
@@ -116,3 +83,9 @@ public:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 } // core
+
+
+//[-------------------------------------------------------]
+//[ Implementation                                        ]
+//[-------------------------------------------------------]
+#include "core/core/weak_ptr.inl"

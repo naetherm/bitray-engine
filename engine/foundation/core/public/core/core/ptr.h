@@ -29,7 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/platform/console_impl.h"
 
 
 //[-------------------------------------------------------]
@@ -39,76 +38,89 @@ namespace core {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class RefCounted;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @brief
- * Abstract base class for platform specific 'ConsoleImpl' implementations
- */
-class LinuxConsole : public ConsoleImpl {
+template<class TType>
+class Ptr {
 
+  template<class TOtherType> friend class Ptr;
 
-  //[-------------------------------------------------------]
-  //[ Public ConsoleImpl functions                          ]
-  //[-------------------------------------------------------]
 public:
-  /**
-   * @brief
-   * Print a string to the console
-   *
-   * @param[in] sString
-   * String that shall be printed
-   */
-  void print(const String &sString) const override;
 
-  /**
-   * @brief
-   * Checks whether or not there's some keyboard input waiting on the console ('_kbhit()')
-   *
-   * @return
-   * 0 if no key has been pressed, else not null
-   */
-  int is_key_hit() const override;
+  Ptr();
 
-  /**
-   * @brief
-   * Reads a single character from the console ('_getch()')
-   *
-   * @param[in] bEcho
-   * Echo on the console?
-   *
-   * @return
-   * The read character - note that there's no error code
-   */
-  int get_character(bool bEcho = false) const override;
+  Ptr(TType* ptr);
 
-  /**
-   * @brief
-   * Clears the console screen ('clrscr()')
-   */
-  void clear_screens() const override;
+  Ptr(const Ptr<TType>& ptr);
 
-  /**
-   * @brief
-   * Gets the absolute console cursor position ('wherex()' and 'wherey()')
-   *
-   * @param[out] nX
-   * Receives the absolute x position of the console cursor, (0,0)=(left,top)
-   * @param[out] nY
-   * Receives the absolute y position of the console cursor, (0,0)=(left,top)
-   */
-  void get_cursor_position(uint16 &nX, uint16 &nY) const override;
+  Ptr(Ptr<TType>&& ptr) noexcept;
 
-  /**
-   * @brief
-   * Sets the absolute console cursor position ('gotoxy()')
-   *
-   * @param[in] nX
-   * New x absolute position of the console cursor, (0,0)=(left,top)
-   * @param[in] nY
-   * New y absolute position of the console cursor, (0,0)=(left,top)
-   */
-  void set_cursor_position(uint16 nX, uint16 nY) const override;
+  template<class TOtherType>
+  Ptr(TOtherType* ptr);
+
+  template<class TOtherType>
+  Ptr(const Ptr<TOtherType>& ptr);
+
+  template<class TOtherType>
+  Ptr(Ptr<TOtherType>&& ptr);
+
+  ~Ptr();
+
+
+  Ptr& operator=(TType* ptr);
+
+  Ptr<TType>& operator=(const Ptr<TType>& ptr);
+
+  Ptr<TType>& operator=(Ptr<TType>&& ptr);
+
+  template<class TOtherType>
+  Ptr& operator=(TOtherType* ptr);
+
+  template<class TOtherType>
+  Ptr& operator=(const Ptr<TOtherType>& ptr);
+
+  template<class TOtherType>
+  Ptr& operator=(Ptr<TOtherType>&& ptr);
+
+  bool operator==(const Ptr<TType>& ptr) const;
+
+  bool operator!=(const Ptr<TType>& ptr) const;
+
+  bool operator==(const TType* ptr) const;
+
+  bool operator!=(const TType* ptr) const;
+
+  TType* operator->() const;
+
+  TType& operator*() const;
+
+  operator TType*() const;
+
+
+  template<class TDerived>
+  const Ptr<TDerived>& downcast() const;
+
+  template<class TBase>
+  const Ptr<TBase>& upcast() const;
+
+  template<class TOtherType>
+  const Ptr<TOtherType>& cast() const;
+
+  bool is_valid() const;
+
+  TType* get() const;
+
+  TType* get_unsafe() const;
+
+private:
+
+  TType* mPtr;
 };
 
 
@@ -116,3 +128,9 @@ public:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 } // core
+
+
+//[-------------------------------------------------------]
+//[ Implementation                                        ]
+//[-------------------------------------------------------]
+#include "core/core/ptr.inl"
