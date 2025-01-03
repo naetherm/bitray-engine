@@ -41,5 +41,7 @@ set(FILES
   private/platform/platform.cpp
 
   # private/tools
+  private/tools/command_line.cpp
+  private/tools/command_line_option.cpp
   private/tools/version.cpp
 )
