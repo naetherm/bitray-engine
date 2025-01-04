@@ -38,6 +38,11 @@ set(FILES
   private/json/json_value.cpp
   private/json/json_writer.cpp
 
+  # private/log
+  private/log/log.cpp
+  private/log/log_formatter.cpp
+  private/log/log_formatter_text.cpp
+
   # private/memory
   private/memory/memory.cpp
   private/memory/mimalloc_allocator.cpp
