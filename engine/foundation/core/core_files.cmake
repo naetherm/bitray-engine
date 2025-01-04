@@ -52,6 +52,7 @@ set(FILES
   private/platform/console.cpp
   private/platform/library.cpp
   private/platform/library_impl.cpp
+  private/platform/mutex.cpp
   private/platform/platform.cpp
 
   # private/tools
