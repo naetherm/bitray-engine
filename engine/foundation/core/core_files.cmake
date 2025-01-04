@@ -31,6 +31,13 @@ set(FILES
   private/io/file_impl.cpp
   private/io/path.cpp
 
+  # private/json
+  private/json/json.cpp
+  private/json/json_builder.cpp
+  private/json/json_parser.cpp
+  private/json/json_value.cpp
+  private/json/json_writer.cpp
+
   # private/memory
   private/memory/memory.cpp
   private/memory/mimalloc_allocator.cpp
