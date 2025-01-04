@@ -30,6 +30,9 @@ set(FILES
   private/io/file.cpp
   private/io/file_impl.cpp
   private/io/path.cpp
+  private/io/stream.cpp
+  private/io/stream_reader.cpp
+  private/io/stream_writer.cpp
 
   # private/json
   private/json/json.cpp
