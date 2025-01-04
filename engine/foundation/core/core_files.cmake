@@ -33,6 +33,8 @@ set(FILES
   private/io/stream.cpp
   private/io/stream_reader.cpp
   private/io/stream_writer.cpp
+  private/io/text_reader.cpp
+  private/io/text_writer.cpp
 
   # private/json
   private/json/json.cpp
