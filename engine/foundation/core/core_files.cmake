@@ -49,6 +49,7 @@ set(FILES
   private/memory/std_allocator.cpp
 
   # private/platform
+  private/platform/condition_variable.cpp
   private/platform/console.cpp
   private/platform/library.cpp
   private/platform/library_impl.cpp
