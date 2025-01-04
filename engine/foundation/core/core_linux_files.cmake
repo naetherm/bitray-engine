@@ -26,5 +26,6 @@ set(FILES
   private/linux/linux_library.cpp
   private/linux/linux_mutex.cpp
   private/linux/linux_platform.cpp
+  private/linux/xcb_backend.cpp
 )
 
