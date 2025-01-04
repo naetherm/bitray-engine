@@ -24,64 +24,86 @@
 //[-------------------------------------------------------]
 namespace core {
 
-namespace internal {
-template<typename TType>
-[[nodiscard]] static inline TType max(TType a, TType b) {
-  return std::max(a, b);
-}
-template<typename TType>
-[[nodiscard]] static inline TType min(TType a, TType b) {
-  return std::min(a, b);
-}
-}
-
-
 
 template<typename TType>
-[[nodiscard]] TType Math::clamp(const TType& x, const TType& minVal, const TType& maxVal) {
-  return internal::min(internal::max(x, minVal), maxVal);
+Rect<TType>::Rect()
+: x(0), y(0), w(0), h(0) {
+
 }
 
 template<typename TType>
-[[nodiscard]] TType Math::radians(TType degrees) {
-  return degrees * M_PI / 180.0;
+Rect<TType>::Rect(const Rect &rhs)
+: x(rhs.x), y(rhs.y), w(rhs.w), h(rhs.h) {
+
 }
 
 template<typename TType>
-[[nodiscard]] TType Math::tan(TType degrees) {
-  return std::tan(degrees);
+Rect<TType>::Rect(TType x, TType y, TType w, TType h)
+: x(x), y(y), w(w), h(h) {
+
+}
+
+template<typename TType>
+Rect<TType>::~Rect() {
+
 }
 
 
 template<typename TType>
-[[nodiscard]] TType Math::abs(TType x) {
-  return x < TType(0) ? -x : x;
+Rect<TType>& Rect<TType>::operator=(const Rect<TType>& rhs) {
+  x = rhs.x;
+  y = rhs.y;
+  w = rhs.w;
+  h = rhs.h;
+  return *this;
+}
+
+
+template<typename TType>
+bool Rect<TType>::operator==(const Rect &rhs) const {
+  return x == rhs.x && y == rhs.y && w == rhs.w && h == rhs.h;
 }
 
 template<typename TType>
-[[nodiscard]] TType Math::min(TType a, TType b) {
-  return a < b ? a : b;
+bool Rect<TType>::operator!=(const Rect &rhs) const {
+  return !operator==(rhs);
+}
+
+
+template<typename TType>
+Vec2<TType> Rect<TType>::get_center() const {
+  return Vec2<TType>(
+    x + w / 2,
+    y + h / 2);
 }
 
 template<typename TType>
-[[nodiscard]] TType Math::max(TType a, TType b) {
-  return a > b ? a : b;
+TType Rect<TType>::get_x() const {
+  return x;
 }
 
 template<typename TType>
-[[nodiscard]] bool Math::near(TType a, TType b, TType epsilon) {
-  return Math::abs(a - b) < epsilon;
+TType Rect<TType>::get_y() const {
+  return y;
 }
 
 template<typename TType>
-TType Math::wrap_to_interval(TType a, TType min, TType max) {
-  const TType interval = max - min;
-  return interval ? (a - floor((a - min) / interval) * (max - min)) : min;
+TType Rect<TType>::get_width() const {
+  return w;
 }
 
+template<typename TType>
+TType Rect<TType>::get_height() const {
+  return h;
+}
+
+template<typename TType>
+TType Rect<TType>::calculate_surface() const {
+  return w * h;
+}
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-} // core
+}  // namespace core
