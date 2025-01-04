@@ -53,7 +53,7 @@ re_add_target(
 ##################################################
 ## Project
 ##################################################
-#add_custom_command(TARGET core_tests POST_BUILD
-#  COMMAND ${CMAKE_COMMAND} -E copy_directory
-#  ${CMAKE_CURRENT_SOURCE_DIR}/../sample_data $<TARGET_FILE_DIR:core_tests>/sample_data
-#)
+add_custom_command(TARGET core_tests POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_CURRENT_SOURCE_DIR}/../sample_data $<TARGET_FILE_DIR:core_tests>/sample_data
+)

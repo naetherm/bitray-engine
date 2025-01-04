@@ -33,14 +33,8 @@ set(FILES
   private/core/ptr.cpp
   private/core/weak_ptr.cpp
 
-  #private/io/binaryreaderwriter.cpp
-  ##private/io/compressedreaderwriter.cpp
-  #private/io/mount_point_registry.cpp
   private/io/path.cpp
-  #private/io/textreaderwriter.cpp
-  #private/io/vpath.cpp
-
-  #private/math/mat44.cpp
+  private/io/textreaderwriter.cpp
 
   private/string/string.cpp
   private/string/string_view.cpp
