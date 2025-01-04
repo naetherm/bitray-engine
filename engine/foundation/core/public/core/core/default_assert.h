@@ -56,7 +56,7 @@ namespace core {
  * Default assert implementation class one can use
  *
  * @note
- * - Example: RE_ASSERT(mContext, is_initialized, "Direct3D 11 RHI implementation assert failed")
+ * - Example: BE_ASSERT(mContext, is_initialized, "Direct3D 11 RHI implementation assert failed")
  * - Designed to be instanced and used inside a single C++ file
  * - On Microsoft Windows it will print to the Visual Studio output console and the debugger will break
  * - On Linux it will print on the console
@@ -146,7 +146,7 @@ private:
  * "snprintf"-style formatted UTF-8 assert message
  *
  * @note
- * - Example: RE_ASSERT(is_initialized, "Direct3D 11 RHI implementation assert failed")
+ * - Example: BE_ASSERT(is_initialized, "Direct3D 11 RHI implementation assert failed")
  * - See http://cnicholson.net/2009/02/stupid-c-tricks-adventures-in-assert/ - "2.  Wrap your macros in do { � } while(0)." for background information about the do-while wrap
  */
 #ifdef DEBUG

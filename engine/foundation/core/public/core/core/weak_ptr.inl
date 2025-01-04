@@ -73,19 +73,19 @@ WeakPtr<TType> &WeakPtr<TType>::operator=(TType *rhs) {
 
 template<class TType>
 TType *WeakPtr<TType>::operator->() const {
-  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator->()!");
+  BE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator->()!");
   return mPtr;
 }
 
 template<class TType>
 TType &WeakPtr<TType>::operator*() const {
-  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator*()!");
+  BE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator*()!");
   return *mPtr;
 }
 
 template<class TType>
 WeakPtr<TType>::operator TType *() const {
-  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator TType*()!");
+  BE_ASSERT(mPtr, "NULL pointer access in WeakPtr::operator TType*()!");
   return mPtr;
 }
 
@@ -96,7 +96,7 @@ bool WeakPtr<TType>::is_valid() const {
 
 template<class TType>
 TType *WeakPtr<TType>::get() const {
-  RE_ASSERT(mPtr, "NULL pointer access in WeakPtr::get()!");
+  BE_ASSERT(mPtr, "NULL pointer access in WeakPtr::get()!");
   return mPtr;
 }
 

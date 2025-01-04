@@ -218,19 +218,19 @@ bool Ptr<TType>::operator!=(const TType *rhs) const {
 
 template<class TType>
 TType *Ptr<TType>::operator->() const {
-  RE_ASSERT(mPtr, "NULL pointer access in Ptr::operator->()!");
+  BE_ASSERT(mPtr, "NULL pointer access in Ptr::operator->()!");
   return mPtr;
 }
 
 template<class TType>
 TType &Ptr<TType>::operator*() const {
-  RE_ASSERT(mPtr, "NULL pointer access in Ptr::operator*()!");
+  BE_ASSERT(mPtr, "NULL pointer access in Ptr::operator*()!");
   return *mPtr;
 }
 
 template<class TType>
 Ptr<TType>::operator TType *() const {
-  RE_ASSERT(mPtr, "NULL pointer access in Ptr::operator TType*()!");
+  BE_ASSERT(mPtr, "NULL pointer access in Ptr::operator TType*()!");
   return mPtr;
 }
 
@@ -272,7 +272,7 @@ bool Ptr<TType>::is_valid() const {
 
 template<class TType>
 TType *Ptr<TType>::get() const {
-  RE_ASSERT(mPtr, "NULL pointer access in Ptr::get()!");
+  BE_ASSERT(mPtr, "NULL pointer access in Ptr::get()!");
   return mPtr;
 }
 
