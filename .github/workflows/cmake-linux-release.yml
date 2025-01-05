@@ -1,0 +1,46 @@
+# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
+name: Linux
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+
+jobs:
+  build:
+    # The CMake configure and build commands are platform-agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install System Dependencies
+        run: sudo apt update && sudo apt install -y libmimalloc-dev libmimalloc2.0 libdbus-1-3 libdbus-1-dev libdbus-c++-dev dbus dbus-x11 libxcb-cursor0 libxcb-cursor-dev libxcb-ewmh2 libxcb-ewmh-dev libxcb-xrm0 libxcb-xrm-dev libxcb-icccm4 libxcb-icccm4-dev libxcb-util0-dev libxcb-cursor0 libxcb-randr0 libxcb-randr0-dev unzip cmake lz4 libxcursor-dev libxrandr-dev libxxf86vm-dev libxkbcommon-dev libxkbcommon-x11-dev libxcb-keysyms1-dev libxcb-xkb-dev
+
+      - name: Download Precompiled Dependencies
+        run: |
+          ./scripts/download_dependencies.sh
+
+      - name: Configure CMake
+        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+        run: |
+          cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Build
+        # Build your program with the given configuration
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        # Execute tests defined by the CMake configuration.
+        # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+        run: ctest -C ${{env.BUILD_TYPE}}
