@@ -29,6 +29,9 @@ set(FILES
   # private/io
   private/io/file.cpp
   private/io/file_impl.cpp
+  private/io/file_reader.cpp
+  private/io/file_stream.cpp
+  private/io/file_writer.cpp
   private/io/filesystem.cpp
   private/io/filesystem_helper.cpp
   private/io/io_server.cpp
