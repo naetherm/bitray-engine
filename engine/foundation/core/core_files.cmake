@@ -35,6 +35,8 @@ set(FILES
   private/io/filesystem.cpp
   private/io/filesystem_helper.cpp
   private/io/io_server.cpp
+  private/io/json_reader.cpp
+  private/io/json_writer.cpp
   private/io/media_type.cpp
   private/io/memory_stream.cpp
   private/io/mount_point.cpp
