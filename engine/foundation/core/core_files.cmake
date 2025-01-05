@@ -36,6 +36,7 @@ set(FILES
   private/io/filesystem_helper.cpp
   private/io/io_server.cpp
   private/io/media_type.cpp
+  private/io/memory_stream.cpp
   private/io/mount_point.cpp
   private/io/mount_point_registry.cpp
   private/io/path.cpp
