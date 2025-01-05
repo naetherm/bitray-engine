@@ -33,6 +33,7 @@ set(FILES
   private/core/ptr.cpp
   private/core/weak_ptr.cpp
 
+  private/io/mount_point_registry.cpp
   private/io/path.cpp
   private/io/textreaderwriter.cpp
 
