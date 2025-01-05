@@ -31,6 +31,8 @@ set(FILES
   private/io/file_impl.cpp
   private/io/filesystem.cpp
   private/io/filesystem_helper.cpp
+  private/io/mount_point.cpp
+  private/io/mount_point_registry.cpp
   private/io/path.cpp
   private/io/stream.cpp
   private/io/stream_reader.cpp
