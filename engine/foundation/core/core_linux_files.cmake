@@ -22,13 +22,17 @@
 set(FILES
   private/linux/linux_condition_variable.cpp
   private/linux/linux_console.cpp
+  private/linux/linux_cursor.cpp
+  private/linux/linux_device_provider.cpp
+  private/linux/linux_display_device.cpp
+  private/linux/linux_event_device.cpp
   private/linux/linux_file.cpp
   private/linux/linux_filesystem.cpp
+  private/linux/linux_keyboard_device.cpp
   private/linux/linux_library.cpp
+  private/linux/linux_mouse_device.cpp
   private/linux/linux_mutex.cpp
   private/linux/linux_platform.cpp
-  private/linux/linux_window.cpp
-  private/linux/linux_window_device.cpp
   private/linux/xcb_backend.cpp
   private/linux/xcb_helper.cpp
 )
