@@ -64,7 +64,8 @@ struct LinuxFrontendPlatformData {
  * data that is exchanged, e.g. when initializing the rhi libraries.
  */
 struct WindowsFrontendPlatformData {
-
+  core::uint64 hwnd;
+  core::uint64 window;
 };
 
 /**
@@ -73,13 +74,13 @@ struct WindowsFrontendPlatformData {
  *
  * @brief
  * Basic platform independent representation of the platform data.
- * Each operation system has its own representation here, it is up
+ * Each operating system has its own representation here, it is up
  * to us to use the correct one.
  */
 struct FrontendPlatformData {
   union {
-    LinuxFrontendPlatformData linux;
-    WindowsFrontendPlatformData windows;
+    LinuxFrontendPlatformData os_linux;
+    WindowsFrontendPlatformData os_windows;
   };
 };
 
