@@ -42,7 +42,7 @@ set(RE_USE_SYSTEM_LIBS OFF CACHE BOOL "Should we use system libraries?")
 ################################################################################
 # CMake Configuration
 ################################################################################
-set(RE_EXTERNAL_LIBRARIES ".bitray_engine/Externals" CACHE INTERNAL "Location of external resources")
+set(RE_EXTERNAL_LIBRARIES "${CMAKE_SOURCE_DIR}/.bitray_engine/Externals" CACHE INTERNAL "Location of external resources")
 
 ################################################################################
 # Macros

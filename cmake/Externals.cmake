@@ -71,8 +71,6 @@ function(re_associate_package)
 
   cmake_parse_arguments(re_associate_package "" "${_singleValues}" "${_multiValues}" "${ARGN}")
 
-  # re_download_package("http://data.racoonstudios.de/${re_associate_package_PACKAGE_NAME}" ${re_associate_package_PACKAGE_HASH} ${RE_EXTERNAL_LIBRARIES})
-
   if(NOT re_associate_package_TARGETS)
     message(FATAL_ERROR "re_associate_package was called without the TARGETS argument, at least one target is required")
   endif()
@@ -94,10 +92,7 @@ function(re_associate_package)
   set_property(GLOBAL PROPERTY RE_PACKAGE_TARGETS_${re_associate_package_PACKAGE_NAME} ${re_associate_package_TARGETS})
 
   # Add to cmake_module_path
-  message("INFO: re_associate_package_PACKAGE_NAME: ${re_associate_package_PACKAGE_NAME}")
-  message("INFO: re_associate_package_TARGETS: ${re_associate_package_TARGETS}")
-  set(CMAKE_MODULE_PATH "${RE_EXTERNAL_LIBRARIES}/${re_associate_package_PACKAGE_NAME}" ${CMAKE_MODULE_PATH} PARENT_SCOPE)
-  message("INFO: CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
+  set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/.bitray_engine/Externals/${re_associate_package_PACKAGE_NAME}" ${CMAKE_MODULE_PATH} PARENT_SCOPE)
 
   foreach(pkg ${re_associate_package_TARGETS})
     #find_package(
