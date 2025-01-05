@@ -42,7 +42,7 @@ set(RE_USE_SYSTEM_LIBS OFF CACHE BOOL "Should we use system libraries?")
 ################################################################################
 # CMake Configuration
 ################################################################################
-set(RE_EXTERNAL_LIBRARIES "${CMAKE_SOURCE_DIR}/.bitray_engine/Externals" CACHE INTERNAL "Location of external resources")
+set(RE_EXTERNAL_LIBRARIES ".bitray_engine/Externals" CACHE INTERNAL "Location of external resources")
 
 ################################################################################
 # Macros
@@ -56,8 +56,6 @@ endmacro()
 # Build Configuration
 ################################################################################
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-
 
 # Add our own modules to the cmake module path
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
