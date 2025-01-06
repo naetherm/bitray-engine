@@ -27,6 +27,10 @@ set(FILES
   private/core/refcounted.cpp
 
   # private/io
+  private/io/compressed_file.cpp
+  private/io/compressed_reader.cpp
+  private/io/compressed_stream.cpp
+  private/io/compressed_writer.cpp
   private/io/file.cpp
   private/io/file_impl.cpp
   private/io/file_reader.cpp
