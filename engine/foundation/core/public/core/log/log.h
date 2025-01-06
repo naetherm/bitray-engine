@@ -46,7 +46,7 @@
 *  @param[in] Text
 *    Text which should be written into the log
 */
-#define RE_LOG(Level, Text) { \
+#define BE_LOG(Level, Text) { \
   if (core::Log::instance().get_log_level() >= core::Log::Level) { \
     core::Log::LogLevel nLogLevel = core::Log::Level; /* Avoid 'expression is constant' warning */ \
     if (nLogLevel >= core::Log::Debug) { \
@@ -56,7 +56,7 @@
   } \
 }
 
-#define RE_LOG_CONDITION(COND, Level, Text) { \
+#define BE_LOG_CONDITION(COND, Level, Text) { \
   if (!(COND) && core::Log::instance().get_log_level() >= core::Log::Level) { \
     core::Log::LogLevel nLogLevel = core::Log::Level; /* Avoid 'expression is constant' warning */ \
     if (nLogLevel >= core::Log::Debug) { \

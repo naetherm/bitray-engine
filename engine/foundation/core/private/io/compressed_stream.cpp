@@ -112,7 +112,7 @@ void CompressedStream::close() {
     }
     mCompressedFile.close();
   } else {
-    RE_LOG(Warning, "There is no information in the compressed file to write")
+    BE_LOG(Warning, "There is no information in the compressed file to write")
   }
 
   Stream::close();
