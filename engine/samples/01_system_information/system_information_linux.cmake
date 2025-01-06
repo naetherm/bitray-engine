@@ -19,9 +19,13 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
+set(RE_BUILD_DEPENDENCIES
+  #  PUBLIC
+  pthread
+  dl
+  atomic
+  ncurses
+  ${LINUX_X11_LIBS}
+  ${DBUS_LIBRARIES}
+  stdc++fs
+  )

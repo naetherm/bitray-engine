@@ -22,6 +22,5 @@
 ################################################################################
 # Current package
 ################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
+re_add_subdirectory(00_hello_world)
+re_add_subdirectory(01_system_information)

@@ -19,9 +19,28 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME 01_system_information EXECUTABLE
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/system_information_files.cmake
+  PLATFORM_INCLUDE_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/system_information_${PAL_PLATFORM_NAME_LOWERCASE}.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+  COMPILE_DEFINITIONS
+    PUBLIC
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+  TARGET_PROPERTIES
+    -fPIC
+)
