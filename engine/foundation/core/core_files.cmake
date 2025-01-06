@@ -22,6 +22,9 @@
 set(FILES
   private/core.cpp
 
+  # private/app
+  private/app/core_application.cpp
+
   # private/core
   private/core/default_assert.cpp
   private/core/refcounted.cpp
