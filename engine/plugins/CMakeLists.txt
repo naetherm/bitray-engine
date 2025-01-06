@@ -22,7 +22,3 @@
 ################################################################################
 # Current package
 ################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(plugins)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
