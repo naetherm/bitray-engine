@@ -33,7 +33,7 @@ set(FILES
   private/core/ptr.cpp
   private/core/weak_ptr.cpp
 
-  #private/io/binaryreaderwriter.cpp
+  private/io/binaryreaderwriter.cpp
   #private/io/compressedreaderwriter.cpp
   private/io/mount_point_registry.cpp
   private/io/path.cpp
