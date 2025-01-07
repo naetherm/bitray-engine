@@ -81,6 +81,7 @@ set(FILES
   private/log/log_formatter_text.cpp
 
   # private/math
+  private/math/coordinate_system.cpp
   private/math/math.cpp
 
   # private/memory
