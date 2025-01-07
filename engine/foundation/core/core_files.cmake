@@ -34,6 +34,8 @@ set(FILES
   private/frontend/cursor_impl.cpp
   private/frontend/cursor_device.cpp
   private/frontend/display_device.cpp
+  private/frontend/frontend_application.cpp
+  private/frontend/frontend_server.cpp
   private/frontend/window.cpp
   private/frontend/window_impl.cpp
   private/frontend/window_device.cpp
