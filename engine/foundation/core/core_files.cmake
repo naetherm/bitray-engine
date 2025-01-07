@@ -93,6 +93,9 @@ set(FILES
   private/platform/mutex.cpp
   private/platform/platform.cpp
 
+  # private/string
+  private/string/string_hash.cpp
+
   # private/tools
   private/tools/command_line.cpp
   private/tools/command_line_option.cpp
