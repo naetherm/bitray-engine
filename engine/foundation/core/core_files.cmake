@@ -29,6 +29,9 @@ set(FILES
   private/core/default_assert.cpp
   private/core/refcounted.cpp
 
+  # private/frontend
+  private/frontend/display_device.cpp
+
   # private/io
   private/io/binary_reader.cpp
   private/io/binary_writer.cpp

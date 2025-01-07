@@ -22,6 +22,7 @@
 set(FILES
   private/linux/linux_condition_variable.cpp
   private/linux/linux_console.cpp
+  private/linux/linux_display_device.cpp
   private/linux/linux_file.cpp
   private/linux/linux_filesystem.cpp
   private/linux/linux_library.cpp
