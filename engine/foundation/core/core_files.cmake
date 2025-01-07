@@ -30,6 +30,9 @@ set(FILES
   private/core/refcounted.cpp
 
   # private/frontend
+  private/frontend/cursor.cpp
+  private/frontend/cursor_impl.cpp
+  private/frontend/cursor_device.cpp
   private/frontend/display_device.cpp
   private/frontend/window.cpp
   private/frontend/window_impl.cpp
