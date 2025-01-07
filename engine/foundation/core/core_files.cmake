@@ -98,4 +98,7 @@ set(FILES
   private/tools/command_line_option.cpp
   private/tools/compression_lz4.cpp
   private/tools/version.cpp
+
+  # private/utility
+  private/utility/fnv1a.cpp
 )
