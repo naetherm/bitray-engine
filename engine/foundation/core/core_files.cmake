@@ -80,6 +80,9 @@ set(FILES
   private/log/log_formatter.cpp
   private/log/log_formatter_text.cpp
 
+  # private/math
+  private/math/math.cpp
+
   # private/memory
   private/memory/memory.cpp
   private/memory/mimalloc_allocator.cpp
