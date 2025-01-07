@@ -82,6 +82,7 @@ set(FILES
 
   # private/math
   private/math/coordinate_system.cpp
+  private/math/line.cpp
   private/math/math.cpp
 
   # private/memory
