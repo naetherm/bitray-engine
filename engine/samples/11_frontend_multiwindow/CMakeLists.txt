@@ -19,10 +19,28 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(00_hello_world)
-re_add_subdirectory(01_system_information)
-re_add_subdirectory(10_frontend)
-re_add_subdirectory(11_frontend_multiwindow)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME 11_frontend_multiwindow EXECUTABLE
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/frontend_files.cmake
+  PLATFORM_INCLUDE_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/frontend_${PAL_PLATFORM_NAME_LOWERCASE}.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${ME_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+  COMPILE_DEFINITIONS
+    PUBLIC
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+  TARGET_PROPERTIES
+    -fPIC
+)
