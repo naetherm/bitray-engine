@@ -28,6 +28,8 @@ set(FILES
   private/linux/linux_library.cpp
   private/linux/linux_mutex.cpp
   private/linux/linux_platform.cpp
+  private/linux/linux_window.cpp
+  private/linux/linux_window_device.cpp
   private/linux/xcb_backend.cpp
   private/linux/xcb_helper.cpp
 )
