@@ -84,6 +84,7 @@ set(FILES
   private/math/coordinate_system.cpp
   private/math/line.cpp
   private/math/math.cpp
+  private/math/plane.cpp
   private/math/ray.cpp
 
   # private/memory
