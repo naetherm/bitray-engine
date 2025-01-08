@@ -19,8 +19,16 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(core)
-re_add_subdirectory(gui)
+set(FILES
+  private/gui.cpp
+
+  # private/application
+
+  # private/gui
+  private/gui/gui.cpp
+  private/gui/gui_impl.cpp
+
+  # private/theme
+
+  # private/widget
+)
