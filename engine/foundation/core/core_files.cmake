@@ -87,6 +87,7 @@ set(FILES
   private/math/math.cpp
   private/math/plane.cpp
   private/math/ray.cpp
+  private/math/transform.cpp
 
   # private/memory
   private/memory/memory.cpp
