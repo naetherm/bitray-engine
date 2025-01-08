@@ -40,6 +40,24 @@ set(FILES
   private/frontend/window_impl.cpp
   private/frontend/window_device.cpp
 
+  # private/input
+  private/input/connection.cpp
+  private/input/controller.cpp
+  private/input/device_provider.cpp
+  private/input/input_server.cpp
+  private/input/control/axis.cpp
+  private/input/control/button.cpp
+  private/input/control/control.cpp
+  private/input/device/connection_device.cpp
+  private/input/device/device.cpp
+  private/input/device/device_impl.cpp
+  private/input/device/joystick.cpp
+  private/input/device/keyboard.cpp
+  private/input/device/mouse.cpp
+  private/input/device/update_device.cpp
+  private/input/virtual/virtual_controller.cpp
+  private/input/virtual/virtual_standard_controller.cpp
+
   # private/io
   private/io/binary_reader.cpp
   private/io/binary_writer.cpp
