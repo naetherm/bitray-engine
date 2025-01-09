@@ -129,6 +129,9 @@ set(FILES
   # private/string
   private/string/string_hash.cpp
 
+  # private/time
+  private/time/stopwatch.cpp
+
   # private/tools
   private/tools/command_line.cpp
   private/tools/command_line_option.cpp
