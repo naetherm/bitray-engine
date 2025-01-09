@@ -25,6 +25,9 @@ set(FILES
   # private/app
   private/app/core_application.cpp
 
+  # private/color
+  private/color/color3.cpp
+
   # private/core
   private/core/default_assert.cpp
   private/core/refcounted.cpp
