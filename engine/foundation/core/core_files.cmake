@@ -73,6 +73,8 @@ set(FILES
   private/io/file_impl.cpp
   private/io/file_reader.cpp
   private/io/file_stream.cpp
+  private/io/file_watcher.cpp
+  private/io/file_watcher_impl.cpp
   private/io/file_writer.cpp
   private/io/filesystem.cpp
   private/io/filesystem_helper.cpp

@@ -27,6 +27,7 @@ set(FILES
   private/linux/linux_display_device.cpp
   private/linux/linux_event_device.cpp
   private/linux/linux_file.cpp
+  private/linux/linux_file_watcher.cpp
   private/linux/linux_filesystem.cpp
   private/linux/linux_keyboard_device.cpp
   private/linux/linux_library.cpp
