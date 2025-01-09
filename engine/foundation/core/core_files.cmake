@@ -27,6 +27,7 @@ set(FILES
 
   # private/color
   private/color/color3.cpp
+  private/color/color4.cpp
 
   # private/core
   private/core/default_assert.cpp
