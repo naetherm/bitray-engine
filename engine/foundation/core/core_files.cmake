@@ -129,6 +129,9 @@ set(FILES
   # private/string
   private/string/string_hash.cpp
 
+  # private/threading
+  private/threading/runnable.cpp
+
   # private/time
   private/time/stopwatch.cpp
 
