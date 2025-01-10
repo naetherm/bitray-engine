@@ -20,7 +20,21 @@
 
 
 set(FILES
+  private/windows/windows_condition_variable.cpp
+  private/windows/windows_console.cpp
+  private/windows/windows_cursor.cpp
+  private/windows/windows_device_provider.cpp
+  private/windows/windows_display_device.cpp
   private/windows/windows_file.cpp
+  private/windows/windows_file_watcher.cpp
+  private/windows/windows_filesystem.cpp
+  private/windows/windows_keyboard_device.cpp
+  private/windows/windows_library.cpp
+  private/windows/windows_mouse_device.cpp
+  private/windows/windows_mutex.cpp
   private/windows/windows_platform.cpp
+  private/windows/windows_thread.cpp
+  private/windows/windows_window.cpp
+  private/windows/windows_window_device.cpp
 )
 
