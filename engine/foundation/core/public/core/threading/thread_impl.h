@@ -87,7 +87,7 @@ public:
    * @return
    * Reference to the owning thread implementation.
    */
-  Thread &get_thread() const;
+  [[nodiscard]] Thread &get_thread() const;
 
   //[-------------------------------------------------------]
   //[ Protected virtual ThreadImpl functions                ]
@@ -100,7 +100,7 @@ protected:
    * @return
    * Thread ID
    */
-  virtual handle get_id() const = 0;
+  [[nodiscard]] virtual handle get_id() const = 0;
 
   /**
    * @brief
@@ -109,7 +109,7 @@ protected:
    * @return
    * 'true' if the thread is active
    */
-  virtual bool is_active() const = 0;
+  [[nodiscard]] virtual bool is_active() const = 0;
 
   /**
    * @brief
@@ -163,7 +163,7 @@ protected:
    * @return
    * The priority class the thread is in (type: ThreadPriorityClass)
    */
-  virtual uint32 get_priority_class() const = 0;
+  [[nodiscard]] virtual uint32 get_priority_class() const = 0;
 
   /**
    * @brief
@@ -184,7 +184,7 @@ protected:
    * @return
    * The thread priority within the priority class it is in (type: ThreadPriority)
    */
-  virtual uint32 get_priority() const = 0;
+  [[nodiscard]] virtual uint32 get_priority() const = 0;
 
   /**
    * @brief

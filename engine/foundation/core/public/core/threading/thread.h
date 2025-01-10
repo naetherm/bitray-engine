@@ -141,7 +141,7 @@ public:
    * @return
    * Thread ID
    */
-  handle get_id() const;
+  [[nodiscard]] handle get_id() const;
 
   /**
    * @brief
@@ -150,7 +150,7 @@ public:
    * @return
    * 'true' if the thread is active, else 'false'
    */
-  bool is_active() const;
+  [[nodiscard]] bool is_active() const;
 
 
   /**
@@ -214,7 +214,7 @@ public:
    * @return
    * The priority class the thread is in (type: ThreadPriorityClass)
    */
-  ThreadPriorityClass get_priority_class() const;
+  [[nodiscard]] ThreadPriorityClass get_priority_class() const;
 
   /**
    * @brief
@@ -235,7 +235,7 @@ public:
    * @return
    * The thread priority within the priority class it is in (type: ThreadPriority)
    */
-  ThreadPriority get_priority() const;
+  [[nodiscard]] ThreadPriority get_priority() const;
 
   /**
    * @brief

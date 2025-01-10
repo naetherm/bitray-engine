@@ -82,7 +82,7 @@ protected:
    * @return
    * Thread ID
    */
-  handle get_id() const override;
+  [[nodiscard]] handle get_id() const override;
 
   /**
    * @brief
@@ -91,7 +91,7 @@ protected:
    * @return
    * 'true' if the thread is active
    */
-  bool is_active() const override;
+  [[nodiscard]] bool is_active() const override;
 
   /**
    * @brief
@@ -145,7 +145,7 @@ protected:
    * @return
    * The priority class the thread is in (type: ThreadPriorityClass)
    */
-  uint32 get_priority_class() const override;
+  [[nodiscard]] uint32 get_priority_class() const override;
 
   /**
    * @brief
@@ -166,7 +166,7 @@ protected:
    * @return
    * The thread priority within the priority class it is in (type: ThreadPriority)
    */
-  uint32 get_priority() const override;
+  [[nodiscard]] uint32 get_priority() const override;
 
   /**
    * @brief
