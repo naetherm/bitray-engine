@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/threading/thread_impl.h"
 
 
 //[-------------------------------------------------------]
@@ -40,6 +41,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class Mutex;
 
 
 //[-------------------------------------------------------]
@@ -47,69 +49,147 @@ namespace core {
 //[-------------------------------------------------------]
 /**
  * @class
- * Runnable
+ * LinuxThread
  *
  * @brief
- * Runnable implementation, which are used within the multi-threading pipeline.
+ * Linux implementation of a thread.
  */
-class Runnable {
+class LinuxThread : public ThreadImpl {
 
-  //[-------------------------------------------------------]
-  //[ Public functions                                      ]
-  //[-------------------------------------------------------]
+  friend class Thread;
+
 public:
-
   /**
    * @brief
    * Constructor.
+   *
+   * @param[in] thread
+   * Parent thread instance.
    */
-  Runnable() = default;
+  LinuxThread(Thread& thread, bool useThreadId, handle id);
 
   /**
    * @brief
    * Destructor.
    */
-  virtual ~Runnable() = default;
+  ~LinuxThread() override;
 
-
+protected:
   /**
    * @brief
-   * Called on initialization.
+   * Returns the unique system ID of the thread
    *
    * @return
+   * Thread ID
    */
-  virtual bool init();
+  handle get_id() const override;
 
   /**
    * @brief
-   * This method is called on stop.
-   */
-  virtual void stop();
-
-  /**
-   * @brief
-   * This method is called on exit.
-   */
-  virtual void exit();
-
-  /**
-   * @brief
-   * This method is called when the threads reaches the end of the runnable instance.
-   *
-   * @param[in] killed
-   * True if the thread itself was killed.
-   */
-  virtual void post_work(bool killed);
-
-
-  /**
-   * @brief
-   * Runs the runnable instance.
+   * Returns whether the thread is active
    *
    * @return
-   * The return code of the runnable.
+   * 'true' if the thread is active
    */
-  virtual int32 run() = 0;
+  bool is_active() const override;
+
+  /**
+   * @brief
+   * Starts the execution of the thread
+   *
+   * @return
+   * 'true' if the thread could be started
+   */
+  bool start() override;
+
+  /**
+   * @brief
+   * Stops the execution of the thread
+   *
+   * @return
+   * 'true' if the thread could be stopped
+   *
+   * @remarks
+   * Terminates the thread ungracefully (does not allow proper thread clean up!). Instead of
+   * using this function you should signal the thread and wait until it has quit by itself.
+   * The internal platform implementation may or may not accept this violent act. For example,
+   * Androids Bionic doesn't support it and a call of this method will have no effect at all.
+   */
+  bool kill() override;
+
+  /**
+   * @brief
+   * Waits until the thread has been stopped
+   *
+   * @return
+   * 'true' if the thread has been stopped
+   */
+  bool join() override;
+
+  /**
+   * @brief
+   * Waits until the thread has been stopped
+   *
+   * @param[in] timeout
+   * Time in milliseconds to wait
+   *
+   * @return
+   * 'true' if the thread has been stopped
+   */
+  bool join(uint64 timeout) override;
+
+  /**
+   * @brief
+   * Returns the priority class the thread is in
+   *
+   * @return
+   * The priority class the thread is in (type: ThreadPriorityClass)
+   */
+  uint32 get_priority_class() const override;
+
+  /**
+   * @brief
+   * Sets the priority class the thread is in
+   *
+   * @param[in] priorityClass
+   * New priority class the thread is in (type: ThreadPriorityClass)
+   *
+   * @return
+   * 'true' if all went fine, else 'false'
+   */
+  bool set_priority_class(uint32 priorityClass) override;
+
+  /**
+   * @brief
+   * Returns the thread priority within the priority class it is in
+   *
+   * @return
+   * The thread priority within the priority class it is in (type: ThreadPriority)
+   */
+  uint32 get_priority() const override;
+
+  /**
+   * @brief
+   * Sets the thread priority within the priority class it is in
+   *
+   * @param[in] priority
+   * New thread priority within the priority class it is in (type: ThreadPriority)
+   *
+   * @return
+   * 'true' if all went fine, else 'false'
+   */
+  bool set_priority(uint32 priority) override;
+
+private:
+
+  static void* run_thread(void* parameter);
+
+private:
+
+  pthread_t mThreadId;
+  Mutex* mMutex;
+  uint32 mPriorityClass;
+  uint32 mPriority;
 };
 
 

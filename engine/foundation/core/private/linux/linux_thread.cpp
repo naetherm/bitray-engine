@@ -20,15 +20,14 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
+#include "core/linux/linux_thread.h"
+#include "core/log/log.h"
+#include "core/memory/memory.h"
+#include "core/platform/mutex.h"
+#include "core/threading/thread.h"
+#include "core/threading/types.h"
 
 
 //[-------------------------------------------------------]
@@ -45,72 +44,110 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * Runnable
- *
- * @brief
- * Runnable implementation, which are used within the multi-threading pipeline.
- */
-class Runnable {
+LinuxThread::LinuxThread(Thread &thread, bool useThreadId, handle id)
+: ThreadImpl(thread)
+, mThreadId(0)
+, mMutex(nullptr)
+, mPriorityClass(ThreadPriorityClass::TPC_Normal)
+, mPriority(ThreadPriority::TP_Normal) {
+  if (useThreadId && id == NULL_HANDLE) {
+    mThreadId = pthread_self();
+  } else {
+    mMutex = re_new<Mutex>();
+  }
+}
 
-  //[-------------------------------------------------------]
-  //[ Public functions                                      ]
-  //[-------------------------------------------------------]
-public:
+LinuxThread::~LinuxThread() {
+  if (mMutex) {
+    re_delete(mMutex);
+  }
+}
 
-  /**
-   * @brief
-   * Constructor.
-   */
-  Runnable() = default;
+handle LinuxThread::get_id() const {
+  return (handle)mThreadId;
+}
 
-  /**
-   * @brief
-   * Destructor.
-   */
-  virtual ~Runnable() = default;
+bool LinuxThread::is_active() const {
+  return (mThreadId > 0);
+}
 
+bool LinuxThread::start() {
+  if (!mThreadId) {
+    const int status = pthread_create(&mThreadId, nullptr, &run_thread, static_cast<void*>(&get_thread()));
 
-  /**
-   * @brief
-   * Called on initialization.
-   *
-   * @return
-   */
-  virtual bool init();
+    if (!status) {
+      return true;
+    }
+  }
+  return false;
+}
 
-  /**
-   * @brief
-   * This method is called on stop.
-   */
-  virtual void stop();
+bool LinuxThread::kill() {
+  if (mThreadId) {
+    pthread_cancel(mThreadId);
 
-  /**
-   * @brief
-   * This method is called on exit.
-   */
-  virtual void exit();
+    mThreadId = 0;
 
-  /**
-   * @brief
-   * This method is called when the threads reaches the end of the runnable instance.
-   *
-   * @param[in] killed
-   * True if the thread itself was killed.
-   */
-  virtual void post_work(bool killed);
+    if (mMutex) {
+      mMutex->unlock();
+    }
 
+    return true;
+  }
+  return false;
+}
 
-  /**
-   * @brief
-   * Runs the runnable instance.
-   *
-   * @return
-   * The return code of the runnable.
-   */
-  virtual int32 run() = 0;
-};
+bool LinuxThread::join() {
+  if (mThreadId) {
+    if (!pthread_join(mThreadId, nullptr)) {
+      mThreadId = 0;
+
+      return true;
+    }
+  }
+  return false;
+}
+
+bool LinuxThread::join(uint64 timeout) {
+  return join();
+}
+
+uint32 LinuxThread::get_priority_class() const {
+  return mPriorityClass;
+}
+
+bool LinuxThread::set_priority_class(uint32 priorityClass) {
+  mPriorityClass = priorityClass;
+  return true;
+}
+
+uint32 LinuxThread::get_priority() const {
+  return mPriority;
+}
+
+bool LinuxThread::set_priority(uint32 priority) {
+  mPriority = priority;
+
+  return true;
+}
+
+void *LinuxThread::run_thread(void *parameter) {
+  if (parameter) {
+    Thread* thread = static_cast<Thread*>(parameter);
+
+    // Lock the thread
+    Mutex* mutex = static_cast<LinuxThread*>(thread->mImpl)->mMutex;
+    mutex->lock();
+
+    // run thread
+    int returnValue = thread->run();
+
+    mutex->unlock();
+
+    return reinterpret_cast<void*>(&returnValue);
+  }
+  return nullptr;
+}
 
 
 //[-------------------------------------------------------]

@@ -131,6 +131,8 @@ set(FILES
 
   # private/threading
   private/threading/runnable.cpp
+  private/threading/thread.cpp
+  private/threading/thread_impl.cpp
 
   # private/time
   private/time/stopwatch.cpp

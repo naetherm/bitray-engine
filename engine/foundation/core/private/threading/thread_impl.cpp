@@ -20,15 +20,9 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
+#include "core/threading/thread_impl.h"
 
 
 //[-------------------------------------------------------]
@@ -38,79 +32,21 @@ namespace core {
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
+//[ Public methods                                        ]
 //[-------------------------------------------------------]
+ThreadImpl::ThreadImpl(Thread &thread)
+: mThread(&thread) {
+
+}
+
+ThreadImpl::~ThreadImpl() {
+
+}
 
 
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-/**
- * @class
- * Runnable
- *
- * @brief
- * Runnable implementation, which are used within the multi-threading pipeline.
- */
-class Runnable {
-
-  //[-------------------------------------------------------]
-  //[ Public functions                                      ]
-  //[-------------------------------------------------------]
-public:
-
-  /**
-   * @brief
-   * Constructor.
-   */
-  Runnable() = default;
-
-  /**
-   * @brief
-   * Destructor.
-   */
-  virtual ~Runnable() = default;
-
-
-  /**
-   * @brief
-   * Called on initialization.
-   *
-   * @return
-   */
-  virtual bool init();
-
-  /**
-   * @brief
-   * This method is called on stop.
-   */
-  virtual void stop();
-
-  /**
-   * @brief
-   * This method is called on exit.
-   */
-  virtual void exit();
-
-  /**
-   * @brief
-   * This method is called when the threads reaches the end of the runnable instance.
-   *
-   * @param[in] killed
-   * True if the thread itself was killed.
-   */
-  virtual void post_work(bool killed);
-
-
-  /**
-   * @brief
-   * Runs the runnable instance.
-   *
-   * @return
-   * The return code of the runnable.
-   */
-  virtual int32 run() = 0;
-};
+Thread& ThreadImpl::get_thread() const {
+  return *mThread;
+}
 
 
 //[-------------------------------------------------------]

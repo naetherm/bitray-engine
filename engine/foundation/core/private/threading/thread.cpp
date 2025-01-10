@@ -20,15 +20,13 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
+#include "core/threading/thread.h"
+#include "core/threading/runnable.h"
+#if defined(LINUX)
+#include "core/linux/linux_thread.h"
+#endif
 
 
 //[-------------------------------------------------------]
@@ -45,72 +43,101 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * Runnable
- *
- * @brief
- * Runnable implementation, which are used within the multi-threading pipeline.
- */
-class Runnable {
+Thread::Thread()
+: mImpl(nullptr)
+, mRunnable(nullptr) {
 
-  //[-------------------------------------------------------]
-  //[ Public functions                                      ]
-  //[-------------------------------------------------------]
-public:
+}
 
-  /**
-   * @brief
-   * Constructor.
-   */
-  Runnable() = default;
+Thread::Thread(Runnable *runnable, const String &name)
+: mRunnable(runnable)
+, mStaticFunction(nullptr)
+, mStaticData(nullptr)
+, mName(name) {
+#if defined(LINUX)
+  mImpl = re_new<LinuxThread>(*this, false, NULL_HANDLE);
+#endif
+}
 
-  /**
-   * @brief
-   * Destructor.
-   */
-  virtual ~Runnable() = default;
+Thread::Thread(THREADFUNCTION threadFunction, void* data)
+: mRunnable(nullptr)
+, mStaticFunction(threadFunction)
+, mStaticData(data)
+, mName() {
+#if defined(LINUX)
+  mImpl = re_new<LinuxThread>(*this, false, NULL_HANDLE);
+#endif
+}
 
+Thread::Thread(handle threadId)
+: mImpl(nullptr)
+, mRunnable(nullptr) {
+#if defined(LINUX)
+  mImpl = re_new<LinuxThread>(*this, true, threadId);
+#endif
+}
 
-  /**
-   * @brief
-   * Called on initialization.
-   *
-   * @return
-   */
-  virtual bool init();
+Thread::~Thread() {
+  re_delete(mImpl);
+}
 
-  /**
-   * @brief
-   * This method is called on stop.
-   */
-  virtual void stop();
+const String &Thread::get_name() const {
+  return mName;
+}
 
-  /**
-   * @brief
-   * This method is called on exit.
-   */
-  virtual void exit();
+void Thread::set_name(const String &name) {
+  mName = name;
+}
 
-  /**
-   * @brief
-   * This method is called when the threads reaches the end of the runnable instance.
-   *
-   * @param[in] killed
-   * True if the thread itself was killed.
-   */
-  virtual void post_work(bool killed);
+handle Thread::get_id() const {
+  return mImpl->get_id();
+}
 
+bool Thread::is_active() const {
+  return mImpl->is_active();
+}
 
-  /**
-   * @brief
-   * Runs the runnable instance.
-   *
-   * @return
-   * The return code of the runnable.
-   */
-  virtual int32 run() = 0;
-};
+int32 Thread::run() {
+  if (mRunnable) {
+    return mRunnable->run();
+  } else if (mStaticFunction) {
+    // Call the static function
+    return mStaticFunction(mStaticData);
+  }
+  return 0;
+}
+
+bool Thread::start() {
+  return mImpl->start();
+}
+
+void Thread::kill() {
+  mImpl->kill();
+}
+
+bool Thread::join() {
+  return mImpl->join();
+}
+
+bool Thread::join(uint64 timeout) {
+  return mImpl->join(timeout);
+}
+
+ThreadPriorityClass Thread::get_priority_class() const {
+  return static_cast<ThreadPriorityClass>(mImpl->get_priority_class());
+}
+
+bool Thread::set_priority_class(ThreadPriorityClass priorityClass) {
+  return mImpl->set_priority_class(priorityClass);
+}
+
+ThreadPriority Thread::get_priority() const {
+  return static_cast<ThreadPriority>(mImpl->get_priority());
+}
+
+bool Thread::set_priority(ThreadPriority priority) {
+  return mImpl->set_priority(priority);
+}
 
 
 //[-------------------------------------------------------]
