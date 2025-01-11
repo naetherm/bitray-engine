@@ -80,17 +80,21 @@ JsonValue::~JsonValue() {
 
 
 JsonValue& JsonValue::operator=(const core::JsonValue &rhs) {
-  mType = rhs.mType;
-  mIsRawTextBlock = rhs.mIsRawTextBlock;
-  copy_from(rhs);
+  if (this != &rhs) {
+    mType = rhs.mType;
+    mIsRawTextBlock = rhs.mIsRawTextBlock;
+    copy_from(rhs);
+  }
 
   return *this;
 }
 
 JsonValue& JsonValue::operator=(core::JsonValue &&rhs) {
-  mType = rhs.mType;
-  mIsRawTextBlock = rhs.mIsRawTextBlock;
-  copy_from(rhs);
+  if (this != &rhs) {
+    mType = rhs.mType;
+    mIsRawTextBlock = rhs.mIsRawTextBlock;
+    copy_from(rhs);
+  }
 
   return *this;
 }

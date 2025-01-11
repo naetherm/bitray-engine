@@ -79,7 +79,7 @@ JsonValue& Config::get(const String& name) {
 
 
 void Config::clear() {
-  // TODO(naetherm)
+  mConfig = JsonValue();
 }
 
 
