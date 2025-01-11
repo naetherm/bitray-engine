@@ -29,6 +29,12 @@ set(FILES
   private/color/color3.cpp
   private/color/color4.cpp
 
+  # private/config
+  private/config/config.cpp
+  private/config/config_reader.cpp
+  private/config/config_server.cpp
+  private/config/config_writer.cpp
+
   # private/core
   private/core/default_assert.cpp
   private/core/refcounted.cpp
