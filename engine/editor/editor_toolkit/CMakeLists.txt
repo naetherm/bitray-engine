@@ -19,12 +19,34 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(plugins)
-re_add_subdirectory(editor)
-re_add_subdirectory(game)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME editor_toolkit SHARED
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/editor_toolkit_files.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+      rhi
+      gui
+  RUNTIME_DEPENDENCIES
+    PUBLIC
+      core
+      rhi
+      gui
+  COMPILE_DEFINITIONS
+    PUBLIC
+      EDITOR_TOOLKIT_EXPORTS
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+  TARGET_PROPERTIES
+    -fPIC
+)

@@ -22,9 +22,4 @@
 ################################################################################
 # Current package
 ################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(plugins)
-re_add_subdirectory(editor)
-re_add_subdirectory(game)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
+re_add_subdirectory(editor_toolkit)

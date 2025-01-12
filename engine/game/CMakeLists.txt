@@ -1,5 +1,5 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
-#// Copyright (c) 2025 RacoonStudios
+#// Copyright (c) 2024 RacoonStudios
 #//
 #// Permission is hereby granted, free of charge, to any person obtaining a copy of this
 #// software and associated documentation files (the "Software"), to deal in the Software
@@ -22,9 +22,4 @@
 ################################################################################
 # Current package
 ################################################################################
-re_add_subdirectory(foundation)
-re_add_subdirectory(plugins)
-re_add_subdirectory(editor)
-re_add_subdirectory(game)
-re_add_subdirectory(samples)
-re_add_subdirectory(tests)
+re_add_subdirectory(game_toolkit)
