@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install System Dependencies
-        run: sudo apt update && sudo apt install -y libglm-dev libmimalloc-dev libmimalloc2.0 libdbus-1-3 libdbus-1-dev libdbus-c++-dev dbus dbus-x11 libxcb-cursor0 libxcb-cursor-dev libxcb-ewmh2 libxcb-ewmh-dev libxcb-xrm0 libxcb-xrm-dev libxcb-icccm4 libxcb-icccm4-dev libxcb-util0-dev libxcb-cursor0 libxcb-randr0 libxcb-randr0-dev unzip cmake lz4 libxcursor-dev libxrandr-dev libxxf86vm-dev libxkbcommon-dev libxkbcommon-x11-dev libxcb-keysyms1-dev libxcb-xkb-dev
+        run: sudo apt update && sudo apt install -y uuid-dev libvulkan-dev libgl-dev libwayland-dev libmimalloc-dev libmimalloc2.0 libdbus-1-3 libdbus-1-dev libdbus-c++-dev dbus dbus-x11 libxcb-cursor0 libxcb-cursor-dev libxcb-ewmh2 libxcb-ewmh-dev libxcb-xrm0 libxcb-xrm-dev libxcb-icccm4 libxcb-icccm4-dev libxcb-util0-dev libxcb-cursor0 libxcb-randr0 libxcb-randr0-dev unzip cmake lz4 libxcursor-dev libxrandr-dev libxxf86vm-dev libxkbcommon-dev libxkbcommon-x11-dev libxcb-keysyms1-dev libxcb-xkb-dev
 
       - name: Download Precompiled Dependencies
         run: |
@@ -40,7 +40,7 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       - name: Test
-        working-directory: ${{github.workspace}}/build
+        working-directory: ${{github.workspace}}/build --parallel ${nproc}
         # Execute tests defined by the CMake configuration.
         # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
         run: ctest -C ${{env.BUILD_TYPE}}
