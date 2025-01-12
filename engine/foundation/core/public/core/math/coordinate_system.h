@@ -29,7 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include <glm/glm.hpp>
+#include "core/math/vec3.h"
 
 
 //[-------------------------------------------------------]
@@ -57,27 +57,27 @@ public:
    * Gets the "up" direction vector of the coordinate system.
    *
    * @return
-   * A reference to the `glm::vec3` representing the "up" direction.
+   * A reference to the `core::Vec3f` representing the "up" direction.
    */
-  static const glm::vec3& get_up();
+  static const core::Vec3f& get_up();
 
   /**
    * @brief
    * Gets the "right" direction vector of the coordinate system.
    *
    * @return
-   * A reference to the `glm::vec3` representing the "right" direction.
+   * A reference to the `core::Vec3f` representing the "right" direction.
    */
-  static const glm::vec3& get_right();
+  static const core::Vec3f& get_right();
 
   /**
    * @brief
    * Gets the "forward" direction vector of the coordinate system.
    *
    * @return
-   * A reference to the `glm::vec3` representing the "forward" direction.
+   * A reference to the `core::Vec3f` representing the "forward" direction.
    */
-  static const glm::vec3& get_forward();
+  static const core::Vec3f& get_forward();
 
   /**
    * @brief

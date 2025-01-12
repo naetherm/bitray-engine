@@ -31,8 +31,9 @@
 #include "core/core.h"
 #include "core/core/non_copyable.h"
 #include "core/std/math.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include "core/math/vec2.h"
+#include "core/math/vec3.h"
+#include "core/math/vec4.h"
 
 
 //[-------------------------------------------------------]
@@ -49,46 +50,46 @@ public:
 
 	static constexpr double BE_EPSILON = 0.00001;
 
-	// "glm::vec2" constants
-	static const glm::vec2 VEC2_ZERO;			///< 0 0
-	static const glm::vec2 VEC2_ONE;			///< 1 1
-	static const glm::vec2 VEC2_UNIT_X;		///< 1 0
-	static const glm::vec2 VEC2_UNIT_Y;		///< 0 1
+	// "core::Vec2" constants
+	static const core::Vec2f VEC2_ZERO;			///< 0 0
+	static const core::Vec2f VEC2_ONE;			///< 1 1
+	static const core::Vec2f VEC2_UNIT_X;		///< 1 0
+	static const core::Vec2f VEC2_UNIT_Y;		///< 0 1
 
-	// "glm::vec3" constants
-	static const glm::vec3 VEC3_ZERO;			///< 0 0 0
-	static const glm::vec3 VEC3_ONE;			///< 1 1 1
-	static const glm::vec3 VEC3_UNIT_X;		///< 1 0 0
-	static const glm::vec3 VEC3_UNIT_Y;		///< 0 1 0
-	static const glm::vec3 VEC3_UNIT_Z;		///< 0 0 1
-	// "glm::dvec3" constants
-	static const glm::dvec3 DVEC3_ZERO;		///< 0 0 0
-	static const glm::dvec3 DVEC3_ONE;		///< 1 1 1
-	static const glm::dvec3 DVEC3_UNIT_X;	///< 1 0 0
-	static const glm::dvec3 DVEC3_UNIT_Y;	///< 0 1 0
-	static const glm::dvec3 DVEC3_UNIT_Z;	///< 0 0 1
-	// "glm::vec4" constants
-	static const glm::vec4 VEC4_ZERO;			///< 0 0 0 0
-	static const glm::vec4 VEC4_ONE;			///< 1 1 1 1
-	static const glm::vec4 VEC4_UNIT_X;		///< 1 0 0 0
-	static const glm::vec4 VEC4_UNIT_Y;		///< 0 1 0 0
-	static const glm::vec4 VEC4_UNIT_Z;		///< 0 0 1 0
-	static const glm::vec4 VEC4_UNIT_W;		///< 0 0 0 1
-	// "glm::dvec4" constants
-	static const glm::dvec4 DVEC4_ZERO;		///< 0 0 0 0
-	static const glm::dvec4 DVEC4_ONE;		///< 1 1 1 1
-	static const glm::dvec4 DVEC4_UNIT_X;		///< 1 0 0 0
-	static const glm::dvec4 DVEC4_UNIT_Y;		///< 0 1 0 0
-	static const glm::dvec4 DVEC4_UNIT_Z;		///< 0 0 1 0
-	static const glm::dvec4 DVEC4_UNIT_W;		///< 0 0 0 1
+	// "core::Vec3" constants
+	static const core::Vec3f VEC3_ZERO;			///< 0 0 0
+	static const core::Vec3f VEC3_ONE;			///< 1 1 1
+	static const core::Vec3f VEC3_UNIT_X;		///< 1 0 0
+	static const core::Vec3f VEC3_UNIT_Y;		///< 0 1 0
+	static const core::Vec3f VEC3_UNIT_Z;		///< 0 0 1
+	// "core::Vec3d" constants
+	static const core::Vec3d DVEC3_ZERO;		///< 0 0 0
+	static const core::Vec3d DVEC3_ONE;		///< 1 1 1
+	static const core::Vec3d DVEC3_UNIT_X;	///< 1 0 0
+	static const core::Vec3d DVEC3_UNIT_Y;	///< 0 1 0
+	static const core::Vec3d DVEC3_UNIT_Z;	///< 0 0 1
+	// "core::Vec4f" constants
+	static const core::Vec4f VEC4_ZERO;			///< 0 0 0 0
+	static const core::Vec4f VEC4_ONE;			///< 1 1 1 1
+	static const core::Vec4f VEC4_UNIT_X;		///< 1 0 0 0
+	static const core::Vec4f VEC4_UNIT_Y;		///< 0 1 0 0
+	static const core::Vec4f VEC4_UNIT_Z;		///< 0 0 1 0
+	static const core::Vec4f VEC4_UNIT_W;		///< 0 0 0 1
+	// "core::Vec4d" constants
+	static const core::Vec4d DVEC4_ZERO;		///< 0 0 0 0
+	static const core::Vec4d DVEC4_ONE;		///< 1 1 1 1
+	static const core::Vec4d DVEC4_UNIT_X;		///< 1 0 0 0
+	static const core::Vec4d DVEC4_UNIT_Y;		///< 0 1 0 0
+	static const core::Vec4d DVEC4_UNIT_Z;		///< 0 0 1 0
+	static const core::Vec4d DVEC4_UNIT_W;		///< 0 0 0 1
 	// "glm::mat4" constants
-	static const glm::mat4 MAT4_IDENTITY;
+	//static const glm::mat4 MAT4_IDENTITY;
 	// "glm::dmat4" constants
-	static const glm::dmat4 DMAT4_IDENTITY;
+	//static const glm::dmat4 DMAT4_IDENTITY;
 	// "glm::quat" constants
-	static const glm::quat QUAT_IDENTITY;
+	//static const glm::quat QUAT_IDENTITY;
 	// "glm::squat" constants
-	static const glm::dquat DQUAT_IDENTITY;
+	//static const glm::dquat DQUAT_IDENTITY;
 
 public:
 

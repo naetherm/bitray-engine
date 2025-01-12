@@ -34,24 +34,24 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Ray Ray::from_two_points(const glm::vec3& origin, const glm::vec3& direction) {
-  glm::vec3 normalized_direction = glm::normalize(direction - origin);
+Ray Ray::from_two_points(const core::Vec3f& origin, const core::Vec3f& direction) {
+  core::Vec3f normalized_direction = (direction - origin).get_normalized();
   return Ray(origin, normalized_direction);
 }
 
-Ray Ray::from_origin_and_direction(const glm::vec3& origin, const glm::vec3& direction) {
-  glm::vec3 normalized_direction = glm::normalize(direction);
+Ray Ray::from_origin_and_direction(const core::Vec3f& origin, const core::Vec3f& direction) {
+  core::Vec3f normalized_direction = direction.get_normalized();
   return Ray(origin, normalized_direction);
 }
 
-Ray Ray::from_up_direction(const glm::vec3& up, const glm::vec3& direction) {
-  glm::vec3 normalized_direction = glm::normalize(direction);
+Ray Ray::from_up_direction(const core::Vec3f& up, const core::Vec3f& direction) {
+  core::Vec3f normalized_direction = direction.get_normalized();
   return Ray(up, normalized_direction);
 }
 
 
-Ray::Ray(const glm::vec3& origin, const glm::vec3& direction)
-: Line(origin, glm::normalize(direction)) {
+Ray::Ray(const core::Vec3f& origin, const core::Vec3f& direction)
+: Line(origin, direction.get_normalized()) {
 
 }
 

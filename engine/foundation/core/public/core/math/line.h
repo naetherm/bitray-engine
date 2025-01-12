@@ -29,7 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include <glm/glm.hpp>
+#include "core/math/vec3.h"
 
 
 //[-------------------------------------------------------]
@@ -79,7 +79,7 @@ public:
    * @return
    * A `Line` instance representing the line between the two points.
    */
-  static Line from_two_points(const glm::vec3& from, const glm::vec3& to);
+  static Line from_two_points(const core::Vec3f& from, const core::Vec3f& to);
 
   /**
    * @brief
@@ -93,7 +93,7 @@ public:
    * @return
    * A `Line` instance representing the specified line.
    */
-  static Line from_origin_and_direction(const glm::vec3& origin, const glm::vec3& direction);
+  static Line from_origin_and_direction(const core::Vec3f& origin, const core::Vec3f& direction);
 
   /**
    * @brief
@@ -115,7 +115,7 @@ public:
    * @param[in] direction
    * The direction vector of the line.
    */
-  Line(const glm::vec3& origin, const glm::vec3& direction);
+  Line(const core::Vec3f& origin, const core::Vec3f& direction);
 
   /**
    * @brief
@@ -124,7 +124,7 @@ public:
    * @param[in] origin
    * The new origin point of the line.
    */
-  void set_origin(const glm::vec3& origin);
+  void set_origin(const core::Vec3f& origin);
 
   /**
    * @brief
@@ -133,7 +133,7 @@ public:
    * @param[in] direction
    * The new direction vector of the line.
    */
-  void set_direction(const glm::vec3& direction);
+  void set_direction(const core::Vec3f& direction);
 
   /**
    * @brief
@@ -142,7 +142,7 @@ public:
    * @return
    * A reference to the origin point of the line.
    */
-  const glm::vec3& get_origin() const;
+  const core::Vec3f& get_origin() const;
 
   /**
    * @brief
@@ -151,7 +151,7 @@ public:
    * @return
    * A reference to the direction vector of the line.
    */
-  const glm::vec3& get_direction() const;
+  const core::Vec3f& get_direction() const;
 
   /**
    * @brief
@@ -163,9 +163,9 @@ public:
    * The parameter defining the distance along the direction vector.
    *
    * @return
-   * A `glm::vec3` representing the computed point.
+   * A `core::Vec3f` representing the computed point.
    */
-  glm::vec3 get_point(float32 t) const;
+  core::Vec3f get_point(float32 t) const;
 
   /**
    * @brief
@@ -175,16 +175,16 @@ public:
    * The target point for which the nearest point on the line is calculated.
    *
    * @return
-   * A `glm::vec3` representing the nearest point on the line.
+   * A `core::Vec3f` representing the nearest point on the line.
    */
-  glm::vec3 get_nearest_point(const glm::vec3& point) const;
+  core::Vec3f get_nearest_point(const core::Vec3f& point) const;
 
 protected:
 
   /** The origin point of the line. */
-  glm::vec3 mOrigin;
+  core::Vec3f mOrigin;
   /** The direction vector of the line. */
-  glm::vec3 mDirection;
+  core::Vec3f mDirection;
 };
 
 

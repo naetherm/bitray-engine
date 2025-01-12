@@ -32,33 +32,32 @@
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 namespace core {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * Vec2
- *
- * @brief
- * A template class representing a 2D vector with various utility functions
- * for vector operations such as addition, subtraction, normalization,
- * and distance calculations.
- *
- * @tparam TType The type of the vector components (e.g., int, float).
- */
 template<typename TType>
-class Vec2 {
+class Vec4 {
 public:
 
-  /** Constant representing a zero vector (0, 0). */
-  static const Vec2 Zero;
-  /** Constant representing a unit vector (1, 1). */
-  static const Vec2 One;
+  /** Constant representing a zero vector (0, 0, 0, 0). */
+  static const Vec4 Zero;
+  /** Constant representing a unit vector (1, 1, 1, 1). */
+  static const Vec4 One;
 
 public:
   /**
@@ -67,7 +66,7 @@ public:
    *
    * Initializes the vector to (0, 0).
    */
-  Vec2();
+  Vec4();
 
   /**
    * @brief
@@ -77,7 +76,7 @@ public:
    *
    * @param[in] rhs The vector to copy.
    */
-  Vec2(const Vec2& rhs);
+  Vec4(const Vec4& rhs);
 
   /**
    * @brief
@@ -87,8 +86,10 @@ public:
    *
    * @param[in] x The x-component of the vector.
    * @param[in] y The y-component of the vector.
+   * @param[in] z The z-component of the vector.
+   * @param[in] w The w-component of the vector.
    */
-  Vec2(TType x, TType y);
+  Vec4(TType x, TType y, TType z, TType w = TType(1));
 
   /**
    * @brief
@@ -98,7 +99,7 @@ public:
    *
    * @param[in] v An array containing the x and y components.
    */
-  explicit Vec2(const TType v[]);
+  explicit Vec4(const TType v[]);
 
   /**
    * @brief
@@ -106,38 +107,38 @@ public:
    *
    * Cleans up the vector (if applicable).
    */
-  ~Vec2();
+  ~Vec4();
 
 
-  Vec2& operator=(const TType f[]);
+  Vec4& operator=(const TType f[]);
 
-  Vec2& operator=(const Vec2& v);
+  Vec4& operator=(const Vec4& v);
 
-  bool operator==(const Vec2& v) const;
-  bool operator!=(const Vec2& v) const;
-  bool operator<=(const Vec2& v) const;
-  bool operator>=(const Vec2& v) const;
-  bool operator<(const Vec2& v) const;
-  bool operator>(const Vec2& v) const;
+  bool operator==(const Vec4& v) const;
+  bool operator!=(const Vec4& v) const;
+  bool operator<=(const Vec4& v) const;
+  bool operator>=(const Vec4& v) const;
+  bool operator<(const Vec4& v) const;
+  bool operator>(const Vec4& v) const;
 
-  Vec2& operator+=(const Vec2& v);
-  Vec2& operator+=(TType t);
-  Vec2 operator+(const Vec2& v) const;
-  Vec2 operator+(TType t) const;
-  Vec2 operator-() const;
-  Vec2& operator-=(const Vec2& v);
-  Vec2& operator-=(TType t);
-  Vec2 operator-(const Vec2& v) const;
-  Vec2 operator-(TType t) const;
+  Vec4& operator+=(const Vec4& v);
+  Vec4& operator+=(TType t);
+  Vec4 operator+(const Vec4& v) const;
+  Vec4 operator+(TType t) const;
+  Vec4 operator-() const;
+  Vec4& operator-=(const Vec4& v);
+  Vec4& operator-=(TType t);
+  Vec4 operator-(const Vec4& v) const;
+  Vec4 operator-(TType t) const;
 
-  Vec2 operator*(const Vec2& v) const;
-  Vec2 operator*(TType t) const;
-  Vec2& operator*=(const Vec2& v);
-  Vec2& operator*(TType t);
-  Vec2 operator/(const Vec2& v) const;
-  Vec2 operator/(TType t) const;
-  Vec2& operator/=(const Vec2& v);
-  Vec2& operator/=(TType t);
+  Vec4 operator*(const Vec4& v) const;
+  Vec4 operator*(TType t) const;
+  Vec4& operator*=(const Vec4& v);
+  Vec4& operator*(TType t);
+  Vec4 operator/(const Vec4& v) const;
+  Vec4 operator/(TType t) const;
+  Vec4& operator/=(const Vec4& v);
+  Vec4& operator/=(TType t);
 
   operator TType*();
   operator const TType*() const;
@@ -150,34 +151,56 @@ public:
 
   [[nodiscard]] TType* get_ptr();
 
-  void get_xy(TType& x, TType& y) const;
+  void get_xyz(TType& x, TType& y, TType& z) const;
+
+  void get_xyzw(TType& x, TType& y, TType& z, TType& w) const;
 
   [[nodiscard]] TType get_x() const;
 
   [[nodiscard]] TType get_y() const;
 
-  void set_xy(TType x, TType y);
+  [[nodiscard]] TType get_z() const;
 
-  void set_xy(const TType v[]);
+  [[nodiscard]] TType get_w() const;
+
+  void set_xyz(TType x, TType y, TType z);
+
+  void set_xyzw(TType x, TType y, TType z, TType w = TType(1));
+
+  void set_xyz(const TType v[]);
+
+  void set_xyzw(const TType v[]);
 
   void set_x(TType x);
 
   void set_y(TType y);
 
-  void inc_xy(TType x, TType y);
+  void set_z(TType z);
 
-  void inc_xy(const TType v[]);
+  void set_w(TType w);
+
+  void inc_xyz(TType x, TType y, TType z);
+
+  void inc_xyzw(TType x, TType y, TType z, TType w = TType(1));
+
+  void inc_xyz(const TType v[]);
+
+  void inc_xyzw(const TType v[]);
 
   void inc_x(TType x);
 
   void inc_y(TType y);
+
+  void inc_z(TType z);
+
+  void inc_w(TType w);
 
 
   [[nodiscard]] bool is_null() const;
 
   void invert();
 
-  [[nodiscard]] Vec2 get_inverted() const;
+  [[nodiscard]] Vec4 get_inverted() const;
 
   [[nodiscard]] TType get_length() const;
 
@@ -185,47 +208,47 @@ public:
 
   void set_length(TType length = TType(1));
 
-  Vec2& normalize();
+  Vec4& normalize();
 
-  [[nodiscard]] Vec2 get_normalized() const;
+  [[nodiscard]] Vec4 get_normalized() const;
 
-  [[nodiscard]] TType get_distance(const Vec2& o) const;
+  [[nodiscard]] TType get_distance(const Vec4& o) const;
 
-  [[nodiscard]] TType get_squared_distance(const Vec2& o) const;
+  [[nodiscard]] TType get_squared_distance(const Vec4& o) const;
 
-  [[nodiscard]] TType dot(const Vec2& o) const;
+  [[nodiscard]] TType dot(const Vec4& o) const;
 
-  [[nodiscard]] TType get_angle(const Vec2& o) const;
-
+  [[nodiscard]] TType get_angle(const Vec4& o) const;
+  
 public:
 
   /**
    * @union
-   * Represents the vector as an array or as individual x and y components.
+   * Represents the vector as an array or as individual x, y, z, and w components.
    */
   union {
-    TType v[2]; ///< Array representation of the vector components.
+    TType v[4]; ///< Array representation of the vector components.
 
     struct {
-      TType x, y; ///< Individual components of the vector.
+      TType x, y, z, w; ///< Individual components of the vector.
     };
   };
 
 };
 
-typedef Vec2<core::int32> Vec2i;
-typedef Vec2<core::uint32> Vec2ui;
-typedef Vec2<core::float32> Vec2f;
-typedef Vec2<core::float64> Vec2d;
+typedef Vec4<core::int32> Vec4i;
+typedef Vec4<core::uint32> Vec4ui;
+typedef Vec4<core::float32> Vec4f;
+typedef Vec4<core::float64> Vec4d;
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}  // namespace core
+}
 
 
 //[-------------------------------------------------------]
 //[ Implementation                                        ]
 //[-------------------------------------------------------]
-#include "core/math/vec2.inl"
+#include "core/math/vec4.inl"

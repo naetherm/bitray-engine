@@ -29,7 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include <glm/glm.hpp>
+#include "core/math/vec3.h"
 
 
 //[-------------------------------------------------------]
@@ -95,7 +95,7 @@ public:
    * @param distance
    * The distance of the plane from the origin along its normal.
    */
-  Plane(const glm::vec3& normal, float32 distance);
+  Plane(const core::Vec3f& normal, float32 distance);
 
   /**
    * @brief
@@ -106,7 +106,7 @@ public:
    * @param normal
    * The normal vector defining the plane's orientation.
    */
-  Plane(const glm::vec3& point, const glm::vec3& normal);
+  Plane(const core::Vec3f& point, const core::Vec3f& normal);
 
   /**
    * @brief
@@ -119,7 +119,7 @@ public:
    * @param point2
    * The third point on the plane.
    */
-  Plane(const glm::vec3& point, const glm::vec3& point1, const glm::vec3& point2);
+  Plane(const core::Vec3f& point, const core::Vec3f& point1, const core::Vec3f& point2);
 
   /**
    * @brief
@@ -156,7 +156,7 @@ public:
    * @return
    * The normal vector of the plane.
    */
-  const glm::vec3& get_normal() const;
+  const core::Vec3f& get_normal() const;
 
   /**
    * @brief
@@ -180,7 +180,7 @@ public:
 
 public:
   /** The normal vector of the plane, defining its orientation. */
-  glm::vec3 mNormal;
+  core::Vec3f mNormal;
 
   /** The signed distance of the plane from the origin along its normal. */
   float32 mDistance;

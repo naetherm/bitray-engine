@@ -20,11 +20,20 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/math/line.h"
-#include "core/math/coordinate_system.h"
-#include "core/math/math.h"
+#include "core/core.h"
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
 
 
 //[-------------------------------------------------------]
@@ -34,51 +43,18 @@ namespace core {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Line Line::from_two_points(const core::Vec3f& from, const core::Vec3f& to) {
-  core::Vec3f direction = (to - from).get_normalized();
-  return Line(from, direction);
-}
-
-Line Line::from_origin_and_direction(const core::Vec3f& origin, const core::Vec3f& direction) {
-  return Line(origin, direction);
-}
-
-Line Line::from_up_direction() {
-  return Line(Math::VEC3_ZERO, CoordinateSystem::get_up());
-}
-
-Line::Line(const core::Vec3f& origin, const core::Vec3f& direction)
-: mOrigin(origin)
-, mDirection(direction) {
-}
-
-void Line::set_origin(const core::Vec3f& origin) {
-  mOrigin = origin;
-}
-
-void Line::set_direction(const core::Vec3f& direction) {
-  mDirection = direction;
-}
-
-const core::Vec3f& Line::get_origin() const {
-  return mOrigin;
-}
-
-const core::Vec3f& Line::get_direction() const {
-  return mDirection;
-}
-
-core::Vec3f Line::get_point(float32 t) const {
-  return mOrigin + mDirection * t;
-}
-
-core::Vec3f Line::get_nearest_point(const core::Vec3f& point) const {
-  core::Vec3f origin_to_point = point - mOrigin;
-  float32 t = origin_to_point.dot(mDirection); // Projection scalar
-  return get_point(t);
-}
+template<typename TType>
+class Mat33 {
+public:
+public:
+};
 
 
 //[-------------------------------------------------------]

@@ -98,7 +98,7 @@ public:
    * @param matrix
    * The combined projection-view matrix used to define the frustum.
    */
-  explicit Frustum(const glm::mat4& matrix);
+  //explicit Frustum(const glm::mat4& matrix);
 
   /**
    * @brief

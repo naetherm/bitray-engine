@@ -34,18 +34,18 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Public definitions                                    ]
 //[-------------------------------------------------------]
-const glm::vec3& CoordinateSystem::get_up() {
-  static const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+const core::Vec3f& CoordinateSystem::get_up() {
+  static const core::Vec3f up = core::Vec3f(0.0f, 1.0f, 0.0f);
   return up;
 }
 
-const glm::vec3& CoordinateSystem::get_right() {
-  static const glm::vec3 right = glm::vec3(1.0f, 0.0f, 0.0f);
+const core::Vec3f& CoordinateSystem::get_right() {
+  static const core::Vec3f right = core::Vec3f(1.0f, 0.0f, 0.0f);
   return right;
 }
 
-const glm::vec3& CoordinateSystem::get_forward() {
-  static const glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
+const core::Vec3f& CoordinateSystem::get_forward() {
+  static const core::Vec3f forward = core::Vec3f(0.0f, 0.0f, 1.0f);
   return forward;
 }
 

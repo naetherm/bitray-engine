@@ -77,7 +77,7 @@ public:
    * @return
    * A `Ray` instance representing the specified ray.
    */
-  static Ray from_two_points(const glm::vec3& origin, const glm::vec3& direction);
+  static Ray from_two_points(const core::Vec3f& origin, const core::Vec3f& direction);
 
   /**
    * @brief
@@ -91,7 +91,7 @@ public:
    * @return
    * A `Ray` instance with the specified origin and direction.
    */
-  static Ray from_origin_and_direction(const glm::vec3& origin, const glm::vec3& direction);
+  static Ray from_origin_and_direction(const core::Vec3f& origin, const core::Vec3f& direction);
 
   /**
    * @brief
@@ -105,7 +105,7 @@ public:
    * @return
    * A `Ray` instance pointing in the specified up and direction vectors.
    */
-  static Ray from_up_direction(const glm::vec3& up, const glm::vec3& direction);
+  static Ray from_up_direction(const core::Vec3f& up, const core::Vec3f& direction);
 
 public:
 
@@ -118,7 +118,7 @@ public:
    * @param direction
    * The direction vector of the ray.
    */
-  Ray(const glm::vec3& origin, const glm::vec3& direction);
+  Ray(const core::Vec3f& origin, const core::Vec3f& direction);
 };
 
 //[-------------------------------------------------------]

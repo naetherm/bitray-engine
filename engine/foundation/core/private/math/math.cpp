@@ -36,51 +36,51 @@ namespace core {
 //[ Public definitions                                    ]
 //[-------------------------------------------------------]
 
-// "glm::vec2" constants
-const glm::vec2 Math::VEC2_ZERO		   = glm::vec2(0.0f, 0.0f);
-const glm::vec2 Math::VEC2_ONE		   = glm::vec2(1.0f, 1.0f);
-const glm::vec2 Math::VEC2_UNIT_X	   = glm::vec2(1.0f, 0.0f);
-const glm::vec2 Math::VEC2_UNIT_Y	   = glm::vec2(0.0f, 1.0f);
+// "core::Vec2f" constants
+const core::Vec2f Math::VEC2_ZERO		   = core::Vec2f(0.0f, 0.0f);
+const core::Vec2f Math::VEC2_ONE		   = core::Vec2f(1.0f, 1.0f);
+const core::Vec2f Math::VEC2_UNIT_X	   = core::Vec2f(1.0f, 0.0f);
+const core::Vec2f Math::VEC2_UNIT_Y	   = core::Vec2f(0.0f, 1.0f);
 
-// "glm::vec3" constants
-const glm::vec3 Math::VEC3_ZERO		   = glm::vec3(0.0f, 0.0f, 0.0f);
-const glm::vec3 Math::VEC3_ONE		   = glm::vec3(1.0f, 1.0f, 1.0f);
-const glm::vec3 Math::VEC3_UNIT_X	   = glm::vec3(1.0f, 0.0f, 0.0f);
-const glm::vec3 Math::VEC3_UNIT_Y	   = glm::vec3(0.0f, 1.0f, 0.0f);
-const glm::vec3 Math::VEC3_UNIT_Z	   = glm::vec3(0.0f, 0.0f, 1.0f);
-// "glm::dvec3" constants
-const glm::dvec3 Math::DVEC3_ZERO      = glm::dvec3(0.0, 0.0, 0.0);
-const glm::dvec3 Math::DVEC3_ONE       = glm::dvec3(1.0, 1.0, 1.0);
-const glm::dvec3 Math::DVEC3_UNIT_X    = glm::dvec3(1.0, 0.0, 0.0);
-const glm::dvec3 Math::DVEC3_UNIT_Y    = glm::dvec3(0.0, 1.0, 0.0);
-const glm::dvec3 Math::DVEC3_UNIT_Z    = glm::dvec3(0.0, 0.0, 1.0);
-// "glm::vec4" constants
-const glm::vec4 Math::VEC4_ZERO        = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-const glm::vec4 Math::VEC4_ONE         = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-const glm::vec4 Math::VEC4_UNIT_X      = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-const glm::vec4 Math::VEC4_UNIT_Y      = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
-const glm::vec4 Math::VEC4_UNIT_Z      = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
-const glm::vec4 Math::VEC4_UNIT_W      = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-// "glm::dvec4" constants
-const glm::dvec4 Math::DVEC4_ZERO      = glm::dvec4(0.0, 0.0, 0.0, 0.0);
-const glm::dvec4 Math::DVEC4_ONE       = glm::dvec4(1.0, 1.0, 1.0, 1.0);
-const glm::dvec4 Math::DVEC4_UNIT_X    = glm::dvec4(1.0, 0.0, 0.0, 0.0);
-const glm::dvec4 Math::DVEC4_UNIT_Y    = glm::dvec4(0.0, 1.0, 0.0, 0.0);
-const glm::dvec4 Math::DVEC4_UNIT_Z    = glm::dvec4(0.0, 0.0, 1.0, 0.0);
-const glm::dvec4 Math::DVEC4_UNIT_W    = glm::dvec4(0.0, 0.0, 0.0, 1.0);
+// "core::Vec3f" constants
+const core::Vec3f Math::VEC3_ZERO		   = core::Vec3f(0.0f, 0.0f, 0.0f);
+const core::Vec3f Math::VEC3_ONE		   = core::Vec3f(1.0f, 1.0f, 1.0f);
+const core::Vec3f Math::VEC3_UNIT_X	   = core::Vec3f(1.0f, 0.0f, 0.0f);
+const core::Vec3f Math::VEC3_UNIT_Y	   = core::Vec3f(0.0f, 1.0f, 0.0f);
+const core::Vec3f Math::VEC3_UNIT_Z	   = core::Vec3f(0.0f, 0.0f, 1.0f);
+// "core::Vec3d" constants
+const core::Vec3d Math::DVEC3_ZERO      = core::Vec3d(0.0, 0.0, 0.0);
+const core::Vec3d Math::DVEC3_ONE       = core::Vec3d(1.0, 1.0, 1.0);
+const core::Vec3d Math::DVEC3_UNIT_X    = core::Vec3d(1.0, 0.0, 0.0);
+const core::Vec3d Math::DVEC3_UNIT_Y    = core::Vec3d(0.0, 1.0, 0.0);
+const core::Vec3d Math::DVEC3_UNIT_Z    = core::Vec3d(0.0, 0.0, 1.0);
+// "core::Vec4f" constants
+const core::Vec4f Math::VEC4_ZERO        = core::Vec4f(0.0f, 0.0f, 0.0f, 0.0f);
+const core::Vec4f Math::VEC4_ONE         = core::Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
+const core::Vec4f Math::VEC4_UNIT_X      = core::Vec4f(1.0f, 0.0f, 0.0f, 0.0f);
+const core::Vec4f Math::VEC4_UNIT_Y      = core::Vec4f(0.0f, 1.0f, 0.0f, 0.0f);
+const core::Vec4f Math::VEC4_UNIT_Z      = core::Vec4f(0.0f, 0.0f, 1.0f, 0.0f);
+const core::Vec4f Math::VEC4_UNIT_W      = core::Vec4f(0.0f, 0.0f, 0.0f, 1.0f);
+// "core::Vec4d" constants
+const core::Vec4d Math::DVEC4_ZERO      = core::Vec4d(0.0, 0.0, 0.0, 0.0);
+const core::Vec4d Math::DVEC4_ONE       = core::Vec4d(1.0, 1.0, 1.0, 1.0);
+const core::Vec4d Math::DVEC4_UNIT_X    = core::Vec4d(1.0, 0.0, 0.0, 0.0);
+const core::Vec4d Math::DVEC4_UNIT_Y    = core::Vec4d(0.0, 1.0, 0.0, 0.0);
+const core::Vec4d Math::DVEC4_UNIT_Z    = core::Vec4d(0.0, 0.0, 1.0, 0.0);
+const core::Vec4d Math::DVEC4_UNIT_W    = core::Vec4d(0.0, 0.0, 0.0, 1.0);
 // "glm::mat4" constants
-const glm::mat4 Math::MAT4_IDENTITY = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
-                        0.0f, 1.0f, 0.0f, 0.0f,
-                        0.0f, 0.0f, 1.0f, 0.0f,
-                        0.0f, 0.0f, 0.0f, 1.0f);
+// const glm::mat4 Math::MAT4_IDENTITY = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
+//                         0.0f, 1.0f, 0.0f, 0.0f,
+//                         0.0f, 0.0f, 1.0f, 0.0f,
+//                         0.0f, 0.0f, 0.0f, 1.0f);
 // "glm::dmat4" constants
-const glm::dmat4 Math::DMAT4_IDENTITY = glm::dmat4(1.0, 0.0, 0.0, 0.0,
-                           0.0, 1.0, 0.0, 0.0,
-                           0.0, 0.0, 1.0, 0.0,
-                           0.0, 0.0, 0.0, 1.0);
+// const glm::dmat4 Math::DMAT4_IDENTITY = glm::dmat4(1.0, 0.0, 0.0, 0.0,
+//                            0.0, 1.0, 0.0, 0.0,
+//                            0.0, 0.0, 1.0, 0.0,
+//                            0.0, 0.0, 0.0, 1.0);
 // "glm::quat" constants
-const glm::quat Math::QUAT_IDENTITY = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-const glm::dquat Math::DQUAT_IDENTITY = glm::dquat(1.0, 0.0, 0.0, 0.0);
+// const glm::quat Math::QUAT_IDENTITY = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+// const glm::dquat Math::DQUAT_IDENTITY = glm::dquat(1.0, 0.0, 0.0, 0.0);
 
 
 //[-------------------------------------------------------]

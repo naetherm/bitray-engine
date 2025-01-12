@@ -34,6 +34,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/*
 Frustum::Frustum(const glm::mat4& matrix)
 : mPlanes
     {
@@ -51,7 +52,7 @@ Frustum::Frustum(const glm::mat4& matrix)
     mPlanes[i].normalize();
   }
 }
-
+*/
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

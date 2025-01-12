@@ -24,8 +24,6 @@
 //[-------------------------------------------------------]
 #include "core/math/plane.h"
 #include "core/math/coordinate_system.h"
-#include <glm/gtx/norm.hpp>
-#include <glm/gtc/constants.hpp>
 
 
 //[-------------------------------------------------------]
@@ -38,32 +36,34 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 Plane::Plane()
-: mNormal(glm::vec3(0.0f, 1.0f, 0.0f)), mDistance(0.0f) {}
+: mNormal(core::Vec3f(0.0f, 1.0f, 0.0f)), mDistance(0.0f) {}
 
 Plane::Plane(float32 a, float32 b, float32 c, float32 d)
-: mNormal(glm::normalize(glm::vec3(a, b, c))), mDistance(d / glm::length(glm::vec3(a, b, c))) {}
+: mNormal((core::Vec3f(a, b, c)).get_normalized()), mDistance(d / (core::Vec3f(a, b, c)).get_length()) {}
 
-Plane::Plane(const glm::vec3& normal, float32 distance)
-    : mNormal(glm::normalize(normal)), mDistance(distance) {}
+Plane::Plane(const core::Vec3f& normal, float32 distance)
+    : mNormal(normal.get_normalized()), mDistance(distance) {}
 
-Plane::Plane(const glm::vec3& point, const glm::vec3& normal)
-    : mNormal(glm::normalize(normal)), mDistance(glm::dot(normal, point)) {}
+Plane::Plane(const core::Vec3f& point, const core::Vec3f& normal)
+    : mNormal(normal.get_normalized()), mDistance(normal.dot(point)) {}
 
-Plane::Plane(const glm::vec3& point, const glm::vec3& point1, const glm::vec3& point2) {
-  mNormal = glm::normalize(glm::cross(point1 - point, point2 - point));
-  mDistance = glm::dot(mNormal, point);
+Plane::Plane(const core::Vec3f& point, const core::Vec3f& point1, const core::Vec3f& point2) {
+  // TODO(naetherm): mNormal = ((point1 - point).get_cross(point2 - point)).get_normalized();
+  mDistance = mNormal.dot(point);
 }
 
 bool Plane::operator==(const Plane& rhs) const {
-  return glm::all(glm::epsilonEqual(mNormal, rhs.mNormal, glm::epsilon<float32>())) &&
-         glm::epsilonEqual(mDistance, rhs.mDistance, glm::epsilon<float32>());
+  /// TODO(naetherm)
+  return false;
+  //return glm::all(glm::epsilonEqual(mNormal, rhs.mNormal, glm::epsilon<float32>())) &&
+  //       glm::epsilonEqual(mDistance, rhs.mDistance, glm::epsilon<float32>());
 }
 
 bool Plane::operator!=(const Plane& rhs) const {
   return !(*this == rhs);
 }
 
-const glm::vec3& Plane::get_normal() const {
+const core::Vec3f& Plane::get_normal() const {
   return mNormal;
 }
 
@@ -72,8 +72,8 @@ float32 Plane::get_distance() const {
 }
 
 float32 Plane::normalize() {
-  float32 length = glm::length(mNormal);
-  if (length > glm::epsilon<float32>()) {
+  float32 length = mNormal.get_length();
+  if (length > Math::BE_EPSILON) {
     mNormal /= length;
     mDistance /= length;
   }

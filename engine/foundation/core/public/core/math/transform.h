@@ -29,7 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include <glm/gtc/quaternion.hpp>
+#include "core/math/quaternion.h"
+#include "core/math/vec3.h"
 
 
 //[-------------------------------------------------------]
@@ -87,7 +88,7 @@ public:
    * @param matrix
    * The 4x4 matrix used to initialize the transform.
    */
-  explicit Transform(const glm::mat4& matrix);
+  //explicit Transform(const glm::mat4& matrix);
 
   /**
    * @brief
@@ -98,7 +99,7 @@ public:
    * @param position
    * The position of the transform in 3D space.
    */
-  explicit Transform(const glm::vec3& position);
+  explicit Transform(const core::Vec3f& position);
 
   /**
    * @brief
@@ -111,7 +112,7 @@ public:
    * @param rotation
    * The rotation of the transform, represented as a quaternion.
    */
-  explicit Transform(const glm::vec3& position, const glm::quat& rotation);
+  explicit Transform(const core::Vec3f& position, const core::Quaternionf& rotation);
 
   /**
    * @brief
@@ -124,7 +125,7 @@ public:
    * @param scale
    * The scaling factor of the transform.
    */
-  explicit Transform(const glm::vec3& position, const glm::quat& rotation, const glm::vec3& scale);
+  explicit Transform(const core::Vec3f& position, const core::Quaternionf& rotation, const core::Vec3f& scale);
 
   /**
    * @brief
@@ -146,7 +147,7 @@ public:
    * @param[out] objectSpaceToWorldSpace
    * The 4x4 matrix representing this transform.
    */
-  void get_as_matrix(glm::mat4& objectSpaceToWorldSpace) const;
+  //void get_as_matrix(glm::mat4& objectSpaceToWorldSpace) const;
 
   /**
    * @brief
@@ -155,12 +156,12 @@ public:
    * @param objectSpaceToWorldSpace
    * The 4x4 matrix used to set the transform.
    */
-  void set_by_matrix(const glm::mat4& objectSpaceToWorldSpace);
+  //void set_by_matrix(const glm::mat4& objectSpaceToWorldSpace);
 
 protected:
-  glm::vec3  mPosition; ///< The position component of the transform.
-  glm::quat  mRotation; ///< The rotation component of the transform, stored as a quaternion.
-  glm::vec3  mScale;    ///< The scaling component of the transform.
+  core::Vec3f  mPosition; ///< The position component of the transform.
+  core::Quaternionf  mRotation; ///< The rotation component of the transform, stored as a quaternion.
+  core::Vec3f  mScale;    ///< The scaling component of the transform.
 };
 
 
