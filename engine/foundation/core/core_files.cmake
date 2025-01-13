@@ -113,6 +113,7 @@ set(FILES
   # private/math
   private/math/coordinate_system.cpp
   private/math/frustum.cpp
+  private/math/half.cpp
   private/math/line.cpp
   private/math/math.cpp
   private/math/plane.cpp
