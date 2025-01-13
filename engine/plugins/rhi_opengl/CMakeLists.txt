@@ -19,7 +19,37 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(rhi_opengl)
+# /usr/lib/amdgpu-pro/:
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME rhi_opengl SHARED
+  NAMESPACE RE
+  FILES_CMAKE
+  ${CMAKE_CURRENT_SOURCE_DIR}/rhi_opengl_files.cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/rhi_opengl_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
+    PLATFORM_INCLUDE_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/rhi_opengl_${PAL_PLATFORM_NAME_LOWERCASE}.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+      rhi
+      External::smolv
+  RUNTIME_DEPENDENCIES
+    PUBLIC
+      External::smolv
+  COMPILE_DEFINITIONS
+    PUBLIC
+      RHI_OPENGL_EXPORTS
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+      # RHI_OPENGL_GLSLTOSPIRV
+  TARGET_PROPERTIES
+    -fPIC
+)
