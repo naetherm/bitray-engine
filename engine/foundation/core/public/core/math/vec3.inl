@@ -47,6 +47,12 @@ Vec3<TType>::Vec3(const Vec3 &rhs)
 }
 
 template<typename TType>
+Vec3<TType>::Vec3(TType value)
+: x(value), y(value), z(value) {
+
+}
+
+template<typename TType>
 Vec3<TType>::Vec3(TType x, TType y, TType z)
 : x(x), y(y), z(z) {
 
