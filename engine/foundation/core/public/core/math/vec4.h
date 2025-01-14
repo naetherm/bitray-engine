@@ -82,6 +82,17 @@ public:
    * @brief
    * Parameterized constructor.
    *
+   * Initializes the vector uniformly with a specific value.
+   *
+   * @param[in] value
+   * The value to use for all entries.
+   */
+  Vec4(TType value);
+
+  /**
+   * @brief
+   * Parameterized constructor.
+   *
    * Initializes the vector with specified x and y components.
    *
    * @param[in] x The x-component of the vector.

@@ -47,6 +47,12 @@ Vec4<TType>::Vec4(const Vec4 &rhs)
 }
 
 template<typename TType>
+Vec4<TType>::Vec4(TType value)
+: x(value), y(value), z(value), w(value) {
+
+}
+
+template<typename TType>
 Vec4<TType>::Vec4(TType x, TType y, TType z, TType w)
 : x(x), y(y), z(z), w(w) {
 
