@@ -44,7 +44,12 @@ template<typename TType>
 
 template<typename TType>
 [[nodiscard]] TType Math::radians(TType degrees) {
-  return degrees * M_PI / 180.0;
+  return degrees * (M_PI / 180.0);
+}
+
+template<typename TType>
+[[nodiscard]] TType Math::degrees(TType degrees) {
+  return degrees * (180.0 / M_PI);
 }
 
 template<typename TType>

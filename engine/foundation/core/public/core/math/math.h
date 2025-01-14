@@ -97,7 +97,10 @@ public:
   [[nodiscard]] static TType clamp(const TType& x, const TType& minVal, const TType& maxVal);
 
   template<typename TType>
-  [[nodiscard]] static TType radians(TType degrees);
+	[[nodiscard]] static TType radians(TType degrees);
+
+	template<typename TType>
+	[[nodiscard]] static TType degrees(TType degrees);
 
   template<typename TType>
   [[nodiscard]] static TType tan(TType degrees);
