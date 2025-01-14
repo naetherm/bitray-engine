@@ -69,6 +69,26 @@ template<typename TType>
 }
 
 template<typename TType>
+[[nodiscard]] TType Math::sqrt(TType a) {
+  return ::sqrt(a);
+}
+
+template<typename TType>
+[[nodiscard]] TType Math::sin(TType a) {
+  return ::sin(a);
+}
+
+template<typename TType>
+[[nodiscard]] TType Math::cos(TType a) {
+  return ::cos(a);
+}
+
+template<typename TType>
+[[nodiscard]] TType Math::acos(TType a) {
+  return ::acos(a);
+}
+
+template<typename TType>
 [[nodiscard]] bool Math::near(TType a, TType b, TType epsilon) {
   return Math::abs(a - b) < epsilon;
 }

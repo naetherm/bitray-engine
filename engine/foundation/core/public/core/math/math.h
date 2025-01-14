@@ -111,6 +111,18 @@ public:
 	template<typename TType>
 	[[nodiscard]] static TType max(TType a, TType b);
 
+	template<typename TType>
+	[[nodiscard]] static TType sqrt(TType a);
+
+	template<typename TType>
+	[[nodiscard]] static TType sin(TType a);
+
+	template<typename TType>
+	[[nodiscard]] static TType cos(TType a);
+
+	template<typename TType>
+	[[nodiscard]] static TType acos(TType a);
+
   template<typename TType>
   [[nodiscard]] static bool near(TType a, TType b, TType epsilon = BE_EPSILON);
 
