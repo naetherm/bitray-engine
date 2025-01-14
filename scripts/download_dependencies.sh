@@ -28,7 +28,7 @@ do
 done
 
 # Download the LunarG Vulkan SDK to the Externals directory as well
-VULKAN_SDK_VERSION="1.3.231.2"
+VULKAN_SDK_VERSION="1.3.239.0"
 #VULKAN_SDK_VERSION="1.2.131.2"
 VULKAN_SDK_PATH="https://sdk.lunarg.com/sdk/download/${VULKAN_SDK_VERSION}/linux/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION}.tar.gz"
 
