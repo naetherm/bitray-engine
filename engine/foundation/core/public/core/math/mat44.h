@@ -76,6 +76,22 @@ public:
   static const Mat44 Identity;
 
 public:
+
+  static Mat44<TType> create_perspective_fov(TType fov, TType aspect, TType zNear, TType zFar);
+
+  static Mat44<TType> create_translation(TType x, TType y, TType z);
+
+  static Mat44<TType> create_translation(const Vec3<TType>& translation);
+
+  static Mat44<TType> create_scale(TType x, TType y, TType z);
+
+  static Mat44<TType> create_scale(const Vec3<TType>& scale);
+
+  static Mat44<TType> create_rotation(TType x, TType y, TType z, TType angle);
+
+  static Mat44<TType> create_rotation(const Vec3<TType>& axis, TType angle);
+
+public:
   /**
    * @brief
    * Default constructor, making this an identity matrix.
@@ -614,6 +630,8 @@ public:
   *    - The given selected axis must be normalized!
   */
   void from_axis_angle(TType x, TType y, TType z, TType angle) const;
+
+  void from_axis_angle(const Vec3<TType>& axis, TType angle) const;
 
 
   /**

@@ -36,6 +36,43 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 template<typename TType>
+Mat44<TType> Mat44<TType>::create_perspective_fov(TType fov, TType aspect, TType zNear, TType zFar) {
+  Mat44<TType> mat;
+  mat.perspective_fov(fov, aspect, zNear, zFar);
+  return mat;
+}
+
+template<typename TType>
+Mat44<TType> Mat44<TType>::create_translation(TType x, TType y, TType z) {
+  Mat44<TType> mat;
+  mat.set_translation(x, y, z);
+  return mat;
+}
+
+template<typename TType>
+Mat44<TType> Mat44<TType>::create_translation(const Vec3<TType>& translation) {
+  Mat44<TType> mat;
+  mat.set_translation(translation.x, translation.y, translation.z);
+  return mat;
+}
+
+template<typename TType>
+Mat44<TType> Mat44<TType>::create_scale(TType x, TType y, TType z) {
+  Mat44<TType> mat;
+  mat.set_scale_matrix(x, y, z);
+  return mat;
+}
+
+template<typename TType>
+Mat44<TType> Mat44<TType>::create_scale(const Vec3<TType>& scale) {
+  Mat44<TType> mat;
+  mat.set_scale_matrix(scale);
+  return mat;
+}
+
+
+
+template<typename TType>
 Mat44<TType>::Mat44() {
 }
 
@@ -122,10 +159,10 @@ void Mat44<TType>::operator-=(const Mat44<TType>& other) {
 
 template<typename TType>
 Mat44<TType> Mat44<TType>::operator*(const Mat44<TType>& other) const {
-  return Mat44<TType>(xx*mM.xx + xy*mM.yx + xz*mM.zx + xw*mM.wx, xx*mM.xy + xy*mM.yy + xz*mM.zy + xw*mM.wy, xx*mM.xz + xy*mM.yz + xz*mM.zz + xw*mM.wz, xx*mM.xw + xy*mM.yw + xz*mM.zw + xw*mM.ww,
-                      yx*mM.xx + yy*mM.yx + yz*mM.zx + yw*mM.wx, yx*mM.xy + yy*mM.yy + yz*mM.zy + yw*mM.wy, yx*mM.xz + yy*mM.yz + yz*mM.zz + yw*mM.wz, yx*mM.xw + yy*mM.yw + yz*mM.zw + yw*mM.ww,
-                      zx*mM.xx + zy*mM.yx + zz*mM.zx + zw*mM.wx, zx*mM.xy + zy*mM.yy + zz*mM.zy + zw*mM.wy, zx*mM.xz + zy*mM.yz + zz*mM.zz + zw*mM.wz, zx*mM.xw + zy*mM.yw + zz*mM.zw + zw*mM.ww,
-                      wx*mM.xx + wy*mM.yx + wz*mM.zx + ww*mM.wx, wx*mM.xy + wy*mM.yy + wz*mM.zy + ww*mM.wy, wx*mM.xz + wy*mM.yz + wz*mM.zz + ww*mM.wz, wx*mM.xw + wy*mM.yw + wz*mM.zw + ww*mM.ww);
+  return Mat44<TType>(xx*other.xx + xy*other.yx + xz*other.zx + xw*other.wx, xx*other.xy + xy*other.yy + xz*other.zy + xw*other.wy, xx*other.xz + xy*other.yz + xz*other.zz + xw*other.wz, xx*other.xw + xy*other.yw + xz*other.zw + xw*other.ww,
+                      yx*other.xx + yy*other.yx + yz*other.zx + yw*other.wx, yx*other.xy + yy*other.yy + yz*other.zy + yw*other.wy, yx*other.xz + yy*other.yz + yz*other.zz + yw*other.wz, yx*other.xw + yy*other.yw + yz*other.zw + yw*other.ww,
+                      zx*other.xx + zy*other.yx + zz*other.zx + zw*other.wx, zx*other.xy + zy*other.yy + zz*other.zy + zw*other.wy, zx*other.xz + zy*other.yz + zz*other.zz + zw*other.wz, zx*other.xw + zy*other.yw + zz*other.zw + zw*other.ww,
+                      wx*other.xx + wy*other.yx + wz*other.zx + ww*other.wx, wx*other.xy + wy*other.yy + wz*other.zy + ww*other.wy, wx*other.xz + wy*other.yz + wz*other.zz + ww*other.wz, wx*other.xw + wy*other.yw + wz*other.zw + ww*other.ww);
 }
 
 template<typename TType>
@@ -523,6 +560,10 @@ void Mat44<TType>::to_axis_angle(TType& x, TType& y, TType& z, TType& angle) con
 
 template<typename TType>
 void Mat44<TType>::from_axis_angle(TType x, TType y, TType z, TType angle) const {
+}
+
+template<typename TType>
+void Mat44<TType>::from_axis_angle(const Vec3<TType>& axis, TType angle) const {
 }
 
 template<typename TType>
