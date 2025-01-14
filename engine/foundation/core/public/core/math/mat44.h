@@ -485,7 +485,7 @@ public:
   *    - This function will not work correctly if one or two components are negative while
   *      another is/are not (we can't figure out WHICH axis are negative!)
   */
-  void get_scale(TType& x, TType& y, TType& z, TType& w) const;
+  void get_scale(TType& x, TType& y, TType& z) const;
 
   Vec3<TType> get_scale() const;
 
