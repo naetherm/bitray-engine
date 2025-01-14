@@ -202,22 +202,90 @@ Quaternion<TType>& Quaternion<TType>::set(const TType values[]) {
 
 template<typename TType>
 void Quaternion<TType>::to_axis_angle(Vec3<TType>& axis, TType& angle) const {
+  // Avoid division through zero...
+  TType fSqrLength = x*x + y*y + z*z;
+  if (fSqrLength) {
+    fSqrLength = Math::sqrt(fSqrLength);
+    if (fSqrLength) {
+      TType fInvLength = TType(1) / fSqrLength;
+      axis.x     = x*fInvLength;
+      axis.y     = y*fInvLength;
+      axis.z     = z*fInvLength;
+      angle = TType(2) * Math::acos(w);
 
+      // Done
+      return;
+    }
+  }
+
+  // Fallback...
+  axis.x     = TType(0);
+  axis.y     = TType(0);
+  axis.z     = TType(1);
+  angle = TType(0);
 }
 
 template<typename TType>
 void Quaternion<TType>::to_axis_angle(TType& x, TType& y, TType& z, TType& angle) const {
+  // Avoid division through zero...
+  TType fSqrLength = this->x * this->x + this->y * this->y + this->z * this->z;
+  if (fSqrLength) {
+    fSqrLength = Math::sqrt(fSqrLength);
+    if (fSqrLength) {
+      TType fInvLength = TType(1) / fSqrLength;
+      x     = this->x * fInvLength;
+      y     = this->y * fInvLength;
+      z     = this->z * fInvLength;
+      angle = TType(2) * Math::acos(w);
 
+      // Done
+      return;
+    }
+  }
+
+  // Fallback...
+  x     = TType(0);
+  y     = TType(0);
+  z     = TType(1);
+  angle = TType(0);
 }
 
 template<typename TType>
 Quaternion<TType>& Quaternion<TType>::from_axis_angle(const Vec3<TType>& axis, TType angle) {
+  // Check whether the angle is 0, in that case we do not need to calculate sin/cos stuff...
+  if (Math::abs(angle) < Math::BE_EPSILON) {
+    this->w = 1.0f;
+    this->x = 0.0f;
+    this->y = 0.0f;
+    this->z = 0.0f;
+  } else {
+    TType fSin = Math::sin(angle * TType(0.5));
+    this->w = Math::cos(angle * TType(0.5));
+    this->x = axis.x * fSin;
+    this->y = axis.y * fSin;
+    this->z = axis.z * fSin;
+  }
 
+  return *this;
 }
 
 template<typename TType>
 Quaternion<TType>& Quaternion<TType>::from_axis_angle(TType x, TType y, TType z, TType angle) {
+  // Check whether the angle is 0, in that case we do not need to calculate sin/cos stuff...
+  if (Math::abs(angle) < Math::BE_EPSILON) {
+    this->w = 1.0f;
+    this->x = 0.0f;
+    this->y = 0.0f;
+    this->z = 0.0f;
+  } else {
+    TType fSin = Math::sin(angle * TType(0.5));
+    this->w = Math::cos(angle * TType(0.5));
+    this->x = x * fSin;
+    this->y = y * fSin;
+    this->z = z * fSin;
+  }
 
+  return *this;
 }
 
 template<typename TType>
