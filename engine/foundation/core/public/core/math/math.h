@@ -48,6 +48,7 @@ namespace core {
 class Math final : public NonCopyable {
 public:
 
+	static constexpr double Pi = 3.14159265358979323846;
 	static constexpr double BE_EPSILON = 0.00001;
 
 	// "core::Vec2" constants
