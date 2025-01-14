@@ -167,6 +167,7 @@ Mat44<TType> Mat44<TType>::operator*(const Mat44<TType>& other) const {
 
 template<typename TType>
 void Mat44<TType>::operator*=(const Mat44<TType>& other) {
+	*this = *this * other;
 }
 
 template<typename TType>
@@ -354,7 +355,7 @@ bool Mat44<TType>::is_rotation_matrix() const {
 
 template<typename TType>
 bool Mat44<TType>::is_rotation_translation_matrix() const {
-	return (is_rotation_matrix() && !Math::near(xw, 0.0f) && !Math::near(yw, 0.0f) && !Math::near(zw, 0.0f));
+	return (is_rotation_matrix() && !Math::near(xw, TType(0)) && !Math::near(yw, TType(0)) && !Math::near(zw, TType(0)));
 }
 
 template<typename TType>
@@ -451,18 +452,18 @@ Mat44<TType> Mat44<TType>::get_inverted() const {
 
 template<typename TType>
 void Mat44<TType>::set_scale_matrix(TType x, TType y, TType z) {
-  xx =    x; xy = 0.0f; xz = 0.0f; xw = 0.0f;
-  yx = 0.0f; yy =    y; yz = 0.0f; yw = 0.0f;
-  zx = 0.0f; zy = 0.0f; zz =    z; zw = 0.0f;
-  wx = 0.0f; wy = 0.0f; wz = 0.0f; ww = 1.0f;
+  xx =    x;     xy = TType(0); xz = TType(0); xw = TType(0);
+  yx = TType(0); yy =    y;     yz = TType(0); yw = TType(0);
+  zx = TType(0); zy = TType(0); zz =    z;     zw = TType(0);
+  wx = TType(0); wy = TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
 void Mat44<TType>::set_scale_matrix(const Vec3<TType>& scale) {
-  xx = scale.x; xy = 0.0f; xz = 0.0f; xw = 0.0f;
-  yx = 0.0f; yy = scale.y; yz = 0.0f; yw = 0.0f;
-  zx = 0.0f; zy = 0.0f; zz = scale.z; zw = 0.0f;
-  wx = 0.0f; wy = 0.0f; wz = 0.0f; ww = 1.0f;
+  xx = scale.x;  xy = TType(0); xz = TType(0); xw = TType(0);
+  yx = TType(0); yy = scale.y;  yz = TType(0); yw = TType(0);
+  zx = TType(0); zy = TType(0); zz = scale.z;  zw = TType(0);
+  wx = TType(0); wy = TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
@@ -471,7 +472,7 @@ void Mat44<TType>::get_scale(TType& x, TType& y, TType& z) const {
   x = Math::sqrt(xx*xx + yx*yx + zx*zx);
   y = Math::sqrt(xy*xy + yy*yy + zy*zy);
   z = Math::sqrt(xz*xz + yz*yz + zz*zz);
-  if (get_determinant() < 0.0f) {
+  if (get_determinant() < TType(0)) {
     x = -x;
     y = -y;
     z = -z;
@@ -492,18 +493,18 @@ void Mat44<TType>::get_scale(TType v[]) const {
 
 template<typename TType>
 void Mat44<TType>::set_translation_matrix(TType x, TType y, TType z) {
-  xx = 1.0f; xy = 0.0f; xz = 0.0f; xw =    x;
-  yx = 0.0f; yy = 1.0f; yz = 0.0f; yw =    y;
-  zx = 0.0f; zy = 0.0f; zz = 1.0f; zw =    z;
-  wx = 0.0f; wy = 0.0f; wz = 0.0f; ww = 1.0f;
+  xx = TType(1); xy = TType(0); xz = TType(0); xw =    x;
+  yx = TType(0); yy = TType(1); yz = TType(0); yw =    y;
+  zx = TType(0); zy = TType(0); zz = TType(1); zw =    z;
+  wx = TType(0); wy = TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
 void Mat44<TType>::set_translation_matrix(const Vec3<TType>& translation) {
-  xx = 1.0f; xy = 0.0f; xz = 0.0f; xw = translation.x;
-  yx = 0.0f; yy = 1.0f; yz = 0.0f; yw = translation.y;
-  zx = 0.0f; zy = 0.0f; zz = 1.0f; zw = translation.z;
-  wx = 0.0f; wy = 0.0f; wz = 0.0f; ww = 1.0f;
+  xx = TType(1); xy = TType(0); xz = TType(0); xw = translation.x;
+  yx = TType(0); yy = TType(1); yz = TType(0); yw = translation.y;
+  zx = TType(0); zy = TType(0); zz = TType(1); zw = translation.z;
+  wx = TType(0); wy = TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
@@ -544,18 +545,99 @@ void Mat44<TType>::set_translation(const TType v[]) {
 
 template<typename TType>
 void Mat44<TType>::from_euler_angle_x(TType x) {
+  TType fSin = Math::sin(x);
+  TType fCos = Math::cos(x);
+  xx = TType(1); xy = TType(0); xz =  TType(0); xw = TType(0);
+  yx = TType(0); yy = fCos;     yz = -fSin;     yw = TType(0);
+  zx = TType(0); zy = fSin;     zz =  fCos;     zw = TType(0);
+  wx = TType(0); wy = TType(0); wz =  TType(0); ww = TType(1);
 }
 
 template<typename TType>
 void Mat44<TType>::from_euler_angle_y(TType y) {
+  TType fSin = Math::sin(y);
+  TType fCos = Math::cos(y);
+  xx =  fCos;     xy = TType(0); xz = fSin;     xw = TType(0);
+  yx =  TType(0); yy = TType(1); yz = TType(0); yw = TType(0);
+  zx = -fSin;     zy = TType(0); zz = fCos;     zw = TType(0);
+  wx =  TType(0); wy = TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
 void Mat44<TType>::from_euler_angle_z(TType z) {
+  TType fSin = Math::sin(z);
+  TType fCos = Math::cos(z);
+  xx = fCos;     xy = -fSin;     xz = TType(0); xw = TType(0);
+  yx = fSin;     yy =  fCos;     yz = TType(0); yw = TType(0);
+  zx = TType(0); zy =  TType(0); zz = TType(1); zw = TType(0);
+  wx = TType(0); wy =  TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
 void Mat44<TType>::to_axis_angle(TType& x, TType& y, TType& z, TType& angle) const {
+  TType fTrace = xx + yy + zz;
+  TType fCos   = TType(0.5)*(fTrace-TType(1));
+  angle = Math::acos(fCos);  // In [0, Math::Pi]
+
+  if (angle > TType(0)) {
+    if (angle < Math::Pi) {
+      x = zy-yz;
+      y = xz-zx;
+      z = yx-xy;
+
+      // Normalize the axis
+      // Avoid division through zero...
+      TType fU = x*x + y*y + z*z;
+      if (fU) {
+        fU = Math::sqrt(fU);
+        if (fU) {
+          // Scale
+          TType fScale = TType(1)/fU;
+          x *= fScale;
+          y *= fScale;
+          z *= fScale;
+        }
+      }
+    } else {
+      // Angle is Math::Pi
+      if (xx >= yy) {
+        // 00 >= 11
+        if (xx >= zz) {
+          // 00 is maximum diagonal term
+          x = TType(0.5)*Math::sqrt(xx - yy - zz + TType(1));
+          TType fHalfInverse = TType(0.5)/x;
+          y = fHalfInverse*xy;
+          z = fHalfInverse*xz;
+        } else {
+          // 22 is maximum diagonal term
+          z = TType(0.5)*Math::sqrt(zz - xx - yy + TType(1));
+          TType fHalfInverse = TType(0.5)/z;
+          x = fHalfInverse*xz;
+          y = fHalfInverse*yz;
+        }
+      } else {
+        // 11 > 00
+        if (yy >= zz) {
+          // 11 is maximum diagonal term
+          y = TType(0.5)*Math::sqrt(yy - xx - zz + TType(1));
+          TType fHalfInverse  = TType(0.5)/y;
+          x = fHalfInverse*xy;
+          z = fHalfInverse*xz;
+        } else {
+          // 22 is maximum diagonal term
+          z = TType(0.5)*Math::sqrt(zz - xx - yy + TType(1));
+          TType fHalfInverse = TType(0.5)/z;
+          x = fHalfInverse*xz;
+          y = fHalfInverse*yz;
+        }
+      }
+    }
+  } else {
+    // Angle is 0 and the matrix is the identity. So, we can choose any axis...
+    x = TType(0);
+    y = TType(0);
+    z = TType(1);
+  }
 }
 
 template<typename TType>
