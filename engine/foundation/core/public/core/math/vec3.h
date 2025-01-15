@@ -213,6 +213,10 @@ public:
   [[nodiscard]] TType dot(const Vec3& o) const;
 
   [[nodiscard]] TType get_angle(const Vec3& o) const;
+
+  [[nodiscard]] Vec3 cross(const Vec3& o) const;
+
+  [[nodiscard]] Vec3& cross(const Vec3& a, const Vec3& b);
   
 public:
 

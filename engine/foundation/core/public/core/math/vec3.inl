@@ -432,6 +432,22 @@ TType Vec3<TType>::get_angle(const Vec3 &o) const {
   return core::acos(dot(o) / (get_length() * o.get_length()));
 }
 
+template<typename TType>
+Vec3<TType> Vec3<TType>::cross(const Vec3 &o) const {
+  return Vector3(y*o.z - z*o.y,
+                 z*o.x - x*o.z,
+                 x*o.y - y*o.x);
+
+}
+
+template<typename TType>
+Vec3<TType>& Vec3<TType>::cross(const Vec3 & a, const Vec3& b) {
+  x = a.y*b.z - a.z*b.y;
+  y = a.z*b.x - a.x*b.z;
+  z = a.x*b.y - a.y*b.x;
+  return *this;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
