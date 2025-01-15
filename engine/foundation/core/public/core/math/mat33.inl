@@ -322,30 +322,98 @@ TType Mat33<TType>::get_determinant() const {
 
 template<typename TType>
 void Mat33<TType>::transpose() {
+  // xy <-> yx
+  TType fT = xy;
+  xy = yx;
+  yx = fT;
+
+  // xz <-> zx
+  fT = xz;
+  xz = zx;
+  zx = fT;
+
+  // yz <-> zy
+  fT = yz;
+  yz = zy;
+  zy = fT;
 }
 
 template<typename TType>
 Mat33<TType> Mat33<TType>::get_transposed() const {
+  return Mat33(xx, yx, zx,
+           xy, yy, zy,
+           xz, yz, zz);
 }
 
 template<typename TType>
 bool Mat33<TType>::invert() {
+  // First, calculate the determinant of the matrix
+  TType fDet = get_determinant();
+
+  // Check for null to avoid division by null
+  if (fDet) {
+    // Calculate the inverse of the matrix using Cramers rule. Same as matrix3x4,
+    // but we ignore the translation.
+    fDet = TType(1)/fDet;
+    Set(fDet*(yy*zz + zy*-yz), fDet*(zy*xz + xy*-zz), fDet*(xy*yz + yy*-xz),
+      fDet*(yz*zx + zz*-yx), fDet*(zz*xx + xz*-zx), fDet*(xz*yx + yz*-xx),
+      fDet*(yx*zy - zx* yy), fDet*(zx*xy - xx* zy), fDet*(xx*yy - yx* xy));
+  } else {
+    // For sure, set identity matrix
+    set_identity();
+
+    // Error!
+    return false;
+  }
+  //	}
+
+  // Done
+  return true;
 }
 
 template<typename TType>
 Mat33<TType> Mat33<TType>::get_inverted() const {
+  // First, calculate the determinant of the matrix
+  TType fDet = get_determinant();
+
+  // Check for null to avoid division by null
+  if (fDet) {
+    // Calculate the inverse of the matrix using Cramers rule. Same as matrix3x4,
+    // but we ignore the translation.
+    fDet = TType(1)/fDet;
+    return Matrix3x3(fDet*(yy*zz + zy*-yz), fDet*(zy*xz + xy*-zz), fDet*(xy*yz + yy*-xz),
+             fDet*(yz*zx + zz*-yx), fDet*(zz*xx + xz*-zx), fDet*(xz*yx + yz*-xx),
+             fDet*(yx*zy - zx* yy), fDet*(zx*xy - xx* zy), fDet*(xx*yy - yx* xy));
+  }
+
+  return Identity;
 }
 
 template<typename TType>
 void Mat33<TType>::set_scale_matrix(TType x, TType y, TType z) {
+  xx =    x; xy = TType(0); xz = TType(0);
+  yx = TType(0); yy =    y; yz = TType(0);
+  zx = TType(0); zy = TType(0); zz =    z;
 }
 
 template<typename TType>
 void Mat33<TType>::set_scale_matrix(const Vec3<TType>& scale) {
+  xx = scale.x; xy = TType(0); xz = TType(0);
+  yx = TType(0); yy = scale.y; yz = TType(0);
+  zx = TType(0); zy = TType(0); zz = scale.z;
 }
 
 template<typename TType>
 void Mat33<TType>::get_scale(TType& x, TType& y, TType& z) const {
+  // Optimized version
+  x = Math::sqrt(xx*xx + yx*yx + zx*zx);
+  y = Math::sqrt(xy*xy + yy*yy + zy*zy);
+  z = Math::sqrt(xz*xz + yz*yz + zz*zz);
+  if (get_determinant() < TType(0)) {
+    x = -x;
+    y = -y;
+    z = -z;
+  }
 }
 
 template<typename TType>
@@ -354,26 +422,110 @@ Vec3<TType> Mat33<TType>::get_scale() const {
 
 template<typename TType>
 void Mat33<TType>::get_scale(TType v[]) const {
+	get_scale(v[0], v[1], v[2]);
 }
 
 template<typename TType>
 void Mat33<TType>::from_euler_angle_x(TType x) {
+  TType fSin = Math::sin(x);
+  TType fCos = Math::cos(x);
+  xx = TType(1); xy = TType(0); xz =  TType(0);
+  yx = TType(0); yy = fCos; yz = -fSin;
+  zx = TType(0); zy = fSin; zz =  fCos;
 }
 
 template<typename TType>
 void Mat33<TType>::from_euler_angle_y(TType y) {
+  TType fSin = Math::sin(y);
+  TType fCos = Math::cos(y);
+  xx =  fCos; xy = TType(0); xz = fSin;
+  yx =  TType(0); yy = TType(1); yz = TType(0);
+  zx = -fSin; zy = TType(0); zz = fCos;
 }
 
 template<typename TType>
 void Mat33<TType>::from_euler_angle_z(TType z) {
+  TType fSin = Math::sin(z);
+  TType fCos = Math::cos(z);
+  xx = fCos; xy = -fSin; xz = TType(0);
+  yx = fSin; yy =  fCos; yz = TType(0);
+  zx = TType(0); zy =  TType(0); zz = TType(1);
 }
 
 template<typename TType>
 void Mat33<TType>::to_axis_angle(TType& x, TType& y, TType& z, TType& angle) const {
+  TType fTrace = xx + yy + zz;
+  TType fCos   = TType(0.5)*(fTrace-TType(1));
+  angle = Math::acos(fCos);  // In [0, Math::Pi]
+
+  if (angle > TType(0)) {
+    if (angle < Math::Pi) {
+      x = zy-yz;
+      y = xz-zx;
+      z = yx-xy;
+
+      // Normalize the axis
+      // Avoid division through zero...
+      TType fU = x*x + y*y + z*z;
+      if (fU) {
+        fU = Math::sqrt(fU);
+        if (fU) {
+          // Scale
+          float fScale = TType(1)/fU;
+          x *= fScale;
+          y *= fScale;
+          z *= fScale;
+        }
+      }
+    } else {
+      // Angle is Math::Pi
+      if (xx >= yy) {
+        // 00 >= 11
+        if (xx >= zz) {
+          // 00 is maximum diagonal term
+        x = TType(0.5)*Math::sqrt(xx - yy - zz + TType(1));
+          float fHalfInverse = TType(0.5)/x;
+          y = fHalfInverse*xy;
+          z = fHalfInverse*xz;
+        } else {
+          // 22 is maximum diagonal term
+          z = TType(0.5)*Math::sqrt(zz - xx - yy + TType(1));
+          float fHalfInverse = TType(0.5)/z;
+          x = fHalfInverse*xz;
+          y = fHalfInverse*yz;
+        }
+      } else {
+        // 11 > 00
+        if (yy >= zz) {
+          // 11 is maximum diagonal term
+          y = TType(0.5)*Math::sqrt(yy - xx - zz + TType(1));
+          float fHalfInverse  = TType(0.5)/y;
+          x = fHalfInverse*xy;
+          z = fHalfInverse*xz;
+        } else {
+          // 22 is maximum diagonal term
+          z = TType(0.5)*Math::sqrt(zz - xx - yy + TType(1));
+          float fHalfInverse = TType(0.5)/z;
+          x = fHalfInverse*xz;
+          y = fHalfInverse*yz;
+        }
+      }
+    }
+  } else {
+    // Angle is 0 and the matrix is the identity. So, we can choose any axis...
+    x = TType(0);
+    y = TType(0);
+    z = TType(1);
+  }
 }
 
 template<typename TType>
 void Mat33<TType>::from_axis_angle(TType x, TType y, TType z, TType angle) const {
+  TType fRSin = Math::sin(angle);
+  TType fRCos = Math::cos(angle);
+  xx =     fRCos + x*x*(1-fRCos); xy = -z*fRSin + x*y*(1-fRCos); xz =  y*fRSin + x*z*(1-fRCos);
+  yx =  z*fRSin + y*x*(1-fRCos); yy =     fRCos + y*y*(1-fRCos); yz = -x*fRSin + y*z*(1-fRCos);
+  zx = -y*fRSin + z*x*(1-fRCos); zy =  x*fRSin + z*y*(1-fRCos); zz =     fRCos + z*z*(1-fRCos);
 }
 
 template<typename TType>
@@ -382,26 +534,46 @@ void Mat33<TType>::from_axis_angle(const Vec3<TType>& axis, TType angle) const {
 
 template<typename TType>
 Vec3<TType> Mat33<TType>::get_x_axis() const {
+	return Vec3<TType>(xx, yx, zx);
 }
 
 template<typename TType>
 Vec3<TType> Mat33<TType>::get_y_axis() const {
+	return Vec3<TType>(xy, yy, zy);
 }
 
 template<typename TType>
 Vec3<TType> Mat33<TType>::get_z_axis() const {
+	return Vec3<TType>(xz, yz, zz);
 }
 
 template<typename TType>
 void Mat33<TType>::to_axis(Vec3<TType>& x, Vec3<TType>& y, Vec3<TType>& z) const {
+  x.x = xx; y.x = xy; z.x = xz;
+  x.y = yx; y.y = yy; z.y = yz;
+  x.z = zx; y.z = zy; z.z = zz;
 }
 
 template<typename TType>
 void Mat33<TType>::from_axis(Vec3<TType>& x, Vec3<TType>& y, Vec3<TType>& z) const {
+  xx = x.x; xy = y.x; xz = z.x;
+  yx = x.y; yy = y.y; yz = z.y;
+  zx = x.z; zy = y.z; zz = z.z;
 }
 
 template<typename TType>
 Mat33<TType>& Mat33<TType>::look_at(const Vec3<TType>& eye, Vec3<TType>& at, Vec3<TType>& up) {
+  Vec3<TType> vZAxis = (eye - at).get_normalized();
+  Vec3<TType> vXAxis = up.cross(vZAxis).get_normalized();
+  Vec3<TType> vYAxis = vZAxis.cross(vXAxis);
+
+  // Setup matrix
+  xx = vXAxis.x; xy = vXAxis.y; xz = vXAxis.z;
+  yx = vYAxis.x; yy = vYAxis.y; yz = vYAxis.z;
+  zx = vZAxis.x; zy = vZAxis.y; zz = vZAxis.z;
+
+  // Return this matrix
+  return *this;
 }
 
 
