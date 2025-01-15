@@ -23,6 +23,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/memory/memory.h"
+#include "core/math/mat33.h"
+#include "core/math/vec3.h"
 #include "core/math/vec4.h"
 
 
@@ -373,34 +375,34 @@ TType Mat44<TType>::get_determinant() const {
 template<typename TType>
 void Mat44<TType>::transpose() {
   // xy <-> yx
-  TType fT = xy;
+  TType t = xy;
   xy = yx;
-  yx = fT;
+  yx = t;
 
   // xz <-> zx
-  fT = xz;
+  t = xz;
   xz = zx;
-  zx = fT;
+  zx = t;
 
   // xw <-> wx
-  fT = xw;
+  t = xw;
   xw = wx;
-  wx = fT;
+  wx = t;
 
   // yz <-> zy
-  fT = yz;
+  t = yz;
   yz = zy;
-  zy = fT;
+  zy = t;
 
   // yw <-> wy
-  fT = yw;
+  t = yw;
   yw = wy;
-  wy = fT;
+  wy = t;
 
   // zw <-> wz
-  fT = zw;
+  t = zw;
   zw = wz;
-  wz = fT;
+  wz = t;
 }
 
 template<typename TType>
@@ -575,8 +577,8 @@ void Mat44<TType>::from_euler_angle_z(TType z) {
 
 template<typename TType>
 void Mat44<TType>::to_axis_angle(TType& x, TType& y, TType& z, TType& angle) const {
-  TType fTrace = xx + yy + zz;
-  TType fCos   = TType(0.5)*(fTrace-TType(1));
+  TType trace = xx + yy + zz;
+  TType fCos   = TType(0.5)*(trace-TType(1));
   angle = Math::acos(fCos);  // In [0, Math::Pi]
 
   if (angle > TType(0)) {
@@ -665,46 +667,139 @@ Vec3<TType> Mat44<TType>::get_z_axis() const {
 
 template<typename TType>
 void Mat44<TType>::to_axis(Vec3<TType>& x, Vec3<TType>& y, Vec3<TType>& z) const {
+  x.x = xx; y.x = xy; z.x = xz;
+  x.y = yx; y.y = yy; z.y = yz;
+  x.z = zx; y.z = zy; z.z = zz;
 }
 
 template<typename TType>
 void Mat44<TType>::from_axis(Vec3<TType>& x, Vec3<TType>& y, Vec3<TType>& z) const {
+  xx = x.x; xy = y.x; xz = z.x; xw = TType(0);
+  yx = x.y; yy = y.y; yz = z.y; yw = TType(0);
+  zx = x.z; zy = y.z; zz = z.z; zw = TType(0);
+  wx = TType(0); wy = TType(0); wz = TType(0); ww = TType(1);
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::look_at(const Vec3<TType>& eye, Vec3<TType>& at, Vec3<TType>& up) {
+  Vec3<TType> vZAxis = (eye - at).get_normalized();
+  Vec3<TType> vXAxis = up.CrossProduct(vZAxis).get_normalized();
+  Vec3<TType> vYAxis = vZAxis.CrossProduct(vXAxis);
+
+  // Setup matrix
+  xx = vXAxis.x;     xy = vXAxis.y;     xz = vXAxis.z;     xw = -vXAxis.DotProduct(eye);
+  yx = vYAxis.x;     yy = vYAxis.y;     yz = vYAxis.z;     yw = -vYAxis.DotProduct(eye);
+  zx = vZAxis.x;     zy = vZAxis.y;     zz = vZAxis.z;     zw = -vZAxis.DotProduct(eye);
+  wx = TType(0);     wy = TType(0);     wz = TType(0);     ww = TType(1);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::view(const Quaternion<TType>& rotation, const Vec3<TType>& translation) {
+  // Calculate view matrix:
+  Mat33<TType> mRot;
+  rotation.ToRotationMatrix(mRot);
+  mRot.transpose();
+  Vec3<TType> vPos = -(mRot*translation);
+
+  // Now create the view matrix
+  xx = mRot.xx;     xy = mRot.xy;     xz = mRot.xz;     xw = vPos.x;
+  yx = mRot.yx;     yy = mRot.yy;     yz = mRot.yz;     yw = vPos.y;
+  zx = mRot.zx;     zy = mRot.zy;     zz = mRot.zz;     zw = vPos.z;
+  wx = TType(0);    wy = TType(0);    wz = TType(0);    ww = TType(1);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::perspective(TType w, TType h, TType zNear, TType zFar) {
+  // Setup the matrix
+  xx = 2*zNear/w;           xy = TType(0);             xz = TType(0);                 xw = TType(0);
+  yx = TType(0);            yy = 2*zNear/h;            yz = TType(0);                 yw = TType(0);
+  zx = TType(0);            zy = TType(0);             zz = zFar/(zNear-zFar);        zw = zNear*zFar/(zNear-zFar);
+  wx = TType(0);            wy = TType(0);             wz = -TType(1);                ww = TType(0);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::perspective_fov(TType fov, TType aspect, TType zNear, TType zFar) {
+  float e = TType(1)/Math::tan(fov*0.5f); // Focal length
+
+  // Setup the matrix
+  xx = e/aspect;      xy = TType(0); xz = TType(0);                          xw = TType(0);
+  yx = TType(0);      yy = e;        yz = TType(0);                          yw = TType(0);
+  zx = TType(0);      zy = TType(0); zz = (zFar+zNear)/(zNear-zFar);         zw = (2*zNear*zFar)/(zNear-zFar);
+  wx = TType(0);      wy = TType(0); wz = -TType(1);                         ww = TType(0);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::perspective_infinite(TType w, TType h, TType zNear) {
+  // Setup the matrix
+  xx = 2*zNear/w;           xy = TType(0);             xz = TType(0);  xw = TType(0);
+  yx = TType(0);            yy = 2*zNear/h;            yz = TType(0);  yw = TType(0);
+  zx = TType(0);            zy = TType(0);             zz = -TType(1); zw = -2.0f*zNear;
+  wx = TType(0);            wy = TType(0);             wz = -TType(1); ww = TType(0);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::perspective_fov_infinite(TType fov, TType aspect, TType zNear) {
+  float e = TType(1)/Math::tan(fov*0.5f); // Focal length
+
+  // Setup the matrix
+  xx = e/aspect;      xy = TType(0); xz = TType(0);  xw = TType(0);
+  yx = TType(0);      yy = e;        yz = TType(0);  yw = TType(0);
+  zx = TType(0);      zy = TType(0); zz = -TType(1); zw = -2.0f*zNear;
+  wx = TType(0);      wy = TType(0); wz = -TType(1); ww = TType(0);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::perspective_off_center(TType l, TType r, TType b, TType t, TType zNear, TType zFar) {
+  // Setup the matrix
+  xx = 2*zNear/(r-l);        xy = TType(0);             xz = (l+r)/(r-l);                  xw = TType(0);
+  yx = TType(0);             yy = 2*zNear/(t-b);        yz = (t+b)/(t-b);                  yw = TType(0);
+  zx = TType(0);             zy = TType(0);             zz = -((zFar+zNear)/(zFar-zNear)); zw = -((2*zFar*zNear)/(zFar-zNear));
+  wx = TType(0);             wy = TType(0);             wz = -TType(1);                    ww = TType(0);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::ortho(TType w, TType h, TType zNear, TType zFar) {
+  // Setup the matrix
+  xx = 2/w;          xy = TType(0);      xz = TType(0);                xw = TType(0);
+  yx = TType(0);     yy = 2/h;           yz = TType(0);                yw = TType(0);
+  zx = TType(0);     zy = TType(0);      zz = TType(1)/(zNear-zFar);   zw = zNear/(zNear-zFar);
+  wx = TType(0);     wy = TType(0);      wz = TType(0);                ww = TType(1);
+
+  // Return this matrix
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::ortho_off_center(TType l, TType r, TType t, TType b, TType zNear, TType zFar) {
+  // Setup the matrix
+  xx = 2/(r-l);       xy = TType(0);      xz = TType(0);                xw = (l+r)/(l-r);
+  yx = TType(0);      yy = 2/(t-b);       yz = TType(0);                yw = (t+b)/(b-t);
+  zx = TType(0);      zy = TType(0);      zz = TType(1)/(zNear-zFar);   zw = zNear/(zNear-zFar);
+  wx = TType(0);      wy = TType(0);      wz = TType(0);                ww = TType(1);
+
+  // Return this matrix
+  return *this;
 }
 
 
