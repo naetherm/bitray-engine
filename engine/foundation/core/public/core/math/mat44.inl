@@ -72,23 +72,47 @@ Mat44<TType> Mat44<TType>::create_scale(const Vec3<TType>& scale) {
   return mat;
 }
 
+template<typename TType>
+Mat44<TType> Mat44<TType>::create_rotation(TType x, TType y, TType z, TType angle) {
+  Mat44<TType> mat;
+  mat.from_axis_angle(x, y, z, angle);
+  return mat;
+}
+
+template<typename TType>
+Mat44<TType> Mat44<TType>::create_rotation(const Vec3<TType>& axis, TType angle) {
+  Mat44<TType> mat;
+  mat.from_axis_angle(axis, angle);
+  return mat;
+}
+
 
 
 template<typename TType>
-Mat44<TType>::Mat44() {
+Mat44<TType>::Mat44()
+: xx(TType(1)), yx(TType(0)), zx(TType(0)), wx(TType(0))
+, xy(TType(0)), yy(TType(1)), zy(TType(0)), wy(TType(0))
+, xz(TType(0)), yz(TType(0)), zz(TType(1)), wz(TType(0))
+, xw(TType(0)), yw(TType(0)), zw(TType(0)), ww(TType(1)) {
 }
 
 template<typename TType>
 Mat44<TType>::Mat44(const TType m[]) {
+  Memory::copy(mM, m, sizeof(TType) * 16);
 }
 
 template<typename TType>
 Mat44<TType>::Mat44(const Mat44<TType>& other) {
+  Memory::copy(mM, other.mM, sizeof(TType) * 16);
 }
 
 template<typename TType>
 Mat44<TType>::Mat44(TType xx, TType xy, TType xz, TType xw, TType yx, TType yy, TType yz, TType yw, TType zx, TType zy,
-  TType zz, TType zw, TType wx, TType wy, TType wz, TType ww) {
+  TType zz, TType zw, TType wx, TType wy, TType wz, TType ww)
+: xx(xx), yx(yx), zx(zx), wx(wx)
+, xy(xy), yy(yy), zy(zy), wy(wy)
+, xz(xz), yz(yz), zz(zz), wz(wz)
+, xw(xw), yw(yw), zw(zw), ww(ww) {
 }
 
 template<typename TType>
