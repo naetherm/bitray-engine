@@ -54,7 +54,7 @@ const Mat44<TType> Mat44<TType>::Identity(
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 template<typename TType>
-Mat44<TType> Mat44<TType>::create_perspective_fov(TType fov, TType aspect, TType zNear, TType zFar) {
+Mat44<TType> Mat44<TType>::create_perspective(TType fov, TType aspect, TType zNear, TType zFar) {
   Mat44<TType> mat;
   mat.perspective_fov(fov, aspect, zNear, zFar);
   return mat;
@@ -138,11 +138,13 @@ Mat44<TType>::~Mat44() {
 template<typename TType>
 Mat44<TType>& Mat44<TType>::operator=(const Mat44<TType>& other) {
   Memory::copy(mM, other.mM, sizeof(TType) * 16);
+  return *this;
 }
 
 template<typename TType>
 Mat44<TType>& Mat44<TType>::operator=(const TType m[]) {
   Memory::copy(mM, m, sizeof(TType) * 16);
+  return *this;
 }
 
 template<typename TType>
@@ -298,21 +300,21 @@ TType& Mat44<TType>::operator[](uint8 index) {
 }
 
 template<typename TType>
-TType Mat44<TType>::operator()(uint8 row, uint8 column) const {
+TType Mat44<TType>::operator()(uint8 column, uint8 row) const {
   // Sanity check
   BE_ASSERT(row < 4, "Row index out of range")
   BE_ASSERT(column < 4, "Column index out of range")
 
-  return mM44[row][column];
+  return mM44[column][row];
 }
 
 template<typename TType>
-TType& Mat44<TType>::operator()(uint8 row, uint8 column) {
+TType& Mat44<TType>::operator()(uint8 column, uint8 row) {
   // Sanity check
   BE_ASSERT(row < 4, "Row index out of range")
   BE_ASSERT(column < 4, "Column index out of range")
 
-  return mM44[row][column];
+  return mM44[column][row];
 }
 
 template<typename TType>
@@ -757,6 +759,38 @@ void Mat44<TType>::from_axis(Vec3<TType>& x, Vec3<TType>& y, Vec3<TType>& z) con
 }
 
 template<typename TType>
+Mat44<TType> Mat44<TType>::get_rotated(Vec3<TType> v, TType angle) const {
+  const TType a = angle;
+  const TType c = cos(a);
+  const TType s = sin(a);
+
+  Vec3<TType> axis(v.get_normalized());
+  Vec3<TType> temp(axis * (TType(1) - c));
+
+  Mat44 m = *this;
+
+  Mat44 Rotate;
+  Rotate(0, 0) = c + temp[0] * axis[0];
+  Rotate(0, 1) = temp[0] * axis[1] + s * axis[2];
+  Rotate(0, 2) = temp[0] * axis[2] - s * axis[1];
+
+  Rotate(1, 0) = temp[1] * axis[0] - s * axis[2];
+  Rotate(1, 1) = c + temp[1] * axis[1];
+  Rotate(1, 2) = temp[1] * axis[2] + s * axis[0];
+
+  Rotate(2, 0) = temp[2] * axis[0] + s * axis[1];
+  Rotate(2, 1) = temp[2] * axis[1] - s * axis[0];
+  Rotate(2, 2) = c + temp[2] * axis[2];
+
+  Mat44 Result;
+  Result.set_column(0, m.get_column(0) * Rotate(0, 0) + m.get_column(1) * Rotate(0, 1) + m.get_column(2) * Rotate(0, 2));
+  Result.set_column(1, m.get_column(0) * Rotate(1, 0) + m.get_column(1) * Rotate(1, 1) + m.get_column(2) * Rotate(1, 2));
+  Result.set_column(2, m.get_column(0) * Rotate(2, 0) + m.get_column(1) * Rotate(2, 1) + m.get_column(2) * Rotate(2, 2));
+  Result.set_column(3, m.get_column(3));
+  return Result;
+}
+
+template<typename TType>
 Mat44<TType>& Mat44<TType>::look_at(const Vec3<TType>& eye, Vec3<TType>& at, Vec3<TType>& up) {
   Vec3<TType> vZAxis = (eye - at).get_normalized();
   Vec3<TType> vXAxis = up.CrossProduct(vZAxis).get_normalized();
@@ -793,10 +827,17 @@ Mat44<TType>& Mat44<TType>::view(const Quaternion<TType>& rotation, const Vec3<T
 template<typename TType>
 Mat44<TType>& Mat44<TType>::perspective(TType w, TType h, TType zNear, TType zFar) {
   // Setup the matrix
+  xx = w;           xy = TType(0);             xz = TType(0);                 xw = TType(0);
+  yx = TType(0);            yy = h;            yz = TType(0);                 yw = TType(0);
+  zx = TType(0);            zy = TType(0);             zz = zFar/(zFar-zNear);        zw = -zNear*zFar/(zFar-zNear);
+  wx = TType(0);            wy = TType(0);             wz = TType(1);                ww = TType(0);
+
+  /*
   xx = 2*zNear/w;           xy = TType(0);             xz = TType(0);                 xw = TType(0);
   yx = TType(0);            yy = 2*zNear/h;            yz = TType(0);                 yw = TType(0);
-  zx = TType(0);            zy = TType(0);             zz = zFar/(zNear-zFar);        zw = zNear*zFar/(zNear-zFar);
-  wx = TType(0);            wy = TType(0);             wz = -TType(1);                ww = TType(0);
+  zx = TType(0);            zy = TType(0);             zz = zFar/(zFar-zNear);        zw = -zNear*zFar/(zFar-zNear);
+  wx = TType(0);            wy = TType(0);             wz = TType(1);                ww = TType(0);
+  */
 
   // Return this matrix
   return *this;
@@ -807,10 +848,10 @@ Mat44<TType>& Mat44<TType>::perspective_fov(TType fov, TType aspect, TType zNear
   float e = TType(1)/Math::tan(fov*0.5f); // Focal length
 
   // Setup the matrix
-  xx = e/aspect;      xy = TType(0); xz = TType(0);                          xw = TType(0);
-  yx = TType(0);      yy = e;        yz = TType(0);                          yw = TType(0);
-  zx = TType(0);      zy = TType(0); zz = (zFar+zNear)/(zNear-zFar);         zw = (2*zNear*zFar)/(zNear-zFar);
-  wx = TType(0);      wy = TType(0); wz = -TType(1);                         ww = TType(0);
+  xx = e/aspect;      xy = TType(0); xz = TType(0);                 xw = TType(0);
+  yx = TType(0);      yy = e;        yz = TType(0);                 yw = TType(0);
+  zx = TType(0);      zy = TType(0); zz = zFar/(zNear-zFar);        zw = -(zFar * zNear) / (zFar - zNear);
+  wx = TType(0);      wy = TType(0); wz = TType(1);                 ww = TType(0);
 
   // Return this matrix
   return *this;

@@ -80,7 +80,7 @@ public:
 
 public:
 
-  static Mat44<TType> create_perspective_fov(TType fov, TType aspect, TType zNear, TType zFar);
+  static Mat44<TType> create_perspective(TType fov, TType aspect, TType zNear, TType zFar);
 
   static Mat44<TType> create_translation(TType x, TType y, TType z);
 
@@ -150,8 +150,8 @@ public:
   // Element Access Operators
   TType operator [](uint8 index) const;
   TType& operator [](uint8 index);
-  TType operator ()(uint8 row = 0, uint8 column = 0) const;
-  TType& operator ()(uint8 row = 0, uint8 column = 0);
+  TType operator ()(uint8 column = 0, uint8 row = 0) const;
+  TType& operator ()(uint8 column = 0, uint8 row = 0);
 
   Vec2<TType> operator*(const Vec2<TType>& v) const;
 
@@ -740,6 +740,9 @@ public:
   *    - ToAxis()
   */
   void from_axis(Vec3<TType>& x, Vec3<TType>& y, Vec3<TType>& z) const;
+
+
+  Mat44<TType> get_rotated(Vec3<TType> axis, TType angle) const;
 
 
   /**
