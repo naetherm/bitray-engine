@@ -90,6 +90,10 @@ set(LINUX_XCB_LIBS
   xkbcommon-x11
 )
 
+set(LINUX_CAIRO_LIBS
+  cairo
+)
+
 set(LINUX_UUID_LIB uuid)
 
 
