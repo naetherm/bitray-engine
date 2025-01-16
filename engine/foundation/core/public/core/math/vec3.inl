@@ -192,7 +192,7 @@ Vec3<TType> &Vec3<TType>::operator*=(const Vec3 &v) {
 }
 
 template<typename TType>
-Vec3<TType> &Vec3<TType>::operator*(TType t) {
+Vec3<TType>& Vec3<TType>::operator*=(TType t) {
   x *= t;
   y *= t;
   z *= t;

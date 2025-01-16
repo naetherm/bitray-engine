@@ -199,7 +199,7 @@ Vec4<TType> &Vec4<TType>::operator*=(const Vec4 &v) {
 }
 
 template<typename TType>
-Vec4<TType> &Vec4<TType>::operator*(TType t) {
+Vec4<TType> &Vec4<TType>::operator*=(TType t) {
   x *= t;
   y *= t;
   z *= t;

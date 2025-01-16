@@ -144,7 +144,7 @@ public:
   Vec3 operator*(const Vec3& v) const;
   Vec3 operator*(TType t) const;
   Vec3& operator*=(const Vec3& v);
-  Vec3& operator*(TType t);
+  Vec3& operator*=(TType t);
   Vec3 operator/(const Vec3& v) const;
   Vec3 operator/(TType t) const;
   Vec3& operator/=(const Vec3& v);
