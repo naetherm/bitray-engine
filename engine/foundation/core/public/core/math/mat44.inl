@@ -712,7 +712,7 @@ void Mat44<TType>::to_axis_angle(TType& x, TType& y, TType& z, TType& angle) con
 }
 
 template<typename TType>
-void Mat44<TType>::from_axis_angle(TType x, TType y, TType z, TType angle) const {
+void Mat44<TType>::from_axis_angle(TType x, TType y, TType z, TType angle) {
   TType fRSin = Math::sin(angle);
   TType fRCos = Math::cos(angle);
   xx =    fRCos + x*x*(1-fRCos);    xy = -z*fRSin + x*y*(1-fRCos);    xz =  y*fRSin + x*z*(1-fRCos);    xw = TType(0);
@@ -722,7 +722,7 @@ void Mat44<TType>::from_axis_angle(TType x, TType y, TType z, TType angle) const
 }
 
 template<typename TType>
-void Mat44<TType>::from_axis_angle(const Vec3<TType>& axis, TType angle) const {
+void Mat44<TType>::from_axis_angle(const Vec3<TType>& axis, TType angle) {
   from_axis_angle(axis.x, axis.y, axis.z, angle);
 }
 

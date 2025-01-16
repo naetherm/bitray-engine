@@ -638,9 +638,9 @@ public:
   *  @note
   *    - The given selected axis must be normalized!
   */
-  void from_axis_angle(TType x, TType y, TType z, TType angle) const;
+  void from_axis_angle(TType x, TType y, TType z, TType angle);
 
-  void from_axis_angle(const Vec3<TType>& axis, TType angle) const;
+  void from_axis_angle(const Vec3<TType>& axis, TType angle);
 
 
   /**
