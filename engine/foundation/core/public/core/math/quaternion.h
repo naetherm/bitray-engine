@@ -28,7 +28,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "vec3.h"
 #include "core/core.h"
 
 
@@ -46,6 +45,10 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+template<typename TType> class Mat33;
+template<typename TType> class Mat44;
+template<typename TType> class Vec3;
+template<typename TType> class Vec4;
 
 
 //[-------------------------------------------------------]
@@ -70,6 +73,10 @@ public:
   Quaternion(const Quaternion& q);
 
   Quaternion(const Vec3<TType>& axis, TType angle);
+
+  Quaternion(const Mat33<TType>& rotation);
+
+  Quaternion(const Mat44<TType>& rotation);
 
   ~Quaternion();
 
@@ -102,6 +109,10 @@ public:
   Quaternion operator/(TType s) const;
 
   Quaternion& operator/=(TType s);
+
+  Vec3<TType> operator*(const Vec3<TType>& v) const;
+
+  Vec4<TType> operator*(const Vec4<TType>& v) const;
 
   operator TType*();
 
@@ -235,6 +246,15 @@ public:
    * The z (forward) axis, already normalized for rotation quaternions
    */
   Vec3<TType> get_z_axis() const;
+
+
+  void to_rotation_matrix(Mat33<TType>& matrix) const;
+
+  Quaternion<TType>& from_rotation_matrix(const Mat33<TType>& matrix);
+
+  void to_rotation_matrix(Mat44<TType>& matrix) const;
+
+  Quaternion<TType>& from_rotation_matrix(const Mat44<TType>& matrix);
 
 
   /**
