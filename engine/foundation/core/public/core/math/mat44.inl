@@ -33,6 +33,21 @@
 //[-------------------------------------------------------]
 namespace core {
 
+template<typename TType>
+const Mat44<TType> Mat44<TType>::Zero    (
+  TType(0), TType(0), TType(0), TType(0),
+  TType(0), TType(0), TType(0), TType(0),
+  TType(0), TType(0), TType(0), TType(0),
+  TType(0), TType(0), TType(0), TType(0)
+);
+template<typename TType>
+const Mat44<TType> Mat44<TType>::Identity(
+  TType(1), TType(0), TType(0), TType(0),
+  TType(0), TType(1), TType(0), TType(0),
+  TType(0), TType(0), TType(1), TType(0),
+  TType(0), TType(0), TType(0), TType(1)
+);
+
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
