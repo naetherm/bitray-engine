@@ -30,6 +30,19 @@
 //[-------------------------------------------------------]
 namespace core {
 
+template<typename TType>
+const Mat33<TType> Mat33<TType>::Zero    (
+  TType(0), TType(0), TType(0),
+  TType(0), TType(0), TType(0),
+  TType(0), TType(0), TType(0)
+  );
+template<typename TType>
+const Mat33<TType> Mat33<TType>::Identity(
+  TType(1), TType(0), TType(0),
+  TType(0), TType(1), TType(0),
+  TType(0), TType(0), TType(1)
+);
+
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
@@ -130,6 +143,9 @@ void Mat33<TType>::operator-=(const Mat33<TType>& other) {
 
 template<typename TType>
 Mat33<TType> Mat33<TType>::operator*(const Mat33<TType>& other) const {
+  return Mat33(xx*other.xx + xy*other.yx + xz*other.zx, xx*other.xy + xy*other.yy + xz*other.zy, xx*other.xz + xy*other.yz + xz*other.zz,
+               yx*other.xx + yy*other.yx + yz*other.zx, yx*other.xy + yy*other.yy + yz*other.zy, yx*other.xz + yy*other.yz + yz*other.zz,
+               zx*other.xx + zy*other.yx + zz*other.zx, zx*other.xy + zy*other.yy + zz*other.zy, zx*other.xz + zy*other.yz + zz*other.zz);
 }
 
 template<typename TType>
@@ -318,6 +334,7 @@ TType Mat33<TType>::get_trace() const {
 
 template<typename TType>
 TType Mat33<TType>::get_determinant() const {
+	return xx*(yy*zz - yz*zy) - yx*(xy*zz - xz*zy) + zx*(xy*yz - xz*yy);
 }
 
 template<typename TType>
