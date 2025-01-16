@@ -24,6 +24,7 @@
 //[-------------------------------------------------------]
 #include "core/memory/memory.h"
 #include "core/math/mat33.h"
+#include "core/math/vec2.h"
 #include "core/math/vec3.h"
 #include "core/math/vec4.h"
 
@@ -249,6 +250,35 @@ void Mat44<TType>::operator/=(TType s) {
   for (sizeT i = 0; i < 16; i++) {
     mM[i] /= s;
   }
+}
+
+template<typename TType>
+Vec2<TType> Mat44<TType>::operator*(const Vec2<TType>& v) const {
+  const TType x = v.x, y = v.y;
+  const TType fInvW = TType(1)/(wx*x + wy*y + ww);
+  return Vec2<TType>(
+    (xx*x + xy*y + xw)*fInvW,
+    (yx*x + yy*y + yw)*fInvW);
+}
+
+template<typename TType>
+Vec3<TType> Mat44<TType>::operator*(const Vec3<TType>& v) const {
+  const TType x = v.x, y = v.y, z = v.z;
+  const TType fInvW = TType(1)/(wx*x + wy*y + wz*z + ww);
+  return Vec3<TType>(
+    (xx*x + xy*y + xz*z + xw)*fInvW,
+    (yx*x + yy*y + yz*z + yw)*fInvW,
+    (zx*x + zy*y + zz*z + zw)*fInvW);
+}
+
+template<typename TType>
+Vec4<TType> Mat44<TType>::operator*(const Vec4<TType>& v) const {
+  const TType x = v.x, y = v.y, z = v.z, w = v.w;
+  return Vec4<TType>(
+    xx*x + xy*y + xz*z + xw*w,
+    yx*x + yy*y + yz*z + yw*w,
+    zx*x + zy*y + zz*z + zw*w,
+    wx*x + wy*y + wz*z + ww*w);
 }
 
 template<typename TType>

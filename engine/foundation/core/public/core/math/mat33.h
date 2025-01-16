@@ -46,6 +46,7 @@ namespace core {
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
 template<typename TType> class Mat44;
+template<typename TType> class Vec2;
 template<typename TType> class Vec3;
 template<typename TType> class Vec4;
 
@@ -120,6 +121,12 @@ public:
   Mat33 operator/(TType s) const;
 
   void operator/=(TType s);
+
+  Vec2<TType> operator*(const Vec2<TType>& v) const;
+
+  Vec3<TType> operator*(const Vec3<TType>& v) const;
+
+  Vec4<TType> operator*(const Vec4<TType>& v) const;
 
   // Element Access Operators
   TType operator [](uint8 index) const;

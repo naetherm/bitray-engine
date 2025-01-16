@@ -23,6 +23,9 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/math/mat44.h"
+#include "core/math/vec2.h"
+#include "core/math/vec3.h"
+#include "core/math/vec4.h"
 
 
 //[-------------------------------------------------------]
@@ -189,6 +192,33 @@ void Mat33<TType>::operator/=(TType s) {
   for (sizeT i = 0; i < 9; i++) {
     mM[i] /= s;
   }
+}
+
+template<typename TType>
+Vec2<TType> Mat33<TType>::operator*(const Vec2<TType>& v) const {
+  const TType x = v.x, y = v.y;
+  return Vec2<TType>(
+    (xx*x + xy*y),
+    (yx*x + yy*y));
+}
+
+template<typename TType>
+Vec3<TType> Mat33<TType>::operator*(const Vec3<TType>& v) const {
+  const TType x = v.x, y = v.y, z = v.z;
+  return Vec3<TType>(
+    (xx*x + xy*y + xz*z),
+    (yx*x + yy*y + yz*z),
+    (zx*x + zy*y + zz*z));
+}
+
+template<typename TType>
+Vec4<TType> Mat33<TType>::operator*(const Vec4<TType>& v) const {
+  const TType x = v.x, y = v.y, z = v.z;
+  return Vec4<TType>(
+    xx*x + xy*y + xz*z,
+    yx*x + yy*y + yz*z,
+    zx*x + zy*y + zz*z,
+    v.w);
 }
 
 template<typename TType>

@@ -49,6 +49,9 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+template<typename TType> class Vec2;
+template<typename TType> class Vec3;
+template<typename TType> class Vec4;
 
 
 //[-------------------------------------------------------]
@@ -149,6 +152,12 @@ public:
   TType& operator [](uint8 index);
   TType operator ()(uint8 row = 0, uint8 column = 0) const;
   TType& operator ()(uint8 row = 0, uint8 column = 0);
+
+  Vec2<TType> operator*(const Vec2<TType>& v) const;
+
+  Vec3<TType> operator*(const Vec3<TType>& v) const;
+
+  Vec4<TType> operator*(const Vec4<TType>& v) const;
 
   // Type Conversion Operators
   operator TType*();
