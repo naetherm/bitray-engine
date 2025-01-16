@@ -25,6 +25,10 @@ set(FILES
   # private/application
 
   # private/gui
+  private/gui/clipboard.cpp
+  private/gui/clipboard_impl.cpp
+  private/gui/graphics.cpp
+  private/gui/graphics_impl.cpp
   private/gui/gui.cpp
   private/gui/gui_impl.cpp
 
