@@ -25,4 +25,5 @@ set(FILES
 
   # private/renderer
   private/renderer/renderer_server.cpp
+  private/renderer/rhi_server.cpp
 )
