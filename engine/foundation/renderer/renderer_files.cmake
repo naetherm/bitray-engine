@@ -1,5 +1,5 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
-#// Copyright (c) 2025 RacoonStudios
+#// Copyright (c) 2024 RacoonStudios
 #//
 #// Permission is hereby granted, free of charge, to any person obtaining a copy of this
 #// software and associated documentation files (the "Software"), to deal in the Software
@@ -19,32 +19,10 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-##################################################
-## Project
-##################################################
-re_add_target(
-  NAME renderer SHARED
-  NAMESPACE RE
-  FILES_CMAKE
-    ${CMAKE_CURRENT_SOURCE_DIR}/renderer_files.cmake
-  INCLUDE_DIRECTORIES
-    PUBLIC
-      ${RE_CONFIG_FILE_LOCATION}
-      ${CMAKE_CURRENT_SOURCE_DIR}/public
-      ${CMAKE_CURRENT_SOURCE_DIR}/private
-  BUILD_DEPENDENCIES
-    PUBLIC
-      core
-      rhi
-  RUNTIME_DEPENDENCIES
-    PUBLIC
-      core
-      rhi
-  COMPILE_DEFINITIONS
-    PUBLIC
-      RENDERER_EXPORTS
-      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
-      ${PAL_PLATFORM_NAME_UPPERCASE}
-  TARGET_PROPERTIES
-    -fPIC
+set(FILES
+  # private/application
+  private/application/renderer_application.cpp
+
+  # private/renderer
+  private/renderer/renderer_server.cpp
 )
