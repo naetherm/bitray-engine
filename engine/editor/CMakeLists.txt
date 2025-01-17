@@ -23,3 +23,4 @@
 # Current package
 ################################################################################
 re_add_subdirectory(editor_toolkit)
+re_add_subdirectory(editor)
