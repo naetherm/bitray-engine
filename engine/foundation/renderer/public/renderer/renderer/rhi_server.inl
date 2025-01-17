@@ -20,15 +20,6 @@
 
 
 //[-------------------------------------------------------]
-//[ Includes                                              ]
-//[-------------------------------------------------------]
-#include "renderer/renderer/rhi_server.h"
-#include <core/log/log.h>
-#include <core/platform/platform.h>
-#include <rhi/rhidynamicrhi.h>
-
-
-//[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
 
@@ -42,60 +33,14 @@ namespace renderer {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-RhiServer::RhiServer()
-: mRhiDynLib(nullptr)
-, mRHIContext(nullptr)
-, mRHIDevice(nullptr) {
-
+inline const rhi::RHIDevice* RhiServer::get_rhi_device() const {
+  return mRHIDevice;
 }
 
-RhiServer::~RhiServer() {
-
+inline rhi::RHIDevice* RhiServer::get_rhi_device() {
+  return mRHIDevice;
 }
 
-
-void RhiServer::initialize(const core::String& rhiName, rhi::RHIContext* rhiContext) {
-  mRHIName = rhiName;
-  mRHIContext = rhiContext;
-
-  create_rhi_device();
-}
-
-void RhiServer::initialize(rhi::RHIDevice* rhiDevice) {
-  // Nothing else to do
-  mRHIDevice = rhiDevice;
-}
-
-
-void RhiServer::create_rhi_device() {
-  core::String libraryName = core::Platform::instance().get_shared_library_prefix() + "rhi_" + mRHIName + "." + core::Platform::instance().get_shared_library_extension();
-
-  mRhiDynLib = new core::Library();
-  mRhiDynLib->set_path(core::Path(libraryName));
-
-  if (mRhiDynLib->load()) {
-    typedef rhi::RHIDevice* (*RHI_CREATE_FUNC)();
-    RHI_CREATE_FUNC _CreateRHIDevice = reinterpret_cast<RHI_CREATE_FUNC>(mRhiDynLib->get_symbol("create_rhi_device_instance"));
-    if (_CreateRHIDevice) {
-      mRHIDevice = _CreateRHIDevice();
-      mRHIDevice->initialize(*mRHIContext);
-
-      if (mRHIDevice) {
-        mRHIDevice->add_ref();
-        BE_LOG(Info, core::String("Successfully created the RHI backend of ") + libraryName)
-      } else {
-        // Error
-        BE_LOG(Error, "Creation of dynamic RHI failed.")
-      }
-    } else {
-      // Error
-      BE_LOG(Error, "Unable to find the symbol 'create_rhi_instance'")
-    }
-  } else {
-    // Error
-    BE_LOG(Error, core::String("Unable to load the library ") + libraryName)
-  }
-}
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
