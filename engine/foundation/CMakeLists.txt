@@ -24,4 +24,5 @@
 ################################################################################
 re_add_subdirectory(core)
 re_add_subdirectory(rhi)
+re_add_subdirectory(renderer)
 re_add_subdirectory(gui)
