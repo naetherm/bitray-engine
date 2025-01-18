@@ -25,6 +25,9 @@ set(FILES
   # private/app
   private/app/core_application.cpp
 
+  # private/asset
+  private/asset/asset.cpp
+
   # private/color
   private/color/color3.cpp
   private/color/color4.cpp
