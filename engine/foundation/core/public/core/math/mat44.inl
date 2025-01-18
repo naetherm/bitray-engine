@@ -337,7 +337,7 @@ bool Mat44<TType>::is_zero() const {
 
 template<typename TType>
 bool Mat44<TType>::is_true_zero() const {
-  return Memory::compare(mM, Zero.mM, sizeof(TType) * 16) == 0;
+  return Memory::compare(mM, TType(0), sizeof(TType) * 16) == 0;
 }
 
 template<typename TType>
