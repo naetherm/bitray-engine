@@ -146,6 +146,7 @@ set(FILES
 
   # private/time
   private/time/stopwatch.cpp
+  private/time/time_server.cpp
 
   # private/tools
   private/tools/command_line.cpp
