@@ -19,11 +19,15 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(00_hello_world)
-re_add_subdirectory(01_system_information)
-re_add_subdirectory(10_frontend)
-re_add_subdirectory(11_frontend_multiwindow)
-re_add_subdirectory(20_low_level_rendering)
+set(RE_BUILD_DEPENDENCIES
+  #  PUBLIC
+  pthread
+  dl
+  atomic
+  ncurses
+  ${LINUX_X11_LIBS}
+  ${LINUX_XCB_LIBS}
+  ${DBUS_LIBRARIES}
+  stdc++fs
+  stdc++
+  )

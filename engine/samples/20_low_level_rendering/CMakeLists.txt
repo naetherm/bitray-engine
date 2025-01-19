@@ -19,11 +19,31 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(00_hello_world)
-re_add_subdirectory(01_system_information)
-re_add_subdirectory(10_frontend)
-re_add_subdirectory(11_frontend_multiwindow)
-re_add_subdirectory(20_low_level_rendering)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME 20_low_level_rendering EXECUTABLE
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/low_level_rendering_files.cmake
+  PLATFORM_INCLUDE_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/low_level_rendering_${PAL_PLATFORM_NAME_LOWERCASE}.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+      ${DBUS_INCLUDE_DIRS}
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+      rhi
+  COMPILE_DEFINITIONS
+    PUBLIC
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+      GLM_FORCE_CXX2A GLM_FORCE_INLINE GLM_FORCE_AVX2 GLM_FORCE_QUAT_DATA_XYZW GLM_FORCE_LEFT_HANDED GLM_FORCE_DEPTH_ZERO_TO_ONE GLM_FORCE_RADIANS GLM_ENABLE_EXPERIMENTAL GLM_FORCE_SILENT_WARNINGS
+  TARGET_PROPERTIES
+    -fPIC
+)

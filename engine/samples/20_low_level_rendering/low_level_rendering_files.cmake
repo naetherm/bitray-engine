@@ -19,11 +19,30 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(00_hello_world)
-re_add_subdirectory(01_system_information)
-re_add_subdirectory(10_frontend)
-re_add_subdirectory(11_frontend_multiwindow)
-re_add_subdirectory(20_low_level_rendering)
+set(FILES
+  private/main.cpp
+  private/application.cpp
+  private/example_base.cpp
+
+  private/empty/empty.cpp
+  private/compute_shader/compute_shader.cpp
+  private/cube_texture/cube_texture.cpp
+  private/geometry_shader/geometry_shader.cpp
+  private/indirect_buffer/indirect_buffer.cpp
+  private/instancing/instancing.cpp
+  private/mesh_shader/mesh_shader.cpp
+  private/queries/queries.cpp
+  private/render_to_texture/render_to_texture.cpp
+  private/tessellation_shader/tessellation_shader.cpp
+  private/texture/texture.cpp
+  private/triangle/triangle.cpp
+  private/vertex_buffer/vertex_buffer.cpp
+
+  private/gpgpu/gpgpu.cpp
+  private/icosahedron_tessellation/icosahedron_tessellation.cpp
+  private/instanced_cubes/instanced_cubes.cpp
+  private/instanced_cubes/cube_renderer_draw_instanced/batch_draw_instanced.cpp
+  private/instanced_cubes/cube_renderer_draw_instanced/cube_renderer_draw_instanced.cpp
+  private/instanced_cubes/cube_renderer_instanced_arrays/batch_instanced_arrays.cpp
+  private/instanced_cubes/cube_renderer_instanced_arrays/cube_renderer_instanced_arrays.cpp
+)
