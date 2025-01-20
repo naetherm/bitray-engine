@@ -43,9 +43,10 @@ re_add_target(
     PUBLIC
       core
       rhi
-      External::smolv
   RUNTIME_DEPENDENCIES
     PUBLIC
+      core
+      rhi
       External::smolv
   COMPILE_DEFINITIONS
     PUBLIC
