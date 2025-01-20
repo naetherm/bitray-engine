@@ -4,7 +4,7 @@ name: Linux
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "rhi_vulkan" ]
   pull_request:
     branches: [ "main" ]
 
