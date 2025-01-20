@@ -17,10 +17,3 @@
 #// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #// DEALINGS IN THE SOFTWARE.
 #////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(rhi_opengl)
-re_add_subdirectory(rhi_vulkan)
