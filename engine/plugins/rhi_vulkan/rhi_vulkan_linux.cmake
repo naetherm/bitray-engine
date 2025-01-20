@@ -19,8 +19,19 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(rhi_opengl)
-re_add_subdirectory(rhi_vulkan)
+set(RE_BUILD_DEPENDENCIES
+  #  PUBLIC
+  pthread
+  dl
+  atomic
+  ncurses
+  ${LINUX_X11_LIBS}
+  glslang
+  SPIRV
+  MachineIndependent
+)
+
+set(RE_COMPILE_DEFINITIONS
+  PUBLIC
+    VK_USE_PLATFORM_XCB_KHR
+)
