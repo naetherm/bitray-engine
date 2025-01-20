@@ -19,6 +19,8 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+include(CMakePrintHelpers)
+
 function(re_include_cmake_file_list file)
   #message(${file})
   include(${file})
@@ -196,6 +198,8 @@ function(re_add_target)
   endif()
 
   if (re_add_target_INCLUDE_DIRECTORIES)
+    message("Include directories for target: ${re_add_target_NAME}")
+    message(${re_add_target_INCLUDE_DIRECTORIES})
     target_include_directories(${re_add_target_NAME}
       ${re_add_target_INCLUDE_DIRECTORIES}
       )
@@ -211,14 +215,14 @@ function(re_add_target)
         if (NOT d STREQUAL "PUBLIC" AND NOT d STREQUAL "PRIVATE")
           #message(INFO ${d})
 
-          target_include_directories(${re_add_target_NAME} ${target_group} ${${d}_INCLUDE_DIRS})
-          target_include_directories(${re_add_target_NAME} ${target_group} ${${d}_EXT_INCLUDE_DIRS})
+          target_include_directories(${re_add_target_NAME} PUBLIC ${target_group} ${${d}_INCLUDE_DIRS})
+          target_include_directories(${re_add_target_NAME} PUBLIC ${target_group} ${${d}_EXT_INCLUDE_DIRS})
           
           #target_link_libraries(${re_add_target_NAME} ${target_group} ${${d}_LIBRARIES})
           target_link_libraries(${re_add_target_NAME} ${target_group} ${d})
           #message("INFO>> $<TARGET_PROPERTY:${d},INTERFACE_LINK_LIBRARIES>")
           #target_link_libraries(${re_add_target_NAME} PUBLIC $<TARGET_PROPERTY:${d},INTERFACE_LINK_LIBRARIES>)
-          target_include_directories(${re_add_target_NAME} ${target_group} $<TARGET_PROPERTY:${d},INCLUDE_DIRECTORIES>)
+          target_include_directories(${re_add_target_NAME} PUBLIC ${target_group} $<TARGET_PROPERTY:${d},INCLUDE_DIRECTORIES>)
           target_compile_definitions(${re_add_target_NAME} ${target_group} $<TARGET_PROPERTY:${d},COMPILE_DEFINITIONS>)
           target_compile_options(${re_add_target_NAME} ${target_group} $<TARGET_PROPERTY:${d},COMPILE_OPTIONS>)
           
@@ -271,6 +275,8 @@ function(re_add_target)
     endif()
     ly_qt_uic_target(${re_add_target_NAME})
   endif()
+
+  cmake_print_properties(TARGETS ${re_add_target_NAME} PROPERTIES INCLUDE_DIRECTORIES)
 
 endfunction(re_add_target)
 
@@ -334,9 +340,9 @@ macro(re_search_for_external_dependencies TARGET)
           find_package(${pkg} REQUIRED MODULE)
           target_include_directories(${TARGET} PUBLIC ${${pkg}_INCLUDE_DIR})
           message("EXTERNAL: [${pkg}] Adding include dir ${${pkg}_INCLUDE_DIR}")
-          target_link_libraries(${TARGET} PUBLIC ${${pkg}_LIBRARY})
-          target_include_directories(${TARGET} PUBLIC ${pkg})
-          #target_link_libraries(${TARGET} ${target_group} $<TARGET_PROPERTY:External::${pkg},INTERFACE_LINK_LIBRARIES>)
+          #target_link_libraries(${TARGET} PUBLIC ${${pkg}_LIBRARY})
+          #target_include_directories(${TARGET} PUBLIC ${pkg})
+          target_link_libraries(${TARGET} ${target_group} $<TARGET_PROPERTY:External::${pkg},INTERFACE_LINK_LIBRARIES>)
           target_include_directories(${TARGET} PUBLIC $<TARGET_PROPERTY:External::${pkg},INTERFACE_INCLUDE_DIRECTORIES>)
           #target_compile_definitions(${TARGET} ${target_group} $<TARGET_PROPERTY:${pkg},INTERFACE_COMPILE_DEFINITIONS>)
           #target_compile_options(${TARGET} ${target_group} $<TARGET_PROPERTY:${pkg},INTERFACE_COMPILE_OPTIONS>)
