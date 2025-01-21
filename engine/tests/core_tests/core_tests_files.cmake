@@ -39,6 +39,14 @@ set(FILES
   private/io/path.cpp
   private/io/textreaderwriter.cpp
 
+  private/math/mat33.cpp
+  private/math/mat44.cpp
+  private/math/quaternion.cpp
+  private/math/sphere.cpp
+  private/math/vec2.cpp
+  private/math/vec3.cpp
+  private/math/vec4.cpp
+
   private/string/string.cpp
   private/string/string_view.cpp
 )
