@@ -20,17 +20,9 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/gui.h"
-#include <core/color/color3.h>
-#include <core/math/vec2.h>
+#include "gui/gui/data/clipboard_data.h"
 
 
 //[-------------------------------------------------------]
@@ -52,19 +44,63 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class GraphicsImpl {
-public:
+ClipboardData::ClipboardData()
+: mDataType(EDataType::DataEmpty) {
+}
 
-  GraphicsImpl();
+ClipboardData::ClipboardData(const core::String& data)
+: mDataType(EDataType::DataString)
+, mString(data){
+}
 
-  virtual ~GraphicsImpl();
+ClipboardData::ClipboardData(const ClipboardData& other)
+: mDataType(other.mDataType) {
+}
 
-public:
+ClipboardData::~ClipboardData() {
+}
 
-  virtual void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) = 0;
+ClipboardData& ClipboardData::operator=(const ClipboardData& other) {
+  mDataType = other.mDataType;
 
-private:
-};
+  return *this;
+}
+
+bool ClipboardData::operator==(const ClipboardData& other) const {
+  if (mDataType != other.mDataType)
+    return false;
+
+  switch (mDataType) {
+    case EDataType::DataString:
+      return mString == other.mString;
+    default:
+      return false;
+  }
+}
+
+EDataType ClipboardData::get_data_type() const {
+  return mDataType;
+}
+
+core::String ClipboardData::get_string() const {
+  // Sanity check
+  BE_ASSERT(mDataType == EDataType::DataString, "ClipboardData::get_string() called on a non-string data type");
+
+  return mString;
+}
+
+void ClipboardData::set_string(const core::String& data) {
+  clear();
+
+  mDataType = EDataType::DataString;
+  mString = data;
+}
+
+void ClipboardData::clear() {
+  if (mDataType == EDataType::DataString)
+    mString.clear();
+  mDataType = EDataType::DataEmpty;
+}
 
 
 //[-------------------------------------------------------]

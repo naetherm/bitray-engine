@@ -20,17 +20,10 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/gui.h"
-#include <core/color/color3.h>
-#include <core/math/vec2.h>
+#include "gui/menu/menu.h"
+#include "gui/menu/menu_item.h"
 
 
 //[-------------------------------------------------------]
@@ -52,19 +45,11 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class GraphicsImpl {
-public:
+Menu::Menu() {
+}
 
-  GraphicsImpl();
-
-  virtual ~GraphicsImpl();
-
-public:
-
-  virtual void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) = 0;
-
-private:
-};
+Menu::~Menu() {
+}
 
 
 //[-------------------------------------------------------]

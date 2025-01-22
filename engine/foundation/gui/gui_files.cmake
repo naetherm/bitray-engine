@@ -23,6 +23,7 @@ set(FILES
   private/gui.cpp
 
   # private/application
+  private/application/gui_application.cpp
 
   # private/gui
   private/gui/clipboard.cpp
@@ -31,8 +32,21 @@ set(FILES
   private/gui/graphics_impl.cpp
   private/gui/gui.cpp
   private/gui/gui_impl.cpp
+  private/gui/gui_message.cpp
+  private/gui/data/clipboard_data.cpp
+  private/gui/event/gui_event.cpp
+
+  # private/layout
+  private/layout/layout.cpp
+
+  # private/menu
+  private/menu/menu.cpp
+  private/menu/menu_item.cpp
 
   # private/theme
+  private/theme/theme.cpp
+  private/theme/theme_server.cpp
 
   # private/widget
+  private/widget/widget.cpp
 )

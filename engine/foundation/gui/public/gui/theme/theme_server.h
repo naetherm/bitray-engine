@@ -29,8 +29,10 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
-#include <core/color/color3.h>
-#include <core/math/vec2.h>
+#include <core/core/server_impl.h>
+#include <core/container/map.h>
+#include <core/container/vector.h>
+#include <core/string/string.h>
 
 
 //[-------------------------------------------------------]
@@ -47,23 +49,23 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class Theme;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class GraphicsImpl {
+class ThemeServer : public core::ServerImpl {
 public:
 
-  GraphicsImpl();
+  ThemeServer();
 
-  virtual ~GraphicsImpl();
-
-public:
-
-  virtual void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) = 0;
+  ~ThemeServer() override;
 
 private:
+
+  core::Vector<Theme*> mThemes;
+  core::Map<core::String, Theme*> mThemeByName;
 };
 
 

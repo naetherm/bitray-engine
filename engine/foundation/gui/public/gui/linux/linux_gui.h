@@ -82,6 +82,12 @@ public:
    */
   virtual ~LinuxGui();
 
+
+  [[nodiscard]] xcb_connection_t* get_xcb_connection() const;
+
+private:
+
+  xcb_connection_t* mXcbConnection;
 };
 
 

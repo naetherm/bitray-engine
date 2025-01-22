@@ -29,8 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
-#include <core/color/color3.h>
-#include <core/math/vec2.h>
 
 
 //[-------------------------------------------------------]
@@ -52,18 +50,8 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class GraphicsImpl {
+class GuiMessage {
 public:
-
-  GraphicsImpl();
-
-  virtual ~GraphicsImpl();
-
-public:
-
-  virtual void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) = 0;
-
-private:
 };
 
 

@@ -29,8 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
-#include <core/color/color3.h>
-#include <core/math/vec2.h>
+#include <core/string/string.h>
 
 
 //[-------------------------------------------------------]
@@ -47,23 +46,45 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+enum EDataType {
+  /** Empty data */
+  DataEmpty = 0,
+  /** String data */
+  DataString,
+};
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class GraphicsImpl {
+class ClipboardData {
 public:
 
-  GraphicsImpl();
+  ClipboardData();
 
-  virtual ~GraphicsImpl();
+  ClipboardData(const core::String& data);
 
-public:
+  ClipboardData(const ClipboardData& other);
 
-  virtual void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) = 0;
+  ~ClipboardData();
 
+
+  ClipboardData& operator=(const ClipboardData& other);
+
+  bool operator==(const ClipboardData& other) const;
+
+
+  [[nodiscard]] EDataType get_data_type() const;
+
+  [[nodiscard]] core::String get_string() const;
+
+  void set_string(const core::String& data);
+
+  void clear();
 private:
+
+  EDataType mDataType;
+  core::String mString;
 };
 
 

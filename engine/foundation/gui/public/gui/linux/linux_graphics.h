@@ -54,10 +54,23 @@ namespace gui {
 class LinuxGraphics : public GraphicsImpl {
 public:
 
-  LinuxGraphics();
+  LinuxGraphics(cairo_t* cairoContext);
 
   ~LinuxGraphics() override;
+
+public:
+
+  void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) override;
+
 private:
+
+  void set_current_color(const core::Color3& rgb);
+
+private:
+
+  cairo_t* mCairoContext;
+
+  core::Color3 mCurrentColor;
 };
 
 

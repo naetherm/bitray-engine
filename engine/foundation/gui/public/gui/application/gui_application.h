@@ -29,8 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
-#include <core/color/color3.h>
-#include <core/math/vec2.h>
+#include <core/app/core_application.h>
 
 
 //[-------------------------------------------------------]
@@ -52,17 +51,14 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class GraphicsImpl {
+class GuiApplication : public core::CoreApplication {
 public:
 
-  GraphicsImpl();
+  GuiApplication();
 
-  virtual ~GraphicsImpl();
+  ~GuiApplication() override;
 
-public:
-
-  virtual void draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) = 0;
-
+protected:
 private:
 };
 

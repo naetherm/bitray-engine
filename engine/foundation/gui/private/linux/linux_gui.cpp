@@ -35,10 +35,20 @@ namespace gui {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 LinuxGui::LinuxGui(Gui* gui)
-: GuiImpl(gui) {
+: GuiImpl(gui)
+, mXcbConnection(nullptr) {
+  mXcbConnection = xcb_connect(nullptr, nullptr);
 }
 
 LinuxGui::~LinuxGui() {
+
+  // Disconnect xcb connection
+  xcb_disconnect(mXcbConnection);
+}
+
+
+xcb_connection_t* LinuxGui::get_xcb_connection() const {
+  return mXcbConnection;
 }
 
 

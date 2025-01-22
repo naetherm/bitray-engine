@@ -44,10 +44,27 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-LinuxGraphics::LinuxGraphics() {
+LinuxGraphics::LinuxGraphics(cairo_t* cairoContext)
+: mCairoContext(cairoContext)
+, mCurrentColor(core::Color3::WHITE) {
 }
 
 LinuxGraphics::~LinuxGraphics() {
+}
+
+
+void LinuxGraphics::draw_line(const core::Vec2i& start, const core::Vec2i& end, core::Color3& rgb) {
+  set_current_color(rgb);
+  // Draw
+  cairo_move_to(mCairoContext, start.x, start.y);
+  cairo_line_to(mCairoContext, end.x, end.y);
+  cairo_stroke(mCairoContext);
+}
+
+void LinuxGraphics::set_current_color(const core::Color3& rgb) {
+  if (mCurrentColor != rgb) {
+    mCurrentColor = rgb;
+  }
 }
 
 

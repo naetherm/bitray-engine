@@ -57,6 +57,12 @@ public:
   LinuxClipboard();
 
   ~LinuxClipboard() override;
+
+
+  ClipboardData get_data() override;
+
+  void set_data(const ClipboardData& data) override;
+
 private:
 };
 

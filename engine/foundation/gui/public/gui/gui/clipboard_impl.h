@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
+#include "gui/gui/data/clipboard_data.h"
 
 
 //[-------------------------------------------------------]
@@ -45,6 +46,7 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class Clipboard;
 
 
 //[-------------------------------------------------------]
@@ -56,6 +58,15 @@ public:
   ClipboardImpl();
 
   virtual ~ClipboardImpl();
+
+
+  virtual ClipboardData get_data() = 0;
+
+  virtual void set_data(const ClipboardData& data) = 0;
+
+protected:
+  /** Pointer to platform independent clipboard implementation */
+  Clipboard* mClipboard;
 };
 
 

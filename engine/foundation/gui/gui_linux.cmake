@@ -27,4 +27,5 @@ set(RE_BUILD_DEPENDENCIES
   ncurses
   uuid
   ${LINUX_XCB_LIBS}
+  ${LINUX_CAIRO_LIBS}
 )
