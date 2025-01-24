@@ -27,6 +27,9 @@ set(FILES
 
   # private/asset
   private/asset/asset.cpp
+  private/asset/asset_package.cpp
+  private/asset/asset_server.cpp
+  private/asset/serializer/asset_package_serializer.cpp
 
   # private/color
   private/color/color3.cpp
