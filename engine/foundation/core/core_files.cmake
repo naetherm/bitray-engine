@@ -139,6 +139,9 @@ set(FILES
   private/platform/mutex.cpp
   private/platform/platform.cpp
 
+  # private/resource
+  private/resource/resource.cpp
+
   # private/string
   private/string/string_hash.cpp
 
