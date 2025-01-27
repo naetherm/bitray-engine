@@ -23,7 +23,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "some_object.h"
-#include <core/rtti/rtti.h>
 #include <core/rtti/type/class_type_info.h>
 
 
