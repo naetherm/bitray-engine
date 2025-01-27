@@ -142,6 +142,10 @@ set(FILES
   # private/resource
   private/resource/resource.cpp
 
+  # private/rtti
+  private/rtti/object.cpp
+  private/rtti/rtti_type_server.cpp
+
   # private/string
   private/string/string_hash.cpp
 
