@@ -18,10 +18,9 @@
 #// DEALINGS IN THE SOFTWARE.
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
+set(FILES
+  private/main.cpp
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(unit_tests)
-re_add_subdirectory(core_tests)
-re_add_subdirectory(rtti_tests)
+  private/rtti_tests.cpp
+  private/some_object.cpp
+)
