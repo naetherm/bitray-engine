@@ -145,6 +145,9 @@ set(FILES
   # private/rtti
   private/rtti/object.cpp
   private/rtti/rtti_type_server.cpp
+  private/rtti/type/class_type_info.cpp
+  private/rtti/type/enum_type_info.cpp
+  private/rtti/type/type_info.cpp
 
   # private/string
   private/string/string_hash.cpp

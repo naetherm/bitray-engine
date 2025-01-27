@@ -53,6 +53,10 @@ namespace core {
 //[-------------------------------------------------------]
 class ClassTypeInfo : public TypeInfo {
 public:
+
+  ClassTypeInfo(const String& name);
+
+  ~ClassTypeInfo() override;
 };
 
 

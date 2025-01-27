@@ -53,6 +53,10 @@ namespace core {
 //[-------------------------------------------------------]
 class EnumTypeInfo : public TypeInfo {
 public:
+
+  EnumTypeInfo(const String& name);
+
+  ~EnumTypeInfo() override;
 };
 
 
