@@ -40,7 +40,6 @@ re_add_target(
     PUBLIC
       core
       rhi
-      External::smolv
   RUNTIME_DEPENDENCIES
     PUBLIC
       External::smolv
