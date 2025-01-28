@@ -20,22 +20,9 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/type/type_info.h"
-#include "core/container/map.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "core/rtti/type/enum_type_info_builder.h"
 
 
 //[-------------------------------------------------------]
@@ -45,27 +32,22 @@ namespace core {
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class EnumTypeInfo : public TypeInfo {
+EnumTypeInfoBuilder::EnumTypeInfoBuilder(EnumTypeInfo* typeInfo)
+: mTypeInfo(typeInfo) {
+}
 
-  friend class EnumTypeInfoBuilder;
+EnumTypeInfoBuilder::~EnumTypeInfoBuilder() {
+  mTypeInfo = nullptr;
+}
 
-public:
 
-  EnumTypeInfo(const String& name);
+EnumTypeInfoBuilder& EnumTypeInfoBuilder::add_value(const String& name, int32 value) {
+  mTypeInfo->mValues.set(name, value);
 
-  ~EnumTypeInfo() override;
-
-protected:
-
-  Map<String, int32> mValues;
-};
+  return *this;
+}
 
 
 //[-------------------------------------------------------]

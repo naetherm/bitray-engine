@@ -29,8 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/type/type_info.h"
-#include "core/container/map.h"
+#include "core/rtti/type/enum_type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -52,19 +51,19 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class EnumTypeInfo : public TypeInfo {
-
-  friend class EnumTypeInfoBuilder;
-
+class EnumTypeInfoBuilder {
 public:
 
-  EnumTypeInfo(const String& name);
+  EnumTypeInfoBuilder(EnumTypeInfo* typeInfo);
 
-  ~EnumTypeInfo() override;
+  ~EnumTypeInfoBuilder();
+
+
+  EnumTypeInfoBuilder& add_value(const String& name, int32 value);
 
 protected:
 
-  Map<String, int32> mValues;
+  EnumTypeInfo* mTypeInfo;
 };
 
 
