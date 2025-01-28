@@ -62,6 +62,9 @@ public:
 
   ~EnumTypeInfo() override;
 
+
+  [[nodiscard]] uint32 get_value(const String& name) const;
+
 protected:
 
   Map<String, int32> mValues;

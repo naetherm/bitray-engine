@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/string/string.h"
 
 
 //[-------------------------------------------------------]
@@ -52,7 +53,21 @@ namespace core {
 //[-------------------------------------------------------]
 class Module {
 public:
+
+  Module();
+
+  ~Module();
+
+
+  [[nodiscard]] String get_name() const;
+
 private:
+
+  void set_module_info(const String& name);
+
+private:
+
+  String mName;
 };
 
 

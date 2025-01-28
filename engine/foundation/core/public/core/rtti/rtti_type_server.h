@@ -30,6 +30,9 @@
 //[-------------------------------------------------------]
 #include "core/core.h"
 #include "core/core/server_impl.h"
+#include "core/container/map.h"
+#include "core/container/vector.h"
+#include "core/string/string.h"
 
 
 //[-------------------------------------------------------]
@@ -46,6 +49,8 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class EnumTypeInfo;
+class ClassTypeInfo;
 
 
 //[-------------------------------------------------------]
@@ -61,6 +66,20 @@ public:
   RttiTypeServer();
 
   ~RttiTypeServer() override;
+
+
+  void register_enum(EnumTypeInfo* enumTypeInfo);
+
+  [[nodiscard]] const EnumTypeInfo* get_enum(const String& name) const;
+
+  [[nodiscard]] EnumTypeInfo* get_enum(const String& name);
+
+public:
+
+  Vector<EnumTypeInfo*> mEnumTypeInfos;
+  Vector<ClassTypeInfo*> mClassTypeInfos;
+  Map<String, EnumTypeInfo*> mEnumTypeInfoMap;
+  Map<String, ClassTypeInfo*> mClassTypeInfoMap;
 };
 
 

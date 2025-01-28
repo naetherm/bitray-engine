@@ -42,6 +42,11 @@ EnumTypeInfo::~EnumTypeInfo() {
 }
 
 
+uint32 EnumTypeInfo::get_value(const String& name) const {
+  return mValues[name];
+}
+
+
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]

@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/rtti/rtti_type_server.h"
 
 
 //[-------------------------------------------------------]
@@ -50,6 +51,20 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+template<typename TType>
+class EnumRegistrar {
+public:
+
+  static core::EnumTypeInfo* type_info;
+
+public:
+
+  EnumRegistrar() {}
+
+  ~EnumRegistrar() {}
+
+  virtual void register_enum() {}
+};
 
 
 //[-------------------------------------------------------]

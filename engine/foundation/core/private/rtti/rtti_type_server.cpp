@@ -24,6 +24,8 @@
 //[-------------------------------------------------------]
 #include "core/rtti/rtti_type_server.h"
 
+#include <core/rtti/type/enum_type_info.h>
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
@@ -44,6 +46,26 @@ RttiTypeServer::RttiTypeServer() {
 }
 
 RttiTypeServer::~RttiTypeServer() {
+  // Clean up
+  for (auto* enumTypeInfo: mEnumTypeInfos) {
+    //delete enumTypeInfo;
+  }
+  mEnumTypeInfos.clear();
+  mEnumTypeInfoMap.clear();
+}
+
+
+void RttiTypeServer::register_enum(EnumTypeInfo* enumTypeInfo) {
+  mEnumTypeInfos.push_back(enumTypeInfo);
+  mEnumTypeInfoMap.set(enumTypeInfo->get_name(), enumTypeInfo);
+}
+
+const EnumTypeInfo* RttiTypeServer::get_enum(const String& name) const {
+  return mEnumTypeInfoMap[name];
+}
+
+EnumTypeInfo* RttiTypeServer::get_enum(const String& name) {
+  return mEnumTypeInfoMap[name];
 }
 
 
