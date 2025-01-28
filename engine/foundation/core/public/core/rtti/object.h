@@ -45,11 +45,25 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class TypeInfo;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+class Object {
+public:
+
+  static TypeInfo* get_static_type_info();
+
+  [[nodiscard]] virtual TypeInfo* get_type_info() const;
+
+public:
+
+  Object();
+
+  virtual ~Object();
+};
 
 
 //[-------------------------------------------------------]

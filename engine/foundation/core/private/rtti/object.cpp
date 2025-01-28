@@ -23,6 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/object.h"
+#include "core/rtti/type/class_type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -34,7 +35,22 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+TypeInfo* Object::get_static_type_info() {
+  static TypeInfo* STypeInfo = nullptr;
+  return STypeInfo;
+}
 
+TypeInfo* Object::get_type_info() const {
+  return get_static_type_info();
+}
+
+Object::Object() {
+
+}
+
+Object::~Object() {
+
+}
 
 
 //[-------------------------------------------------------]
