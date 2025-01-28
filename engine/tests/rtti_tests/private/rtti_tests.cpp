@@ -69,6 +69,16 @@ void RttiTests::test() {
 
       someEnumTypeInfo = nullptr;
     }
+    {
+      core::EnumTypeInfo* someEnumTypeInfo = rttiTypeServer.get_enum("rtti_tests::SomeOtherEnum");
+
+      be_expect_str_eq("rtti_tests::SomeOtherEnum", someEnumTypeInfo->get_name().c_str())
+      be_expect_eq(rtti_tests::SomeOtherEnum::FirstOtherValue, someEnumTypeInfo->get_value("FirstOtherValue"))
+      be_expect_eq(rtti_tests::SomeOtherEnum::SecondOtherValue, someEnumTypeInfo->get_value("SecondOtherValue"))
+      be_expect_eq(rtti_tests::SomeOtherEnum::ThirdOtherValue, someEnumTypeInfo->get_value("ThirdOtherValue"))
+
+      someEnumTypeInfo = nullptr;
+    }
   }
 }
 

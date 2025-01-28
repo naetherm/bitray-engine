@@ -59,6 +59,13 @@ public:
 core::EnumTypeInfo* core::EnumRegistrar<rtti_tests::SomeEnum>::type_info = nullptr;
 core::EnumRegistrar<rtti_tests::SomeEnum> SomeEnum_EnumRegistrar;
 
+// Register SomEnum
+be_begin_enum(rtti_tests::SomeOtherEnum)
+    builder.add_value("FirstOtherValue", rtti_tests::SomeOtherEnum::FirstOtherValue);
+    builder.add_value("SecondOtherValue", rtti_tests::SomeOtherEnum::SecondOtherValue);
+    builder.add_value("ThirdOtherValue", rtti_tests::SomeOtherEnum::ThirdOtherValue);
+be_end_enum(SomeOtherEnum, rtti_tests)
+
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
