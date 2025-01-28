@@ -23,8 +23,41 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "some_object.h"
-#include <core/rtti/type/class_type_info.h>
 
+#include <core/rtti/rtti.h>
+#include <core/rtti/type/class_type_info.h>
+#include <core/rtti/type/enum_type_info.h>
+#include <core/rtti/type/enum_type_info_builder.h>
+
+
+// Register SomEnum
+template<>
+class core::EnumRegistrar<rtti_tests::SomeEnum> {
+public:
+
+  static core::EnumTypeInfo* type_info;
+public:
+
+  EnumRegistrar() {
+    type_info = new core::EnumTypeInfo("rtti_tests::SomeEnum");
+    register_enum();
+    // Register in type_server
+    core::RttiTypeServer::instance().register_enum(type_info);
+  }
+
+  ~EnumRegistrar() {
+    delete type_info;
+  }
+
+  void register_enum() override {
+    core::EnumTypeInfoBuilder builder(type_info);
+    builder.add_value("FirstValue", rtti_tests::SomeEnum::FirstValue);
+    builder.add_value("SecondValue", rtti_tests::SomeEnum::SecondValue);
+    builder.add_value("ThirdValue", rtti_tests::SomeEnum::ThirdValue);
+  }
+};
+core::EnumTypeInfo* core::EnumRegistrar<rtti_tests::SomeEnum>::type_info = nullptr;
+core::EnumRegistrar<rtti_tests::SomeEnum> SomeEnum_EnumRegistrar;
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
@@ -35,6 +68,7 @@ namespace rtti_tests {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+// Register Object
 core::TypeInfo* Object::get_static_type_info() {
   static core::ClassTypeInfo STypeInfo("Object");
   return &STypeInfo;
@@ -50,6 +84,7 @@ Object::Object() {
 Object::~Object() {
 }
 
+// Register SomeObject
 core::TypeInfo* SomeObject::get_static_type_info() {
   static core::ClassTypeInfo STypeInfo("rtti_tests::SomeObject");
   return &STypeInfo;
@@ -64,6 +99,11 @@ SomeObject::SomeObject() {
 
 SomeObject::~SomeObject() {
 }
+//core::EnumTypeInfo SomeEnum_EnumTypeInfo("rtti_tests::SomeEnum");
+//core::EnumTypeInfoBuilder SomeEnum_enumBuilder(&SomeEnum_EnumTypeInfo);
+//SomeEnum_enumBuilder.add_value("Foo", SomeEnum::FirstValue);
+
+// Register SomeOtherEnum
 
 
 //[-------------------------------------------------------]

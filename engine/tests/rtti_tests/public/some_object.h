@@ -86,6 +86,12 @@ enum SomeEnum {
   ThirdValue = 2,
 };
 
+enum SomeOtherEnum {
+  FirstOtherValue = 0,
+  SecondOtherValue = 1,
+  ThirdOtherValue = 2,
+};
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
