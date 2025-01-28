@@ -143,6 +143,7 @@ set(FILES
   private/resource/resource.cpp
 
   # private/rtti
+  private/rtti/module.cpp
   private/rtti/object.cpp
   private/rtti/rtti_type_server.cpp
   private/rtti/type/class_type_info.cpp
