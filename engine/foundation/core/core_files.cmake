@@ -152,6 +152,9 @@ set(FILES
   private/rtti/type/enum_type_info_builder.cpp
   private/rtti/type/type_info.cpp
 
+  # private/std
+  private/std/any.cpp
+
   # private/string
   private/string/string_hash.cpp
 
