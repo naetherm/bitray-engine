@@ -146,6 +146,7 @@ set(FILES
   private/rtti/module.cpp
   private/rtti/object.cpp
   private/rtti/rtti_type_server.cpp
+  private/rtti/func/argument_list.cpp
   private/rtti/type/class_type_info.cpp
   private/rtti/type/class_type_info_builder.cpp
   private/rtti/type/enum_type_info.cpp
