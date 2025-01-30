@@ -35,7 +35,7 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 EnumTypeInfo::EnumTypeInfo(const String& name)
-: TypeInfo(name) {
+: TypeInfo(name, TypeInfoType::EnumType) {
 }
 
 EnumTypeInfo::~EnumTypeInfo() {

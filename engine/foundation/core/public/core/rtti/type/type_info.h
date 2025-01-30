@@ -51,19 +51,29 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+enum TypeInfoType {
+  PrimitiveType,
+  ClassType,
+  EnumType
+};
+
 class TypeInfo {
 public:
 
-  TypeInfo(const String& name);
+  TypeInfo(const String& name, TypeInfoType typeInfoType);
 
   virtual ~TypeInfo();
 
 
   [[nodiscard]] const String& get_name() const;
 
+  [[nodiscard]] TypeInfoType get_type() const;
+
 protected:
 
   String mName;
+
+  TypeInfoType mTypeInfoType;
 };
 
 

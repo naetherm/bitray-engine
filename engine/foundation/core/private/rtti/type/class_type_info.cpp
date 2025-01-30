@@ -35,7 +35,7 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 ClassTypeInfo::ClassTypeInfo(const String& name)
-: TypeInfo(name) {
+: TypeInfo(name, TypeInfoType::ClassType) {
 }
 
 ClassTypeInfo::~ClassTypeInfo() {

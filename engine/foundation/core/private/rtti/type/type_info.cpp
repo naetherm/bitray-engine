@@ -34,8 +34,9 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-TypeInfo::TypeInfo(const String& name)
-: mName(name) {
+TypeInfo::TypeInfo(const String& name, TypeInfoType typeInfoType)
+: mName(name)
+, mTypeInfoType(typeInfoType) {
 }
 
 TypeInfo::~TypeInfo() {
@@ -44,6 +45,10 @@ TypeInfo::~TypeInfo() {
 
 const String& TypeInfo::get_name() const {
   return mName;
+}
+
+TypeInfoType TypeInfo::get_type() const {
+  return mTypeInfoType;
 }
 
 

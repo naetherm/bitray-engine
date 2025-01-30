@@ -35,7 +35,7 @@ namespace core {
 //[ Primitivees                                               ]
 //[-------------------------------------------------------]
 PrimitiveTypeInfo::PrimitiveTypeInfo(const String& name)
-: TypeInfo(name) {
+: TypeInfo(name, TypeInfoType::PrimitiveType) {
 }
 
 PrimitiveTypeInfo::~PrimitiveTypeInfo() {
