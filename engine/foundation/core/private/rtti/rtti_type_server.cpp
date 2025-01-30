@@ -23,8 +23,9 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/rtti_type_server.h"
-
-#include <core/rtti/type/enum_type_info.h>
+#include "core/rtti/type/class_type_info.h"
+#include "core/rtti/type/enum_type_info.h"
+#include "core/rtti/type/primitive_type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -60,12 +61,38 @@ void RttiTypeServer::register_enum(EnumTypeInfo* enumTypeInfo) {
   mEnumTypeInfoMap.set(enumTypeInfo->get_name(), enumTypeInfo);
 }
 
+void RttiTypeServer::register_class(ClassTypeInfo* classTypeInfo) {
+  mClassTypeInfos.push_back(classTypeInfo);
+  mClassTypeInfoMap.set(classTypeInfo->get_name(), classTypeInfo);
+}
+
+void RttiTypeServer::register_primitive(PrimitiveTypeInfo* primitiveTypeInfo) {
+  mPrimitiveTypeInfos.push_back(primitiveTypeInfo);
+  mPrimitiveTypeInfoMap.set(primitiveTypeInfo->get_name(), primitiveTypeInfo);
+}
+
 const EnumTypeInfo* RttiTypeServer::get_enum(const String& name) const {
   return mEnumTypeInfoMap[name];
 }
 
 EnumTypeInfo* RttiTypeServer::get_enum(const String& name) {
   return mEnumTypeInfoMap[name];
+}
+
+const ClassTypeInfo* RttiTypeServer::get_class(const String& name) const {
+  return mClassTypeInfoMap[name];
+}
+
+ClassTypeInfo* RttiTypeServer::get_class(const String& name) {
+  return mClassTypeInfoMap[name];
+}
+
+const PrimitiveTypeInfo* RttiTypeServer::get_primitive(const String& name) const {
+  return mPrimitiveTypeInfoMap[name];
+}
+
+PrimitiveTypeInfo* RttiTypeServer::get_primitive(const String& name) {
+  return mPrimitiveTypeInfoMap[name];
 }
 
 

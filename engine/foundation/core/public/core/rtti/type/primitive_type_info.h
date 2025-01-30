@@ -49,7 +49,7 @@ namespace core {
 
 
 //[-------------------------------------------------------]
-//[ Primitivees                                               ]
+//[ Classes                                               ]
 //[-------------------------------------------------------]
 class PrimitiveTypeInfo : public TypeInfo {
 public:
