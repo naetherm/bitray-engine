@@ -28,42 +28,19 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/tools/type_helper.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "core/rtti/typetraits/invalid_type.h"
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-template <typename T>
-class Type : public Type< typename CheckType<T>::Type > {
+template<typename TType>
+class Type<InvalidType<TType>> {
+public:
 };
 
 
-//[-------------------------------------------------------]
-//[ Include type implementations                          ]
-//[-------------------------------------------------------]
-#include "core/rtti/type/type_invalid.inl"
-#include "core/rtti/type/type_bool.inl"
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-}
+template<typename TType>
+class Type<InvalidType<InvalidType<TType>>> {
+public:
+};
