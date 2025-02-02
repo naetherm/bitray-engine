@@ -23,6 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/func/function_signature.h"
+#include "core/rtti/type_info/type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -44,14 +45,17 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-FunctionSignature::FunctionSignature() {
+FunctionSignature::FunctionSignature()
+: mReturnType(nullptr) {
 }
 
-FunctionSignature::FunctionSignature(const core::TypeInfo* returnType, const Array<const TypeInfo*> parameterTypes) {
+FunctionSignature::FunctionSignature(const core::TypeInfo* returnType, const Array<const TypeInfo*>& parameterTypes)
+: mReturnType(returnType)
+, mParameterTypes(parameterTypes) {
 }
 
 bool FunctionSignature::operator==(const FunctionSignature& other) const {
-  return ((mReturnType == other.mReturnType)); // && (mParameterTypes == other.mParameterTypes));
+  return ((mReturnType == other.mReturnType) && (mParameterTypes == other.mParameterTypes));
 }
 
 const TypeInfo* FunctionSignature::get_return_type() const {
