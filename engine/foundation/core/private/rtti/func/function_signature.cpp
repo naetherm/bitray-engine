@@ -49,9 +49,21 @@ FunctionSignature::FunctionSignature()
 : mReturnType(nullptr) {
 }
 
-FunctionSignature::FunctionSignature(const core::TypeInfo* returnType, const Array<const TypeInfo*>& parameterTypes)
+FunctionSignature::FunctionSignature(const core::TypeInfo* returnType, const Vector<const TypeInfo*>& parameterTypes)
 : mReturnType(returnType)
 , mParameterTypes(parameterTypes) {
+}
+
+FunctionSignature::FunctionSignature(const FunctionSignature& other)
+: mReturnType(other.mReturnType)
+, mParameterTypes(other.mParameterTypes) {
+}
+
+FunctionSignature& FunctionSignature::operator=(const FunctionSignature& other) {
+  mReturnType = other.mReturnType;
+  mParameterTypes = other.mParameterTypes;
+
+  return *this;
 }
 
 bool FunctionSignature::operator==(const FunctionSignature& other) const {
@@ -62,7 +74,7 @@ const TypeInfo* FunctionSignature::get_return_type() const {
   return mReturnType;
 }
 
-const Array<const TypeInfo*>& FunctionSignature::get_parameter_types() const {
+const Vector<const TypeInfo*>& FunctionSignature::get_parameter_types() const {
   return mParameterTypes;
 }
 

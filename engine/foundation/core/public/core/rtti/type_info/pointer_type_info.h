@@ -51,19 +51,67 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * PointerTypeInfo
+ *
+ * @brief
+ * Type information for pointer types.
+ *
+ * This class contains information about pointer types.
+ */
 class PointerTypeInfo : public TypeInfo {
 public:
 
+  /**
+   * @brief
+   * Constructor for `PointerTypeInfo`.
+   *
+   * @param[in] pointerType
+   * The type info object associated with the pointed type.
+   *
+   * @param[in] isConst
+   * If true, the pointed type is a constant type, otherwise it is a non-constant type.
+   */
   PointerTypeInfo(TypeInfo* pointerType, bool isConst);
 
+  /**
+   * @brief
+   * Destructor.
+   */
   ~PointerTypeInfo() override;
 
 
+  /**
+   * @brief
+   * Compare the current type info object with another type info object for equality.
+   *
+   * @param[in] other
+   * The type info object to compare with the current type info object.
+   *
+   * @return
+   * If the current type info object is equal to the other type info object, return true, otherwise
+   * return false.
+   */
   bool operator==(const TypeInfo& other) const;
 
 
+  /**
+   * @brief
+   * Retrieve the type info object associated with the pointed type.
+   *
+   * @return
+   * The type info object associated with the pointed type.
+   */
   TypeInfo* get_pointer_type() const;
 
+  /**
+   * @brief
+   * Query if the pointer type is a constant type.
+   *
+   * @return
+   * If the pointer type is a constant type, return true, otherwise return false.
+   */
   bool is_const() const;
 
 
@@ -78,7 +126,10 @@ public:
 
 private:
 
+  /** Pointer type info object. */
   TypeInfo* mPointerType;
+
+  /** If true, the pointer is a constant type pointer. If false, the pointer is a non-constant type pointer. */
   bool mIsConst;
 };
 

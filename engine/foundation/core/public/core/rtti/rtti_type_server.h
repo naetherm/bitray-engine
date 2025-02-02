@@ -28,6 +28,8 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include <core/container/hash_map.h>
+
 #include "core/core.h"
 #include "core/core/server_impl.h"
 #include "core/container/map.h"
@@ -49,6 +51,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class PrimitiveTypeInfo;
 
 
 //[-------------------------------------------------------]
@@ -66,6 +69,14 @@ public:
   ~RttiTypeServer() override;
 
 public:
+
+  void register_primitive_type(const String& name, PrimitiveTypeInfo* primitiveTypeInfo);
+
+  PrimitiveTypeInfo* get_primitive_type(const String& name);
+
+private:
+
+  core::hash_map<String, PrimitiveTypeInfo*> mPrimitiveTypesMap;
 };
 
 

@@ -20,40 +20,24 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
 #include "core/rtti/rtti_macros.h"
-#include "core/rtti/rtti_type_server.h"
-#include "core/rtti/builder/class_builder.h"
-#include "core/rtti/builder/enum_builder.h"
-#include "core/rtti/type_info/primitive_type_info.h"
+#include "core/rtti/type_info/static_type_info.h"
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
+//[ Type definitions                                      ]
 //[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-}
+be_declare_basic_type(void)
+be_declare_basic_type(bool)
+be_declare_basic_type(core::float32)
+be_declare_basic_type(core::float64)
+be_declare_basic_type(core::int8)
+be_declare_basic_type(core::int16)
+be_declare_basic_type(core::int32)
+be_declare_basic_type(core::int64)
+be_declare_basic_type(core::uint8)
+be_declare_basic_type(core::uint16)
+be_declare_basic_type(core::uint32)
+be_declare_basic_type(core::uint64)

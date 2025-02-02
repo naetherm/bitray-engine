@@ -20,29 +20,36 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/type/class_type_info_builder.h"
+#include "core/core.h"
+#include "core/rtti/rtti_type_server.h"
 
 
 //[-------------------------------------------------------]
-//[ Namespace                                             ]
+//[ Macros                                                ]
 //[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-ClassTypeInfoBuilder::ClassTypeInfoBuilder(ClassTypeInfo* typeInfo)
-: mTypeInfo(typeInfo) {
-}
-
-ClassTypeInfoBuilder::~ClassTypeInfoBuilder() {
-}
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-}
+#define be_declare_basic_type(TYPE) \
+  template<> struct core::StaticTypeInfo<TYPE> { \
+    static core::TypeInfo* get() { \
+      static core::PrimitiveTypeInfo info(#TYPE); \
+      static core::PrimitiveTypeInfo* infoPtr = nullptr; \
+      if (!infoPtr) { \
+        core::PrimitiveTypeInfo* regInfo = core::RttiTypeServer::instance().get_primitive_type(#TYPE); \
+        if (regInfo) { \
+          infoPtr = regInfo; \
+        } else { \
+          core::RttiTypeServer::instance().register_primitive_type(#TYPE, &info); \
+          infoPtr = &info; \
+        } \
+      } \
+      return infoPtr; \
+    } \
+    enum { Defined = true, Copyable = true }; \
+  };

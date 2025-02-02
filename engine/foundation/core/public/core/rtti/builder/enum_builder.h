@@ -29,7 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/type_info/type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -46,91 +45,15 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class TypeInfo;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * ReferenceTypeInfo
- *
- * @brief
- * Type information for reference types.
- *
- * Type information for reference types.
- */
-class ReferenceTypeInfo : public TypeInfo {
+template<typename TEnum>
+class EnumBuilder {
 public:
-
-  /**
-   * @brief
-   * Constructor.
-   *
-   * @param[in] referenceType
-   * The type info object associated with the referenced type.
-   *
-   * @param[in] isConst
-   * If true, the referenced type is a constant type, otherwise it is a non-constant type.
-   */
-  ReferenceTypeInfo(TypeInfo* referenceType, bool isConst);
-
-  /**
-   * @brief
-   * Destructor.
-   */
-  ~ReferenceTypeInfo() override;
-
-
-  /**
-   * @brief
-   * Compare the current type info object with another type info object for equality.
-   *
-   * @param[in] other
-   * The type info object to compare with the current type info object.
-   *
-   * @return
-   * If the current type info object is equal to the other type info object, return true, otherwise
-   * return false.
-   */
-  bool operator==(const TypeInfo& other) const;
-
-
-  /**
-   * @brief
-   * Retrieve the type info object associated with the referenced type.
-   *
-   * @return
-   * The type info object associated with the referenced type.
-   */
-  TypeInfo* get_reference_type();
-
-  /**
-   * @brief
-   * Query if the referenced type is a constant type.
-   *
-   * @return
-   * True if the referenced type is a constant type, otherwise false.
-   */
-  bool is_const() const;
-
-
-  /**
-   * @brief
-   * Get the type info type.
-   *
-   * @return
-   * The type info type
-   */
-  TypeInfoType get_type_info_type() const override;;
-
-private:
-
-  /** The type info object associated with the referenced type. */
-  TypeInfo* mReferenceType;
-
-  /** Flag indicating if the referenced type is a constant type. */
-  bool mIsConst;
 };
 
 
@@ -138,3 +61,9 @@ private:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/rtti/builder/enum_builder.inl"

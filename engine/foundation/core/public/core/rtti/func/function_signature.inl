@@ -23,6 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/type_info/type_info.h"
+#include "core/rtti/type_info/static_type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -39,6 +40,56 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+namespace internal {
+
+template<int N, typename...> struct TemplateToTypeInfoVector;
+
+template<int N, typename TFirst, typename... TTail>
+struct TemplateToTypeInfoVector<N, TFirst, TTail...> {
+  /**
+   * @brief
+   * Adds the type information associated with `TFirst` and the type information associated with the
+   * types in `TTail` to the specified vector.
+   *
+   * @param parameterTypes
+   * The vector which will receive the type information associated with `TFirst` and the types in
+   * `TTail`.
+   */
+  static void Make(core::Vector<const TypeInfo*>& parameterTypes) {
+    parameterTypes.push_back(core::StaticTypeInfo<TFirst>::get());
+    TemplateToTypeInfoVector<N-1, TTail...>::Make(parameterTypes);
+  }
+};
+
+template<int N, typename TFirst>
+struct TemplateToTypeInfoVector<N, TFirst> {
+  /**
+   * @brief
+   * Adds the type information associated with `TFirst` to the specified vector.
+   *
+   * @param parameterTypes
+   * The vector which will receive the type information associated with `TFirst`.
+   */
+  static void Make(core::Vector<const TypeInfo*>& parameterTypes) {
+    parameterTypes.push_back(core::StaticTypeInfo<TFirst>::get());
+  }
+};
+
+template<int N>
+struct TemplateToTypeInfoVector<N> {
+  /**
+   * @brief
+   * Adds no type information to the specified vector.
+   *
+   * @param parameterTypes
+   * The vector which will not receive any type information.
+   */
+  static void Make(core::Vector<const TypeInfo*>& parameterTypes) {
+
+  }
+};
+
+}
 
 
 //[-------------------------------------------------------]
@@ -46,7 +97,13 @@ namespace core {
 //[-------------------------------------------------------]
 template<typename TReturn, typename ... TArgs>
 FunctionSignature FunctionSignature::from_template() {
-  return FunctionSignature();
+  core::TypeInfo* returnType = core::StaticTypeInfo<TReturn>::get();
+  core::Vector<const core::TypeInfo*> parameterTypes;
+  parameterTypes.reserve(sizeof...(TArgs));
+
+  internal::TemplateToTypeInfoVector<sizeof...(TArgs), TArgs...>::Make(parameterTypes);
+
+  return FunctionSignature(returnType, parameterTypes);
 }
 
 

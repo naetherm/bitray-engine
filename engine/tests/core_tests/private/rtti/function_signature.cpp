@@ -20,58 +20,72 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/type/type_info.h"
-#include "core/container/map.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "rtti/function_signature.h"
+#include <core/rtti/object.h>
+#include <core/rtti/func/function_signature.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+namespace core_tests {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class EnumTypeInfo : public TypeInfo {
+FunctionSignatureTests::FunctionSignatureTests()
+  : UnitTest("FunctionSignatureTests") {
 
-  friend class EnumTypeInfoBuilder;
+}
 
-public:
+FunctionSignatureTests::~FunctionSignatureTests() {
 
-  EnumTypeInfo(const String& name);
+}
 
-  ~EnumTypeInfo() override;
+void FunctionSignatureTests::test() {
+  // Default constructor
+  {
+    core::FunctionSignature fs;
 
+    be_expect_true(nullptr == fs.get_return_type())
+    be_expect_eq(0, fs.get_parameter_types().size())
+  }
 
-  [[nodiscard]] uint32 get_value(const String& name) const;
+  // from_template<void>()
+  {
+    core::FunctionSignature fs = core::FunctionSignature::from_template<void>();
 
-protected:
+    be_expect_true(core::StaticTypeInfo<void>::get() == fs.get_return_type())
+    be_expect_eq(0, fs.get_parameter_types().size())
+  }
 
-  Map<String, int32> mValues;
-};
+  // from_template<void, core::int8>()
+  {
+    core::FunctionSignature fs = core::FunctionSignature::from_template<void, core::int8>();
+
+    be_expect_true(core::StaticTypeInfo<void>::get() == fs.get_return_type())
+    be_expect_eq(1, fs.get_parameter_types().size())
+    be_expect_true(core::StaticTypeInfo<core::int8>::get() == fs.get_parameter_types()[0])
+  }
+
+  // from_template<void, core::int8, bool>()
+  {
+    core::FunctionSignature fs = core::FunctionSignature::from_template<void, core::int8, bool>();
+
+    be_expect_true(core::StaticTypeInfo<void>::get() == fs.get_return_type())
+    be_expect_eq(2, fs.get_parameter_types().size())
+    be_expect_true(core::StaticTypeInfo<core::int8>::get() == fs.get_parameter_types()[0])
+    be_expect_true(core::StaticTypeInfo<bool>::get() == fs.get_parameter_types()[1])
+  }
+}
+
+be_unittest_autoregister(FunctionSignatureTests)
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests

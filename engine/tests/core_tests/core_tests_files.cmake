@@ -47,6 +47,8 @@ set(FILES
   private/math/vec3.cpp
   private/math/vec4.cpp
 
+  private/rtti/function_signature.cpp
+
   private/string/string.cpp
   private/string/string_view.cpp
 )

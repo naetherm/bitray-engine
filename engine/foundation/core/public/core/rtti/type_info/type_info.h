@@ -52,16 +52,57 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class TypeInfo
+ *
+ * @brief
+ * Type information.
+ *
+ * This class contains information about a type.
+ */
 class TypeInfo {
 public:
 
+  /**
+   * @brief
+   * Constructor.
+   *
+   * @param[in] name
+   * The name of the type info object.
+   */
   TypeInfo(const String& name);
 
+  /**
+   * @brief
+   * Destructor.
+   */
   virtual ~TypeInfo();
 
 
+  /**
+   * @brief
+   * Compare the current type info object with another type info object for equality.
+   *
+   * @param[in] rhs
+   * The type info object to compare with the current type info object.
+   *
+   * @return
+   * If the current type info object is equal to the other type info object, return true, otherwise
+   * return false.
+   */
   bool operator==(const TypeInfo& rhs) const;
 
+  /**
+   * @brief
+   * Compare the current type info object with another type info object for inequality.
+   *
+   * @param[in] rhs
+   * The type info object to compare with the current type info object.
+   *
+   * @return
+   * If the current type info object is not equal to the other type info object, return true, otherwise
+   * return false.
+   */
   bool operator!=(const TypeInfo& rhs) const;
 
 
@@ -75,10 +116,17 @@ public:
   virtual TypeInfoType get_type_info_type() const = 0;
 
 
+  /**
+   * @brief
+   * Get the name of the type.
+   *
+   * @return
+   * The name of the type.
+   */
   [[nodiscard]] const String& get_name() const;
 
 protected:
-
+  /** The name of the type */
   String mName;
 };
 

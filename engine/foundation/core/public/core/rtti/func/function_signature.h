@@ -29,7 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/container/array.h"
+#include "core/container/vector.h"
 
 
 //[-------------------------------------------------------]
@@ -98,8 +98,29 @@ public:
      * @param parameterTypes
      * The parameter type list of the function.
      */
-    FunctionSignature(const core::TypeInfo* returnType, const Array<const TypeInfo*>& parameterTypes);
+    FunctionSignature(const core::TypeInfo* returnType, const Vector<const TypeInfo*>& parameterTypes);
 
+    /**
+     * @brief
+     * Copy constructor for the `FunctionSignature` class.
+     *
+     * @param other
+     * The `FunctionSignature` object to copy from.
+     */
+    FunctionSignature(const FunctionSignature& other);
+
+
+    /**
+     * @brief
+     * Copy assignment operator for the `FunctionSignature` class.
+     *
+     * @param other
+     * The `FunctionSignature` object to copy from.
+     *
+     * @return
+     * The `FunctionSignature` object after assignment.
+     */
+    FunctionSignature& operator=(const FunctionSignature& other);
 
     /**
      * @brief
@@ -130,13 +151,13 @@ public:
      * @return
      * A reference to an array containing the parameter types.
      */
-    [[nodiscard]] const Array<const TypeInfo*>& get_parameter_types() const;
+    [[nodiscard]] const Vector<const TypeInfo*>& get_parameter_types() const;
 
 private:
     /** The return type of the function. */
     const TypeInfo* mReturnType;
     /** The parameter types of the function. */
-    Array<const TypeInfo*> mParameterTypes;
+    Vector<const TypeInfo*> mParameterTypes;
 };
 
 

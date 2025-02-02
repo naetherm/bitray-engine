@@ -47,6 +47,21 @@ RttiTypeServer::~RttiTypeServer() {
 
 }
 
+void RttiTypeServer::register_primitive_type(const String& name, PrimitiveTypeInfo* primitiveTypeInfo) {
+  auto ti = mPrimitiveTypesMap.find(name);
+  if (ti == mPrimitiveTypesMap.end()) {
+    mPrimitiveTypesMap[name] = primitiveTypeInfo;
+  }
+}
+
+PrimitiveTypeInfo* RttiTypeServer::get_primitive_type(const String& name) {
+  auto ti = mPrimitiveTypesMap.find(name);
+  if (ti == mPrimitiveTypesMap.end()) {
+    return nullptr;
+  }
+  return ti.value();
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

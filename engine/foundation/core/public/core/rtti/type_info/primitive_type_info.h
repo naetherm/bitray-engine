@@ -58,7 +58,7 @@ namespace core {
  * @brief
  * Primitive type info class.
  */
-class PrimitiveTypeInfo : public TypeInfo {
+class CORE_API PrimitiveTypeInfo : public TypeInfo {
 public:
 
   /**
@@ -86,3 +86,9 @@ public:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/rtti/type_info/primitive_type_infos.inl"
