@@ -52,6 +52,15 @@ class Enum;
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * EnumTypeInfo
+ *
+ * @brief
+ * TypeInfo for an enum type.
+ *
+ * Provides information about the enum type.
+ */
 class EnumTypeInfo : public TypeInfo {
 
   friend class Enum;
@@ -77,10 +86,16 @@ public:
    */
   TypeInfoType get_type_info_type() const override;
 
+  /**
+   * @brief
+   * Returns a pointer to the associated Enum object.
+   *
+   * @return A constant pointer to the Enum object.
+   */
   [[nodiscard]] const Enum* get_enum() const;
 
 private:
-
+  /** Pointer to enum implementation */
   const Enum* mEnum;
 };
 

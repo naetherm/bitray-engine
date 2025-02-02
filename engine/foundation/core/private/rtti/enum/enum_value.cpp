@@ -44,6 +44,26 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+EnumValue::EnumValue()
+: mValue(0) {
+}
+
+EnumValue::EnumValue(const String& name, core::int32 value)
+: mName(name)
+, mValue(value) {
+}
+
+bool EnumValue::operator==(const EnumValue& other) const {
+  return ((mName == other.get_name()) && (mValue == other.mValue));
+}
+
+const String& EnumValue::get_name() const {
+  return mName;
+}
+
+core::int32 EnumValue::get_value() const {
+  return mValue;
+}
 
 
 //[-------------------------------------------------------]

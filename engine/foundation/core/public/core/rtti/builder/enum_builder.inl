@@ -22,7 +22,8 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-
+#include "core/rtti/enum.h"
+#include "core/rtti/enum/enum_value.h"
 
 
 //[-------------------------------------------------------]
@@ -39,7 +40,16 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+template<typename TEnum>
+core::EnumBuilder<TEnum>::EnumBuilder(Enum& e)
+: mEnum(&e) {
+}
 
+template<typename TEnum>
+core::EnumBuilder<TEnum>& core::EnumBuilder<TEnum>::value(const String& name, core::int32 value) {
+  mEnum->add_enum_value(name, value);
+  return *this;
+}
 
 
 //[-------------------------------------------------------]

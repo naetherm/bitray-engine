@@ -51,8 +51,74 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * EnumValue
+ *
+ * @brief
+ * Represents a named value in an enumeration.
+ *
+ * EnumValue is a part of the RTTI system that holds a name and a value,
+ * allowing for the dynamic querying of enum members.
+ */
 class EnumValue : public RttiMember {
 public:
+
+  /**
+   * @brief
+   * Constructs an EnumValue object with no name and the value 0.
+   *
+   * This is a convenience constructor that is useful for creating EnumValue objects
+   * without having to specify a name and value.
+   */
+  EnumValue();
+
+  /**
+   * @brief
+   * Constructs an EnumValue object with the specified name and value.
+   *
+   * @param name The name of the enum value.
+   * @param value The value of the enum value.
+   */
+  EnumValue(const String& name, core::int32 value);
+
+
+  /**
+   * @brief
+   * Compares two EnumValue objects for equality.
+   *
+   * The two EnumValue objects are considered equal if their names and values are equal.
+   *
+   * @param rhs The EnumValue object to compare with.
+   *
+   * @return true if the two EnumValue objects are equal, and false otherwise.
+   */
+  bool operator==(const EnumValue& rhs) const;
+
+
+  /**
+   * @brief
+   * Returns the name of the enum value.
+   *
+   * @return A constant reference to the name of the enum value.
+   */
+  [[nodiscard]] const String& get_name() const;
+
+  /**
+   * @brief
+   * Returns the value of the enum value.
+   *
+   * @return The value of the enum value.
+   */
+  [[nodiscard]] core::int32 get_value() const;
+
+private:
+
+  /** The name of the enum value. */
+  String mName;
+
+  /** The value of the enum value. */
+  core::int32 mValue;
 };
 
 

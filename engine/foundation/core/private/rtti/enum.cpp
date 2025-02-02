@@ -72,6 +72,12 @@ EnumValue& Enum::get_enum_value_by_index(core::sizeT index) {
   return mEnumValues[index];
 }
 
+void Enum::add_enum_value(const String& name, core::int32 value) {
+  EnumValue enumValue(name, value);
+  mEnumValues.push_back(enumValue);
+  mEnumValueMap[name] = enumValue;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

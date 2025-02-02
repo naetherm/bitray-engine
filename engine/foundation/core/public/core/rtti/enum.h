@@ -133,6 +133,17 @@ public:
   [[nodiscard]] EnumValue& get_enum_value_by_index(core::sizeT index);
 
 private:
+
+  /**
+   * @brief
+   * Adds an enum value to the enum.
+   *
+   * @param name The name of the enum value.
+   * @param value The value of the enum value.
+   */
+  void add_enum_value(const String& name, core::int32 value);
+
+private:
   /** The name of the enum */
   String mName;
   /** vector of all enum values */

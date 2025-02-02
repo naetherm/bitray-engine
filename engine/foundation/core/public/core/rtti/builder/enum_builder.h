@@ -45,15 +45,51 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class Enum;
 class TypeInfo;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @brief
+ * EnumBuilder is a helper class that is used to register the values of an Enum.
+ *
+ * EnumBuilder is used to register the values of an Enum with the Runtime Type
+ * Information (RTTI) system. It is used by the MACRO core_ENUM to register the
+ * values of an Enum, but it can also be used directly to register the values of
+ * an Enum.
+ */
 template<typename TEnum>
 class EnumBuilder {
 public:
+
+  /**
+   * @brief
+   * Constructs an EnumBuilder object that is used to register the values of an
+   * Enum.
+   *
+   * @param e The Enum instance that the EnumBuilder will be used to register the
+   * values of.
+   */
+  explicit EnumBuilder(Enum& e);
+
+
+  /**
+   * @brief
+   * Adds a new value to the Enum with the specified name and value.
+   *
+   * @param name The name of the value to add.
+   * @param value The value of the value to add.
+   *
+   * @return The EnumBuilder instance, allowing method chaining.
+   */
+  EnumBuilder<TEnum>& value(const String& name, core::int32 value);
+
+private:
+
+  Enum* mEnum;
 };
 
 
