@@ -59,6 +59,14 @@ struct StaticTypeInfo;
 
 template<typename TType>
 struct StaticTypeInfo {
+  /**
+   * @brief
+   * Get the type info object associated with the current type.
+   *
+   * @return
+   * The type info object associated with the current type, or nullptr if no type info object is
+   * associated with the current type.
+   */
   static TypeInfo* get() {
     return nullptr;
   }
@@ -68,7 +76,14 @@ struct StaticTypeInfo {
 
 template<typename TType>
 struct StaticTypeInfo<TType*> {
-
+  /**
+   * @brief
+   * Get the type info object associated with the current type.
+   *
+   * @return
+   * The type info object associated with the current type, or nullptr if no type info object is
+   * associated with the current type.
+   */
   static TypeInfo* get() {
     static PointerTypeInfo info(StaticTypeInfo<TType>::get(), false);
     return &info;
@@ -78,7 +93,14 @@ struct StaticTypeInfo<TType*> {
 };
 template<typename TType>
 struct StaticTypeInfo<const TType*> {
-
+  /**
+   * @brief
+   * Get the type info object associated with the current type.
+   *
+   * @return
+   * The type info object associated with the current type, or nullptr if no type info object is
+   * associated with the current type.
+   */
   static TypeInfo* get() {
     static PointerTypeInfo info(StaticTypeInfo<TType>::get(), true);
     return &info;
@@ -89,7 +111,14 @@ struct StaticTypeInfo<const TType*> {
 
 template<typename TType>
 struct StaticTypeInfo<TType&> {
-
+  /**
+   * @brief
+   * Get the type info object associated with the current type.
+   *
+   * @return
+   * The type info object associated with the current type, or nullptr if no type info object is
+   * associated with the current type.
+   */
   static TypeInfo* get() {
     static ReferenceTypeInfo info(StaticTypeInfo<TType>::get(), false);
     return &info;
@@ -99,7 +128,14 @@ struct StaticTypeInfo<TType&> {
 };
 template<typename TType>
 struct StaticTypeInfo<const TType&> {
-
+  /**
+   * @brief
+   * Get the type info object associated with the current type.
+   *
+   * @return
+   * The type info object associated with the current type, or nullptr if no type info object is
+   * associated with the current type.
+   */
   static TypeInfo* get() {
     static ReferenceTypeInfo info(StaticTypeInfo<TType>::get(), true);
     return &info;
@@ -117,11 +153,33 @@ struct HashStaticTypeInfo {
   };
 };
 
+/**
+ * @brief
+ * Retrieve the static type information object associated with the specified type.
+ *
+ * @tparam TType
+ * The type for which the static type information is requested.
+ *
+ * @return
+ * A pointer to the `TypeInfo` object associated with the specified type, or nullptr
+ * if no type info object is associated with it.
+ */
 template<typename TType>
 TypeInfo* get_static_type_info() {
   return StaticTypeInfo<TType>::get();
 }
 
+/**
+ * @brief
+ * Retrieve the static type information object associated with the specified type.
+ *
+ * @tparam TType
+ * The type for which the static type information is requested.
+ *
+ * @return
+ * A pointer to the `TypeInfo` object associated with the specified type, or nullptr
+ * if no type info object is associated with it.
+ */
 template<typename TType>
 TypeInfo* get_static_type_info(TType o) {
   (void)o;

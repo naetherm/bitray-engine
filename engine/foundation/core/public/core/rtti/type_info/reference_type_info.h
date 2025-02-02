@@ -67,6 +67,13 @@ public:
   bool is_const() const;
 
 
+  /**
+   * @brief
+   * Get the type info type.
+   *
+   * @return
+   * The type info type
+   */
   TypeInfoType get_type_info_type() const override;;
 
 private:
