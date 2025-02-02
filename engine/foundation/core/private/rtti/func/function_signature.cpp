@@ -22,7 +22,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/type_info/enum_type_info.h"
+#include "core/rtti/func/function_signature.h"
 
 
 //[-------------------------------------------------------]
@@ -44,16 +44,22 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-EnumTypeInfo::EnumTypeInfo(const String& name)
-: TypeInfo(name) {
+FunctionSignature::FunctionSignature() {
 }
 
-TypeInfoType EnumTypeInfo::get_type_info_type() const {
-  return TypeInfoType::EnumType;
+FunctionSignature::FunctionSignature(const core::TypeInfo* returnType, const Array<const TypeInfo*> parameterTypes) {
 }
 
-const Enum* EnumTypeInfo::get_enum() const {
-  return mEnum;
+bool FunctionSignature::operator==(const FunctionSignature& other) const {
+  return ((mReturnType == other.mReturnType)); // && (mParameterTypes == other.mParameterTypes));
+}
+
+const TypeInfo* FunctionSignature::get_return_type() const {
+  return mReturnType;
+}
+
+const Array<const TypeInfo*>& FunctionSignature::get_parameter_types() const {
+  return mParameterTypes;
 }
 
 

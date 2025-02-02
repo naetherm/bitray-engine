@@ -76,6 +76,33 @@ protected:
 };
 
 
+template<typename TType>
+struct StaticTypeInfo;
+
+template<typename TType>
+struct StaticTypeInfo {
+  static TypeInfo* get() {
+    return nullptr;
+  }
+
+  enum { Defined = false, Copyable = true };
+};
+
+
+
+template<typename TType>
+TypeInfo* get_static_type_info() {
+  return StaticTypeInfo<TType>::get();
+}
+
+template<typename TType>
+TypeInfo* get_static_type_info(TType o) {
+  (void)o;
+
+  return StaticTypeInfo<TType>::get();
+}
+
+
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]

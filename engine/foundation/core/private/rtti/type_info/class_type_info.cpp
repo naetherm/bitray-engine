@@ -53,6 +53,7 @@ TypeInfoType ClassTypeInfo::get_type_info_type() const {
 }
 
 const Class* ClassTypeInfo::get_class() const {
+  return mClass;
 }
 
 

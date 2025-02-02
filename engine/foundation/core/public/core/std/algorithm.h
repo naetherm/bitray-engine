@@ -31,6 +31,7 @@
 #include "core/core.h"
 #include "core/std/functional.h"
 #include "core/std/iterator.h"
+#include "core/std/typetraits/conditional.h"
 #include "core/std/typetraits/add_reference.h"
 #include "core/std/typetraits/is_scalar.h"
 #include <algorithm>

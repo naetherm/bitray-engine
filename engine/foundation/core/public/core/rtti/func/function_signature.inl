@@ -22,7 +22,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/type_info/enum_type_info.h"
+#include "core/rtti/type_info/type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -44,16 +44,9 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-EnumTypeInfo::EnumTypeInfo(const String& name)
-: TypeInfo(name) {
-}
-
-TypeInfoType EnumTypeInfo::get_type_info_type() const {
-  return TypeInfoType::EnumType;
-}
-
-const Enum* EnumTypeInfo::get_enum() const {
-  return mEnum;
+template<typename TReturn, typename ... TArgs>
+FunctionSignature FunctionSignature::from_template() {
+  return FunctionSignature();
 }
 
 

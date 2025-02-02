@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/container/array.h"
 
 
 //[-------------------------------------------------------]
@@ -45,14 +46,44 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class TypeInfo;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+class FunctionSignature {
+public:
+
+  template<typename TReturn, typename... TArgs>
+  static FunctionSignature from_template();
+
+public:
+
+    FunctionSignature();
+
+    FunctionSignature(const core::TypeInfo* returnType, const Array<const TypeInfo*> parameterTypes);
+
+
+    bool operator==(const FunctionSignature& other) const;
+
+
+    [[nodiscard]] const TypeInfo* get_return_type() const;
+
+    [[nodiscard]] const Array<const TypeInfo*>& get_parameter_types() const;
+private:
+    const TypeInfo* mReturnType;
+    Array<const TypeInfo*> mParameterTypes;
+};
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/rtti/func/function_signature.inl"
