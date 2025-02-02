@@ -30,6 +30,9 @@
 //[-------------------------------------------------------]
 #include "core/core.h"
 #include "core/rtti/rtti_member.h"
+#include "core/container/hash_map.h"
+#include "core/container/vector.h"
+#include "core/rtti/enum/enum_value.h"
 
 
 //[-------------------------------------------------------]
@@ -46,13 +49,96 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+template<typename TEnum>
+class EnumBuilder;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 class Enum : public RttiMember {
+
+  template<typename TEnum> friend class EnumBuilder;
+
 public:
+
+  template<typename TEnum>
+  static EnumBuilder<TEnum> declare(const String& name);
+
+public:
+
+  /**
+   * @brief
+   * Constructs an Enum object with the specified name.
+   *
+   * @param name The name of the enum.
+   */
+  Enum(const String& name);
+
+  /**
+   * @brief
+   * The destructor for `Enum`.
+   *
+   * Cleans up any dynamically allocated memory used by the `Enum`.
+   */
+  ~Enum() override;
+
+
+  /**
+   * @brief
+   * Returns the number of enum values registered in this enum.
+   *
+   * @return The number of enum values.
+   */
+  [[nodiscard]] const core::sizeT get_num_of_enum_values() const;
+
+  /**
+   * @brief
+   * Returns the enum value with the specified name.
+   *
+   * @param name The name of the enum value.
+   *
+   * @return The enum value with the specified name.
+   */
+  [[nodiscard]] const EnumValue& get_enum_value_by_name(const String& name) const;
+
+  /**
+   * @brief
+   * Returns the enum value with the specified name.
+   *
+   * @param name The name of the enum value.
+   *
+   * @return The enum value with the specified name.
+   */
+  [[nodiscard]] EnumValue& get_enum_value_by_name(const String& name);
+
+  /**
+   * @brief
+   * Returns the enum value at the specified index.
+   *
+   * @param index The index of the enum value.
+   *
+   * @return The enum value at the specified index.
+   */
+  [[nodiscard]] const EnumValue& get_enum_value_by_index(core::sizeT index) const;
+
+  /**
+   * @brief
+   * Returns the enum value at the specified index.
+   *
+   * @param index The index of the enum value.
+   *
+   * @return The enum value at the specified index.
+   */
+  [[nodiscard]] EnumValue& get_enum_value_by_index(core::sizeT index);
+
+private:
+  /** The name of the enum */
+  String mName;
+  /** vector of all enum values */
+  core::Vector<EnumValue> mEnumValues;
+  /** Map of all enum values */
+  core::hash_map<String, EnumValue> mEnumValueMap;
 };
 
 
@@ -60,3 +146,9 @@ public:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/rtti/enum.inl"

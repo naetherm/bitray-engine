@@ -53,6 +53,27 @@ namespace core {
 //[-------------------------------------------------------]
 class Class : public RttiMember {
 public:
+public:
+
+  /**
+   * @brief
+   * Default constructor for the Class class.
+   *
+   * @param name The name of the class.
+   */
+  Class(const String& name);
+
+  /**
+   * @brief
+   * The destructor for `Class`.
+   *
+   * Cleans up any resources allocated by the `Class` instance.
+   */
+  ~Class() override;
+
+private:
+  /** The name of the class */
+  String mName;
 };
 
 

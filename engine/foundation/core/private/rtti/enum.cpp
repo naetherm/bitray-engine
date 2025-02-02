@@ -44,6 +44,33 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+Enum::Enum(const String& name)
+: mName(name) {
+}
+
+Enum::~Enum() {
+}
+
+
+const core::sizeT Enum::get_num_of_enum_values() const {
+  return mEnumValues.size();
+}
+
+const EnumValue& Enum::get_enum_value_by_name(const String& name) const {
+  return mEnumValueMap.at(name);
+}
+
+EnumValue& Enum::get_enum_value_by_name(const String& name) {
+  return mEnumValueMap.at(name);
+}
+
+const EnumValue& Enum::get_enum_value_by_index(core::sizeT index) const {
+  return mEnumValues[index];
+}
+
+EnumValue& Enum::get_enum_value_by_index(core::sizeT index) {
+  return mEnumValues[index];
+}
 
 
 //[-------------------------------------------------------]
