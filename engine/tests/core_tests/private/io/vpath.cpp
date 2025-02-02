@@ -22,35 +22,51 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/type/enum_type_info_builder.h"
+#include "io/vpath.h"
+#include <core/io/vpath.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
+namespace core_tests {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-EnumTypeInfoBuilder::EnumTypeInfoBuilder(EnumTypeInfo* typeInfo)
-: mTypeInfo(typeInfo) {
+VPathTests::VPathTests()
+: UnitTest("VPathTests") {
+
 }
 
-EnumTypeInfoBuilder::~EnumTypeInfoBuilder() {
-  mTypeInfo = nullptr;
+VPathTests::~VPathTests() {
+
 }
 
+void VPathTests::test() {
+  {
+    core::VPath vpath;
+  }
 
-EnumTypeInfoBuilder& EnumTypeInfoBuilder::add_value(const String& name, int32 value) {
-  mTypeInfo->mValues.set(name, value);
+  {
+    core::VPath vpath("assign:some/path/to/file.txt");
 
-  return *this;
+    be_expect_str_eq(vpath.get_assign(), "assign")
+    be_expect_str_eq(vpath.get_path(), "some/path/to/file.txt")
+  }
+
+  {
+    core::VPath vpath("some/path/to/file.txt");
+
+    be_expect_str_eq(vpath.get_path(), "some/path/to/file.txt")
+  }
 }
+
+be_unittest_autoregister(VPathTests)
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests

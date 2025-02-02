@@ -22,7 +22,12 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/object.h"
+#include "core/rtti/rtti_member.h"
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
 
 
 //[-------------------------------------------------------]
@@ -32,14 +37,32 @@ namespace core {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Object::Object() {
-
+RttiMember::RttiMember(RttiMemberType rttiMemberType, const String& name, const String& description)
+: mName(name)
+, mDescription(description)
+, mRttiMemberType(rttiMemberType) {
 }
 
-Object::~Object() {
+RttiMember::~RttiMember() {
+}
 
+RttiMemberType RttiMember::get_rtti_member_type() const {
+  return mRttiMemberType;
+}
+
+const String& RttiMember::get_name() const {
+  return mName;
+}
+
+const String& RttiMember::get_description() const {
+  return mDescription;
 }
 
 

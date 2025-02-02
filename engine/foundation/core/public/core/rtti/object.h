@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/rtti/rtti.h"
 
 
 //[-------------------------------------------------------]
@@ -52,12 +53,6 @@ class TypeInfo;
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 class Object {
-public:
-
-  static TypeInfo* get_static_type_info();
-
-  [[nodiscard]] virtual TypeInfo* get_type_info() const;
-
 public:
 
   Object();

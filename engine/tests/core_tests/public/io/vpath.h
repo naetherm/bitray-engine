@@ -28,46 +28,30 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/type/enum_type_info.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include <unittest/unittest.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+namespace core_tests {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class EnumTypeInfoBuilder {
+class VPathTests : public unittest::UnitTest {
 public:
+  VPathTests();
 
-  EnumTypeInfoBuilder(EnumTypeInfo* typeInfo);
+  ~VPathTests();
 
-  ~EnumTypeInfoBuilder();
+  void test() override;
 
-
-  EnumTypeInfoBuilder& add_value(const String& name, int32 value);
-
-protected:
-
-  EnumTypeInfo* mTypeInfo;
 };
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests

@@ -50,18 +50,6 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-template<typename TEnum>
-class EnumTypePlain {
-};
-
-template<typename TEnum>
-class EnumType {
-};
-
-
-template<typename TEnum>
-class FlagType {
-};
 
 
 //[-------------------------------------------------------]

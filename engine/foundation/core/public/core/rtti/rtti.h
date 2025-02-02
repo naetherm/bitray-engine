@@ -46,47 +46,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-#define be_begin_enum(NAME) \
-template<> \
-class core::EnumRegistrar<NAME> { \
-public: \
-  static core::EnumTypeInfo* type_info; \
-public: \
-  EnumRegistrar() { \
-    type_info = new core::EnumTypeInfo(#NAME); \
-    register_enum(); \
-    core::RttiTypeServer::instance().register_enum(type_info); \
-  } \
-  ~EnumRegistrar() { \
-    delete type_info; \
-  } \
-  void register_enum() override { \
-    core::EnumTypeInfoBuilder builder(type_info); \
 
-#define be_end_enum(NAME, NAMESPACE) \
-} \
-}; \
-core::EnumTypeInfo* core::EnumRegistrar<NAMESPACE::NAME>::type_info = nullptr; \
-core::EnumRegistrar<NAMESPACE::NAME> NAMESPACE##_##NAME##_EnumRegistrar; \
-
-
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-template<typename TType>
-class EnumRegistrar {
-public:
-
-  static core::EnumTypeInfo* type_info;
-
-public:
-
-  EnumRegistrar() {}
-
-  ~EnumRegistrar() {}
-
-  virtual void register_enum() {}
-};
 
 
 //[-------------------------------------------------------]

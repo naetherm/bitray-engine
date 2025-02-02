@@ -29,6 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/core/unique_ptr.h"
+#include "core/std/typetraits/decay.h"
 
 
 //[-------------------------------------------------------]
@@ -51,7 +53,7 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 class Any {
-public:
+private:
 };
 
 

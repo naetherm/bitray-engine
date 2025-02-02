@@ -20,22 +20,43 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
+//[ Includes                                              ]
 //[-------------------------------------------------------]
-#pragma once
+#include "core/rtti/type_info/class_type_info.h"
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+namespace core {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-template <>
-class Type<bool> {
-public:
+ClassTypeInfo::ClassTypeInfo(const String& name)
+: TypeInfo(name) {
+}
 
-public:
+TypeInfoType ClassTypeInfo::get_type_info_type() const {
+  return TypeInfoType::ClassType;
+}
 
-  static String get_type_name() {
-    static constexpr String SName = "bool";
-    return SName;
-  }
-};
+const Class* ClassTypeInfo::get_class() const {
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+}

@@ -20,15 +20,9 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
+#include "core/rtti/enum.h"
 
 
 //[-------------------------------------------------------]
@@ -50,73 +44,6 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-template<typename R, typename... Args>
-class Func {
-public:
-  typedef Func<R, Args...> _MethodType;
-
-  Func() = default;
-  virtual ~Func() = default;
-
-  virtual R operator()(Args... args) {
-    return R();
-  }
-
-  virtual _MethodType* clone() const {
-    return nullptr;
-  }
-};
-
-// Specialization for void return type
-template<typename... Args>
-class Func<void, Args...> {
-public:
-  typedef Func<void, Args...> _MethodType;
-
-  Func() = default;
-  virtual ~Func() = default;
-
-  virtual void operator()(Args... args) {
-  }
-
-  virtual _MethodType* clone() const {
-    return nullptr;
-  }
-};
-
-template<typename R>
-class Func<R> {
-public:
-  typedef Func<R> _MethodType;
-
-  Func() = default;
-  virtual ~Func() = default;
-
-  virtual R operator()() {
-    return R();
-  }
-
-  virtual _MethodType* clone() const {
-    return nullptr;
-  }
-};
-
-// Specialization for void return type
-template<>
-class Func<void> {
-public:
-  typedef Func<void> _MethodType;
-
-  Func() = default;
-  virtual ~Func() = default;
-
-  virtual void operator()() {
-  }
-
-  virtual _MethodType* clone() const {
-    return nullptr;
-  }
-};
 
 
 //[-------------------------------------------------------]

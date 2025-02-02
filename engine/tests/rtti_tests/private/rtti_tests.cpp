@@ -26,8 +26,6 @@
 #include "rtti_tests.h"
 
 #include <core/log/log.h>
-#include <core/rtti/type/enum_type_info.h>
-#include <core/rtti/type/type_info.h>
 
 #include "some_object.h"
 
@@ -52,34 +50,7 @@ RttiTests::~RttiTests() {
 
 void RttiTests::test() {
   core::RttiTypeServer& rttiTypeServer = core::RttiTypeServer::instance();
-  {
-    be_expect_str_eq("Object", rtti_tests::Object::get_static_type_info()->get_name().c_str())
-    be_expect_str_eq("rtti_tests::SomeObject", rtti_tests::SomeObject::get_static_type_info()->get_name().c_str())
-  }
 
-  // rtti_tests::SomeEnum tests
-  {
-    {
-      core::EnumTypeInfo* someEnumTypeInfo = rttiTypeServer.get_enum("rtti_tests::SomeEnum");
-
-      be_expect_str_eq("rtti_tests::SomeEnum", someEnumTypeInfo->get_name().c_str())
-      be_expect_eq(rtti_tests::SomeEnum::FirstValue, someEnumTypeInfo->get_value("FirstValue"))
-      be_expect_eq(rtti_tests::SomeEnum::SecondValue, someEnumTypeInfo->get_value("SecondValue"))
-      be_expect_eq(rtti_tests::SomeEnum::ThirdValue, someEnumTypeInfo->get_value("ThirdValue"))
-
-      someEnumTypeInfo = nullptr;
-    }
-    {
-      core::EnumTypeInfo* someEnumTypeInfo = rttiTypeServer.get_enum("rtti_tests::SomeOtherEnum");
-
-      be_expect_str_eq("rtti_tests::SomeOtherEnum", someEnumTypeInfo->get_name().c_str())
-      be_expect_eq(rtti_tests::SomeOtherEnum::FirstOtherValue, someEnumTypeInfo->get_value("FirstOtherValue"))
-      be_expect_eq(rtti_tests::SomeOtherEnum::SecondOtherValue, someEnumTypeInfo->get_value("SecondOtherValue"))
-      be_expect_eq(rtti_tests::SomeOtherEnum::ThirdOtherValue, someEnumTypeInfo->get_value("ThirdOtherValue"))
-
-      someEnumTypeInfo = nullptr;
-    }
-  }
 }
 
 be_unittest_autoregister(RttiTests)

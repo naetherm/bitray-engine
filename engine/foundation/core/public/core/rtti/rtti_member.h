@@ -29,7 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/tools/type_helper.h"
+#include "core/rtti/rtti_types.h"
+#include "core/string/string.h"
 
 
 //[-------------------------------------------------------]
@@ -46,21 +47,36 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class RttiClass;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-template <typename T>
-class Type : public Type< typename CheckType<T>::Type > {
+class RttiMember {
+public:
+
+  RttiMember(RttiMemberType rttiMemberType, const String& name, const String& description);
+
+  virtual ~RttiMember();
+
+
+  RttiMemberType get_rtti_member_type() const;
+
+  [[nodiscard]] const String& get_name() const;
+
+  [[nodiscard]] const String& get_description() const;
+
+protected:
+
+  void register_type(RttiClass* rttiClass);
+
+protected:
+
+  String mName;
+  String mDescription;
+  RttiMemberType mRttiMemberType;
 };
-
-
-//[-------------------------------------------------------]
-//[ Include type implementations                          ]
-//[-------------------------------------------------------]
-#include "core/rtti/type/type_invalid.inl"
-#include "core/rtti/type/type_bool.inl"
 
 
 //[-------------------------------------------------------]

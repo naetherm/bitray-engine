@@ -29,7 +29,9 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/std/typetraits/conditional.h"
 #include "core/std/typetraits/is_array.h"
+#include "core/std/utils.h"
 #include <memory>
 
 

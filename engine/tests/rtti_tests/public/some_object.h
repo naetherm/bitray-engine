@@ -55,29 +55,30 @@ namespace rtti_tests {
 class Object {
 public:
 
-  static core::TypeInfo* get_static_type_info();
-
-  [[nodiscard]] virtual core::TypeInfo* get_type_info() const;
-
 public:
 
   Object();
 
   virtual ~Object();
+
+
+  virtual void do_something();
 };
 
 class SomeObject : public Object {
 public:
-
-  static core::TypeInfo* get_static_type_info();
-
-  [[nodiscard]] core::TypeInfo* get_type_info() const override;
 
 public:
 
   SomeObject();
 
   ~SomeObject() override;
+
+  void do_something() override;
+
+  void do_something2();
+
+  void do_something_with_arguments(int x, float y);
 };
 
 enum SomeEnum {

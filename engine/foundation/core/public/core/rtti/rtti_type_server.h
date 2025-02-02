@@ -49,9 +49,6 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-class EnumTypeInfo;
-class ClassTypeInfo;
-class PrimitiveTypeInfo;
 
 
 //[-------------------------------------------------------]
@@ -68,33 +65,7 @@ public:
 
   ~RttiTypeServer() override;
 
-
-  void register_enum(EnumTypeInfo* enumTypeInfo);
-
-  void register_class(ClassTypeInfo* classTypeInfo);
-
-  void register_primitive(PrimitiveTypeInfo* primitiveTypeInfo);
-
-  [[nodiscard]] const EnumTypeInfo* get_enum(const String& name) const;
-
-  [[nodiscard]] EnumTypeInfo* get_enum(const String& name);
-
-  [[nodiscard]] const ClassTypeInfo* get_class(const String& name) const;
-
-  [[nodiscard]] ClassTypeInfo* get_class(const String& name);
-
-  [[nodiscard]] const PrimitiveTypeInfo* get_primitive(const String& name) const;
-
-  [[nodiscard]] PrimitiveTypeInfo* get_primitive(const String& name);
-
 public:
-
-  Vector<EnumTypeInfo*> mEnumTypeInfos;
-  Vector<ClassTypeInfo*> mClassTypeInfos;
-  Vector<PrimitiveTypeInfo*> mPrimitiveTypeInfos;
-  Map<String, EnumTypeInfo*> mEnumTypeInfoMap;
-  Map<String, ClassTypeInfo*> mClassTypeInfoMap;
-  Map<String, PrimitiveTypeInfo*> mPrimitiveTypeInfoMap;
 };
 
 

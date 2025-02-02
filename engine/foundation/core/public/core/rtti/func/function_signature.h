@@ -29,7 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/type/type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -51,13 +50,6 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class ClassTypeInfo : public TypeInfo {
-public:
-
-  ClassTypeInfo(const String& name);
-
-  ~ClassTypeInfo() override;
-};
 
 
 //[-------------------------------------------------------]

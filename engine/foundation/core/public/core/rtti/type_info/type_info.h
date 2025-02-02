@@ -29,7 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/type/class_type_info.h"
+#include "core/rtti/rtti_types.h"
+#include "core/string/string.h"
 
 
 //[-------------------------------------------------------]
@@ -51,16 +52,27 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class ClassTypeInfoBuilder {
+class TypeInfo {
 public:
 
-  ClassTypeInfoBuilder(ClassTypeInfo* typeInfo);
+  TypeInfo(const String& name);
 
-  ~ClassTypeInfoBuilder();
+  virtual ~TypeInfo();
+
+
+  bool operator==(const TypeInfo& rhs) const;
+
+  bool operator!=(const TypeInfo& rhs) const;
+
+
+  virtual TypeInfoType get_type_info_type() const = 0;
+
+
+  [[nodiscard]] const String& get_name() const;
 
 protected:
 
-  ClassTypeInfo* mTypeInfo;
+  String mName;
 };
 
 

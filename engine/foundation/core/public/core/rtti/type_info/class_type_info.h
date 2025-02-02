@@ -29,7 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/type/type_info.h"
+#include "core/rtti/type_info/type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -46,17 +46,28 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class Class;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class PrimitiveTypeInfo : public TypeInfo {
+class ClassTypeInfo : public TypeInfo {
+
+  friend class Class;
+
 public:
 
-  PrimitiveTypeInfo(const String& name);
+  ClassTypeInfo(const String& name);
 
-  ~PrimitiveTypeInfo() override;
+
+  TypeInfoType get_type_info_type() const override;
+
+  [[nodiscard]] const Class* get_class() const;
+
+private:
+
+  const Class* mClass;
 };
 
 

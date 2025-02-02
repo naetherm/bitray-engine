@@ -20,16 +20,9 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/string/string.h"
+#include "core/rtti/type_info/type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -51,30 +44,24 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-enum TypeInfoType {
-  PrimitiveType,
-  ClassType,
-  EnumType
-};
+TypeInfo::TypeInfo(const String& name)
+: mName(name) {
+}
 
-class TypeInfo {
-public:
+TypeInfo::~TypeInfo() {
+}
 
-  TypeInfo(const String& name, TypeInfoType typeInfoType);
+bool TypeInfo::operator==(const TypeInfo& rhs) const {
+  return (mName == rhs.mName);
+}
 
-  virtual ~TypeInfo();
+bool TypeInfo::operator!=(const TypeInfo& rhs) const {
+  return !operator==(rhs);
+}
 
-
-  [[nodiscard]] const String& get_name() const;
-
-  [[nodiscard]] TypeInfoType get_type() const;
-
-protected:
-
-  String mName;
-
-  TypeInfoType mTypeInfoType;
-};
+const String& TypeInfo::get_name() const {
+  return mName;
+}
 
 
 //[-------------------------------------------------------]

@@ -22,7 +22,12 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/object.h"
+#include "core/rtti/type_info/enum_type_info.h"
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
 
 
 //[-------------------------------------------------------]
@@ -32,14 +37,22 @@ namespace core {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Object::Object() {
-
+EnumTypeInfo::EnumTypeInfo(const String& name)
+: TypeInfo(name) {
 }
 
-Object::~Object() {
+TypeInfoType EnumTypeInfo::get_type_info_type() const {
+  return TypeInfoType::EnumType;
+}
 
+const Enum* EnumTypeInfo::get_enum() const {
 }
 
 

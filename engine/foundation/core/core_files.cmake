@@ -143,16 +143,15 @@ set(FILES
   private/resource/resource.cpp
 
   # private/rtti
+  private/rtti/class.cpp
+  private/rtti/enum.cpp
   private/rtti/module.cpp
   private/rtti/object.cpp
+  private/rtti/rtti_member.cpp
   private/rtti/rtti_type_server.cpp
-  private/rtti/func/argument_list.cpp
-  private/rtti/type/class_type_info.cpp
-  private/rtti/type/class_type_info_builder.cpp
-  private/rtti/type/enum_type_info.cpp
-  private/rtti/type/enum_type_info_builder.cpp
-  private/rtti/type/primitive_type_info.cpp
-  private/rtti/type/type_info.cpp
+  private/rtti/type_info/class_type_info.cpp
+  private/rtti/type_info/enum_type_info.cpp
+  private/rtti/type_info/type_info.cpp
 
   # private/std
   private/std/any.cpp
