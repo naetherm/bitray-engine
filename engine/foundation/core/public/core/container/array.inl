@@ -34,6 +34,17 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+
+template<typename T, core::sizeT N>
+bool Array<T, N>::operator==(const Array<T, N>& other) const {
+  return equal(begin(), end(), other.begin(), other.end());
+}
+
+template<typename T, core::sizeT N>
+bool Array<T, N>::operator!=(const Array<T, N>& other) const {
+  return !operator==(other);
+}
+
 template<typename T, core::sizeT N>
 inline void Array<T, N>::fill(const Array<T, N>::value_type &value) {
   core::fill_n(&mValue[0], N, value);

@@ -70,6 +70,8 @@ public:
 
 public:
   // We intentionally provide no constructor, destructor, or assignment operator.
+  bool operator==(const Array<T, N>& other) const;
+  bool operator!=(const Array<T, N>& other) const;
 
   void fill(const value_type& value);
 
@@ -113,7 +115,6 @@ public:
 
   bool validate() const;
 };
-
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
