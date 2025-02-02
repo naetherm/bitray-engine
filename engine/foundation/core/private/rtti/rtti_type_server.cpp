@@ -62,6 +62,21 @@ PrimitiveTypeInfo* RttiTypeServer::get_primitive_type(const String& name) {
   return ti.value();
 }
 
+void RttiTypeServer::register_enum_type(const String& name, EnumTypeInfo* enumTypeInfo) {
+  auto ti = mEnumTypeMap.find(name);
+  if (ti == mEnumTypeMap.end()) {
+    mEnumTypeMap[name] = enumTypeInfo;
+  }
+}
+
+EnumTypeInfo* RttiTypeServer::get_enum_type(const String& name) {
+  auto ti = mEnumTypeMap.find(name);
+  if (ti == mEnumTypeMap.end()) {
+    return nullptr;
+  }
+  return ti.value();
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

@@ -30,6 +30,8 @@
 //[-------------------------------------------------------]
 #include "core/core.h"
 #include "core/rtti/rtti_type_server.h"
+#include "core/rtti/enum.h"
+#include "core/rtti/builder/enum_builder.h"
 
 
 //[-------------------------------------------------------]
@@ -53,3 +55,44 @@
     } \
     enum { Defined = true, Copyable = true }; \
   };
+
+
+#define __be_declare_enum(ENUM) \
+  template<> struct core::StaticTypeInfo<ENUM> { \
+    static core::TypeInfo* get() { \
+      static core::EnumTypeInfo info(#ENUM); \
+      static core::EnumTypeInfo* infoPtr = nullptr; \
+      if (!infoPtr) { \
+        core::EnumTypeInfo* regInfo = core::RttiTypeServer::instance().get_enum_type(#ENUM); \
+        if (regInfo) { \
+          infoPtr = regInfo; \
+        } else { \
+          core::RttiTypeServer::instance().register_enum_type(#ENUM, &info); \
+          infoPtr = &info; \
+        } \
+      } \
+      return infoPtr; \
+    } \
+    enum { Defined = true, Copyable = true }; \
+  };
+
+
+#define be_declare_enum(ENUM) \
+  __be_declare_enum(ENUM)
+
+
+
+#define be_begin_enum(ENUM, NAMESPACE) \
+  struct AutoEnumRegister_##NAMESPACE##_##ENUM { \
+    AutoEnumRegister_##NAMESPACE##_##ENUM() { \
+      register_enum(); \
+    } \
+    static void register_enum(); \
+  }; \
+  static AutoEnumRegister_##NAMESPACE##_##ENUM NAMESPACE##_##ENUM_declare_enum_register; \
+  void AutoEnumRegister_##NAMESPACE##_##ENUM::register_enum() { \
+    core::Enum::declare<NAMESPACE::ENUM>(#NAMESPACE"::"#ENUM) \
+
+
+#define be_end_enum() \
+  ;}

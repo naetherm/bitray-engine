@@ -28,79 +28,40 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/type_info/type_info.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include <unittest/unittest.h>
+#include <core/rtti/rtti.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
+namespace core_tests {
 
 
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-class Enum;
+enum SomeEnum {
+  FirstValue = 0,
+  SecondValue,
+  ThirdValue
+};
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * EnumTypeInfo
- *
- * @brief
- * TypeInfo for an enum type.
- *
- * Provides information about the enum type.
- */
-class CORE_API EnumTypeInfo : public TypeInfo {
-
-  friend class Enum;
-
+class EnumTests : public unittest::UnitTest {
 public:
+  EnumTests();
 
-  /**
-   * @brief
-   * Constructor.
-   *
-   * @param name
-   * The name of the enum type.
-   */
-  EnumTypeInfo(const String& name);
+  ~EnumTests();
 
+  void test() override;
 
-  /**
-   * @brief
-   * Get the type info type.
-   *
-   * @return
-   * The type info type
-   */
-  TypeInfoType get_type_info_type() const override;
-
-  /**
-   * @brief
-   * Returns a pointer to the associated Enum object.
-   *
-   * @return A constant pointer to the Enum object.
-   */
-  [[nodiscard]] const Enum* get_enum() const;
-
-private:
-  /** Pointer to enum implementation */
-  const Enum* mEnum;
 };
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests
+
+be_declare_enum(core_tests::SomeEnum)

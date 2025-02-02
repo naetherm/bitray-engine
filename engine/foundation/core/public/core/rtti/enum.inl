@@ -23,6 +23,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/builder/enum_builder.h"
+#include "core/rtti/rtti.h"
+#include "type_info/static_type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -44,7 +46,15 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+template<typename TEnum>
+EnumBuilder<TEnum> Enum::declare(const String& name) {
+  Enum* enm = new Enum(name);
 
+  TypeInfo* enumTypeInfo = StaticTypeInfo<TEnum>::get();
+  ((EnumTypeInfo *)(enumTypeInfo))->mEnum = enm;
+
+  return EnumBuilder<TEnum>(*enm);
+}
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

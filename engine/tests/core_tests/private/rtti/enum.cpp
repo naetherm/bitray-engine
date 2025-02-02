@@ -20,87 +20,61 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/type_info/type_info.h"
+#include "rtti/enum.h"
+#include <core/rtti/rtti_type_server.h>
 
 
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+be_begin_enum(SomeEnum, core_tests)
+.value("FirstValue", core_tests::SomeEnum::FirstValue)
+.value("SecondValue", core_tests::SomeEnum::SecondValue)
+.value("ThirdValue", core_tests::SomeEnum::ThirdValue)
+be_end_enum()
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-class Enum;
+namespace core_tests {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * EnumTypeInfo
- *
- * @brief
- * TypeInfo for an enum type.
- *
- * Provides information about the enum type.
- */
-class CORE_API EnumTypeInfo : public TypeInfo {
+EnumTests::EnumTests()
+  : UnitTest("EnumTests") {
 
-  friend class Enum;
+}
 
-public:
+EnumTests::~EnumTests() {
 
-  /**
-   * @brief
-   * Constructor.
-   *
-   * @param name
-   * The name of the enum type.
-   */
-  EnumTypeInfo(const String& name);
+}
 
+void EnumTests::test() {
+  core::RttiTypeServer& rtti = core::RttiTypeServer::instance();
+  //core::StaticTypeInfo<core_tests::SomeEnum>::get();
 
-  /**
-   * @brief
-   * Get the type info type.
-   *
-   * @return
-   * The type info type
-   */
-  TypeInfoType get_type_info_type() const override;
+  {
+    core::EnumTypeInfo* enumTypeInfo = rtti.get_enum_type("core_tests::SomeEnum");
+    const core::Enum* enm = enumTypeInfo->get_enum();
 
-  /**
-   * @brief
-   * Returns a pointer to the associated Enum object.
-   *
-   * @return A constant pointer to the Enum object.
-   */
-  [[nodiscard]] const Enum* get_enum() const;
+    be_expect_true(enumTypeInfo != nullptr)
+    be_expect_true(enumTypeInfo->get_enum() != nullptr)
+    be_expect_eq(3, enm->get_num_of_enum_values())
+    be_expect_str_eq("FirstValue", enm->get_enum_value_by_index(0).get_name().c_str())
+    be_expect_str_eq("SecondValue", enm->get_enum_value_by_index(1).get_name().c_str())
+    be_expect_str_eq("ThirdValue", enm->get_enum_value_by_index(2).get_name().c_str())
+    be_expect_eq(core_tests::SomeEnum::FirstValue, enm->get_enum_value_by_name("FirstValue").get_value())
+    be_expect_eq(core_tests::SomeEnum::SecondValue, enm->get_enum_value_by_name("SecondValue").get_value())
+    be_expect_eq(core_tests::SomeEnum::ThirdValue, enm->get_enum_value_by_name("ThirdValue").get_value())
+  }
+}
 
-private:
-  /** Pointer to enum implementation */
-  const Enum* mEnum;
-};
+be_unittest_autoregister(EnumTests)
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests

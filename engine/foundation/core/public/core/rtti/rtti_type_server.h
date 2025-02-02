@@ -28,11 +28,9 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/container/hash_map.h>
-
 #include "core/core.h"
 #include "core/core/server_impl.h"
-#include "core/container/map.h"
+#include "core/container/hash_map.h"
 #include "core/container/vector.h"
 #include "core/string/string.h"
 
@@ -51,6 +49,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class EnumTypeInfo;
 class PrimitiveTypeInfo;
 
 
@@ -74,9 +73,15 @@ public:
 
   PrimitiveTypeInfo* get_primitive_type(const String& name);
 
+
+  void register_enum_type(const String& name, EnumTypeInfo* enumTypeInfo);
+
+  EnumTypeInfo* get_enum_type(const String& name);
+
 private:
 
   core::hash_map<String, PrimitiveTypeInfo*> mPrimitiveTypesMap;
+  core::hash_map<String, EnumTypeInfo*> mEnumTypeMap;
 };
 
 
