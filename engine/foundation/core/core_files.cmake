@@ -153,6 +153,7 @@ set(FILES
   private/rtti/type_info/class_type_info.cpp
   private/rtti/type_info/enum_type_info.cpp
   private/rtti/type_info/pointer_type_info.cpp
+  private/rtti/type_info/primitive_type_info.cpp
   private/rtti/type_info/reference_type_info.cpp
   private/rtti/type_info/type_info.cpp
 
