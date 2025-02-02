@@ -44,7 +44,34 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+PointerTypeInfo::PointerTypeInfo(TypeInfo* pointerType, bool isConst)
+: TypeInfo(isConst ? "const*" : "*" + pointerType->get_name())
+, mPointerType(pointerType)
+, mIsConst(isConst) {
+}
 
+PointerTypeInfo::~PointerTypeInfo() {
+}
+
+bool PointerTypeInfo::operator==(const TypeInfo& other) const {
+  if (get_name() == other.get_name()) {
+    return mPointerType->operator==((*((PointerTypeInfo *)(&other))->get_pointer_type()));
+  }
+
+  return false;
+}
+
+TypeInfo* PointerTypeInfo::get_pointer_type() const {
+  return mPointerType;
+}
+
+bool PointerTypeInfo::is_const() const {
+  return mIsConst;
+}
+
+TypeInfoType PointerTypeInfo::get_type_info_type() const {
+  return TypeInfoType::PointerType;
+}
 
 
 //[-------------------------------------------------------]

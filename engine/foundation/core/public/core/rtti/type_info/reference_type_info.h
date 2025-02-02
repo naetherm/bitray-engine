@@ -51,7 +51,29 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+class ReferenceTypeInfo : public TypeInfo {
+public:
 
+  ReferenceTypeInfo(TypeInfo* referenceType, bool isConst);
+
+  ~ReferenceTypeInfo() override;
+
+
+  bool operator==(const TypeInfo& other) const;
+
+
+  TypeInfo* get_reference_type();
+
+  bool is_const() const;
+
+
+  TypeInfoType get_type_info_type() const override;;
+
+private:
+
+  TypeInfo* mReferenceType;
+  bool mIsConst;
+};
 
 
 //[-------------------------------------------------------]

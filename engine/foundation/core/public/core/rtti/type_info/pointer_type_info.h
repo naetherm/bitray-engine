@@ -52,6 +52,27 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 class PointerTypeInfo : public TypeInfo {
+public:
+
+  PointerTypeInfo(TypeInfo* pointerType, bool isConst);
+
+  ~PointerTypeInfo() override;
+
+
+  bool operator==(const TypeInfo& other) const;
+
+
+  TypeInfo* get_pointer_type() const;
+
+  bool is_const() const;
+
+
+  TypeInfoType get_type_info_type() const override;;
+
+private:
+
+  TypeInfo* mPointerType;
+  bool mIsConst;
 };
 
 

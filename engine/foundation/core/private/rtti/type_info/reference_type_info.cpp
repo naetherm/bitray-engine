@@ -44,7 +44,34 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+ReferenceTypeInfo::ReferenceTypeInfo(TypeInfo* referenceType, bool isConst)
+: TypeInfo(isConst ? "const&" : "&" + referenceType->get_name())
+, mReferenceType(referenceType)
+, mIsConst(isConst)  {
+}
 
+ReferenceTypeInfo::~ReferenceTypeInfo() {
+}
+
+bool ReferenceTypeInfo::operator==(const TypeInfo& other) const {
+  if (get_name() == other.get_name()) {
+    return mReferenceType->operator==(*((ReferenceTypeInfo *)(&other))->get_reference_type());
+  }
+
+  return false;
+}
+
+TypeInfo* ReferenceTypeInfo::get_reference_type() {
+  return mReferenceType;
+}
+
+bool ReferenceTypeInfo::is_const() const {
+  return mIsConst;
+}
+
+TypeInfoType ReferenceTypeInfo::get_type_info_type() const {
+  return TypeInfoType::ReferenceType;
+}
 
 
 //[-------------------------------------------------------]
