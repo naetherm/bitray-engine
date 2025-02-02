@@ -44,25 +44,24 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-RttiMember::RttiMember(RttiMemberType rttiMemberType, const String& name, const String& description)
-: mName(name)
-, mDescription(description)
-, mRttiMemberType(rttiMemberType) {
+RttiMember::RttiMember() {
 }
 
 RttiMember::~RttiMember() {
 }
 
-RttiMemberType RttiMember::get_rtti_member_type() const {
-  return mRttiMemberType;
+bool RttiMember::has_tag(const String& name) const {
+  return mTagsMap.contains(name);
 }
 
-const String& RttiMember::get_name() const {
-  return mName;
+const DynamicObject& RttiMember::get_tag(const String& name) const {
+  return mTagsMap.at(name);
 }
 
-const String& RttiMember::get_description() const {
-  return mDescription;
+void RttiMember::add_tag(const String& name, const DynamicObject& value) {
+  if (!has_tag(name)) {
+    mTagsMap[name] = value;
+  }
 }
 
 

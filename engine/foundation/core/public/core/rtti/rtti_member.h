@@ -29,8 +29,9 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/rtti_types.h"
+#include "core/container/hash_map.h"
 #include "core/string/string.h"
+#include "core/rtti/dynamic_object.h"
 
 
 //[-------------------------------------------------------]
@@ -47,7 +48,6 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-class RttiClass;
 
 
 //[-------------------------------------------------------]
@@ -56,26 +56,22 @@ class RttiClass;
 class RttiMember {
 public:
 
-  RttiMember(RttiMemberType rttiMemberType, const String& name, const String& description);
+  RttiMember();
 
   virtual ~RttiMember();
 
 
-  RttiMemberType get_rtti_member_type() const;
+  [[nodiscard]] bool has_tag(const String& name) const;
 
-  [[nodiscard]] const String& get_name() const;
-
-  [[nodiscard]] const String& get_description() const;
+  [[nodiscard]] const DynamicObject& get_tag(const String& name) const;
 
 protected:
 
-  void register_type(RttiClass* rttiClass);
+  void add_tag(const String& name, const DynamicObject& value);
 
 protected:
 
-  String mName;
-  String mDescription;
-  RttiMemberType mRttiMemberType;
+  core::hash_map<String, DynamicObject> mTagsMap;
 };
 
 
