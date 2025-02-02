@@ -28,11 +28,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/type_info/type_info.h"
-#include "core/rtti/type_info/pointer_type_info.h"
-#include "core/rtti/type_info/reference_type_info.h"
-#include "core/std/typetraits/raw_type.h"
+#include "core/std/typetraits/config.h"
 
 
 //[-------------------------------------------------------]
@@ -47,87 +43,24 @@ namespace core {
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 template<typename TType>
-struct StaticTypeInfo;
-
-template<typename TType>
-struct StaticTypeInfo {
-  static TypeInfo* get() {
-    return nullptr;
-  }
-
-  enum { Defined = false, Copyable = true };
-};
-
-template<typename TType>
-struct StaticTypeInfo<TType*> {
-
-  static TypeInfo* get() {
-    static PointerTypeInfo info(StaticTypeInfo<TType>::get(), false);
-    return &info;
-  }
-
-  enum { Defined = true, Copyable = true };
+struct raw_type {
+  typedef TType type;
 };
 template<typename TType>
-struct StaticTypeInfo<const TType*> {
-
-  static TypeInfo* get() {
-    static PointerTypeInfo info(StaticTypeInfo<TType>::get(), true);
-    return &info;
-  }
-
-  enum { Defined = true, Copyable = true };
-};
-
-template<typename TType>
-struct StaticTypeInfo<TType&> {
-
-  static TypeInfo* get() {
-    static ReferenceTypeInfo info(StaticTypeInfo<TType>::get(), false);
-    return &info;
-  }
-
-  enum { Defined = true, Copyable = false };
+struct raw_type<const TType> {
+  typedef typename raw_type<TType>::type type;
 };
 template<typename TType>
-struct StaticTypeInfo<const TType&> {
-
-  static TypeInfo* get() {
-    static ReferenceTypeInfo info(StaticTypeInfo<TType>::get(), true);
-    return &info;
-  }
-
-  enum { Defined = true, Copyable = false };
+struct raw_type<TType&> {
+  typedef typename raw_type<TType>::type type;
 };
-
-
-
 template<typename TType>
-struct HashStaticTypeInfo {
-  enum Value {
-    value = StaticTypeInfo<core::raw_type<TType>>::Defined
-  };
+struct raw_type<TType*> {
+  typedef typename raw_type<TType>::type type;
 };
-
-template<typename TType>
-TypeInfo* get_static_type_info() {
-  return StaticTypeInfo<TType>::get();
-}
-
-template<typename TType>
-TypeInfo* get_static_type_info(TType o) {
-  (void)o;
-
-  return StaticTypeInfo<TType>::get();
-}
 
 
 //[-------------------------------------------------------]
