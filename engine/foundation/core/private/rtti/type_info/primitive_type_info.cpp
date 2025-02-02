@@ -44,7 +44,13 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+PrimitiveTypeInfo::PrimitiveTypeInfo(const String& name)
+: TypeInfo(name) {
+}
 
+TypeInfoType PrimitiveTypeInfo::get_type_info_type() const {
+  return TypeInfoType::PrimitiveType;
+}
 
 
 //[-------------------------------------------------------]

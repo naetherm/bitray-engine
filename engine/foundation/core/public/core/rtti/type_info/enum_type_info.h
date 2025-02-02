@@ -58,9 +58,23 @@ class EnumTypeInfo : public TypeInfo {
 
 public:
 
+  /**
+   * @brief
+   * Constructor.
+   *
+   * @param name
+   * The name of the enum type.
+   */
   EnumTypeInfo(const String& name);
 
 
+  /**
+   * @brief
+   * Get the type info type.
+   *
+   * @return
+   * The type info type
+   */
   TypeInfoType get_type_info_type() const override;
 
   [[nodiscard]] const Enum* get_enum() const;

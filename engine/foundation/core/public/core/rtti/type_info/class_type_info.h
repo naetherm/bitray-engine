@@ -58,9 +58,23 @@ class ClassTypeInfo : public TypeInfo {
 
 public:
 
+  /**
+   * @brief
+   * Construct a `ClassTypeInfo` object.
+   *
+   * @param name
+   * The name of the class type.
+   */
   ClassTypeInfo(const String& name);
 
 
+  /**
+   * @brief
+   * Get the type info type.
+   *
+   * @return
+   * The type info type
+   */
   TypeInfoType get_type_info_type() const override;
 
   [[nodiscard]] const Class* get_class() const;

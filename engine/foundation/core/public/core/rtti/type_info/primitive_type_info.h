@@ -51,7 +51,34 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * PrimitiveTypeInfo
+ *
+ * @brief
+ * Primitive type info class.
+ */
 class PrimitiveTypeInfo : public TypeInfo {
+public:
+
+  /**
+   * @brief
+   * Create a primitive type info object.
+   *
+   * @param name
+   * Name of the primitive type.
+   */
+  PrimitiveTypeInfo(const String& name);
+
+
+  /**
+   * @brief
+   * Get the type info type.
+   *
+   * @return
+   * The type info type
+   */
+  TypeInfoType get_type_info_type() const override;
 };
 
 

@@ -65,6 +65,13 @@ public:
   bool operator!=(const TypeInfo& rhs) const;
 
 
+  /**
+   * @brief
+   * Get the type info type.
+   *
+   * @return
+   * The type info type
+   */
   virtual TypeInfoType get_type_info_type() const = 0;
 
 
