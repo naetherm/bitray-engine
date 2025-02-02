@@ -56,21 +56,54 @@ namespace core {
 class RttiMember {
 public:
 
+  /**
+   * @brief
+   * Default constructor for the RttiMember class.
+   */
   RttiMember();
 
+  /**
+   * @brief
+   * The destructor for `RttiMember`.
+   *
+   * Cleans up any dynamically allocated memory used by the `RttiMember`.
+   */
   virtual ~RttiMember();
 
 
+  /**
+   * @brief
+   * Returns true if the RttiMember has a tag with the given name.
+   *
+   * @param name The name of the tag to search for.
+   *
+   * @return true if the RttiMember has a tag with the given name, and false otherwise.
+   */
   [[nodiscard]] bool has_tag(const String& name) const;
 
+  /**
+   * @brief
+   * Retrieves the value of the tag with the given name.
+   *
+   * @param name The name of the tag to retrieve.
+   *
+   * @return A reference to the DynamicObject associated with the tag.
+   */
   [[nodiscard]] const DynamicObject& get_tag(const String& name) const;
 
 protected:
 
+  /**
+   * @brief
+   * Adds a tag to the RttiMember.
+   *
+   * @param name The name of the tag.
+   * @param value The value of the tag.
+   */
   void add_tag(const String& name, const DynamicObject& value);
-
 protected:
 
+  /** A map of string to dynamic object that stores all the tags that have been added to this RttiMember. */
   core::hash_map<String, DynamicObject> mTagsMap;
 };
 
