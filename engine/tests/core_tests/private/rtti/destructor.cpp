@@ -22,40 +22,89 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/func/destructor.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "rtti/destructor.h"
+#include <core/rtti/object.h>
+#include <core/rtti/func/constructor.h>
+#include <core/rtti/func/destructor.h>
+#include <core/log/log.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
+namespace core_tests {
 
 
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+class DestructorSampleObject {
+public:
+
+  DestructorSampleObject() {
+    BE_LOG(Info, "Called DestructorSampleObject()")
+  }
+
+  DestructorSampleObject(bool b) {
+    BE_LOG(Info, "Called DestructorSampleObject(bool)")
+  }
+
+  DestructorSampleObject(bool b, core::int8 i) {
+    BE_LOG(Info, "Called DestructorSampleObject(bool, core::int8)")
+  }
+
+  ~DestructorSampleObject() {
+    BE_LOG(Info, "Called ~DestructorSampleObject()")
+  }
+};
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Destructor::Destructor()
-: mDestructorStub(nullptr) {
+DestructorTests::DestructorTests()
+  : UnitTest("DestructorTests") {
 
 }
 
-void Destructor::destroy(void *ptr) const {
-  if (mDestructorStub)
-    (*mDestructorStub)(ptr);
+DestructorTests::~DestructorTests() {
+
 }
+
+void DestructorTests::test() {
+  core::Destructor d = core::Destructor::create<DestructorSampleObject>();
+  // Destructor1
+  {
+    core::Constructor<DestructorSampleObject> c;
+
+    DestructorSampleObject* p = c.invoke();
+
+    be_expect_true(p != nullptr)
+    d.destroy(p);
+  }
+
+  // Destructor2
+  {
+    core::Constructor<DestructorSampleObject, bool> c;
+
+    DestructorSampleObject* p = c.invoke(false);
+
+    be_expect_true(p != nullptr)
+    d.destroy(p);
+  }
+
+  // Destructor3
+  {
+    core::Constructor<DestructorSampleObject, bool, core::int8> c;
+
+    DestructorSampleObject* p = c.invoke(true, 42);
+
+    be_expect_true(p != nullptr)
+    d.destroy(p);
+  }
+}
+
+be_unittest_autoregister(DestructorTests)
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests
