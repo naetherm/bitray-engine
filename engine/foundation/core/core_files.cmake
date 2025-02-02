@@ -149,6 +149,7 @@ set(FILES
   private/rtti/object.cpp
   private/rtti/rtti_member.cpp
   private/rtti/rtti_type_server.cpp
+  private/rtti/func/destructor.cpp
   private/rtti/func/function_signature.cpp
   private/rtti/type_info/class_type_info.cpp
   private/rtti/type_info/enum_type_info.cpp
