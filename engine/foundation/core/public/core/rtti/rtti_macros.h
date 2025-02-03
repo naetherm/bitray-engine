@@ -85,6 +85,30 @@
   __be_declare_class(CLASS, false)
 
 
+#define be_rtti() \
+public: \
+  static void register_reflection(); \
+  const core::ClassTypeInfo* get_class_type_info() const { \
+    return (const core::ClassTypeInfo*)core::get_static_type_info(this); \
+  } \
+private:
+
+
+#define be_begin_class(CLASS, NAMESPACE) \
+struct Register_##NAMESPACE_##CLASS { \
+  Register_##NAMESPACE_##CLASS() { \
+    NAMESPACE::CLASS::register_reflection(); \
+  } \
+}; \
+static Register_##NAMESPACE_##CLASS NAMESPACE_##CLASS_declare_class_register; \
+void NAMESPACE::CLASS::register_reflection() { \
+  core::Class::declare<NAMESPACE::CLASS>(#NAMESPACE"::"#CLASS) \
+
+
+#define be_end_class() \
+;}
+
+
 #define __be_declare_enum(ENUM) \
   template<> struct core::StaticTypeInfo<ENUM> { \
     static core::TypeInfo* get() { \
