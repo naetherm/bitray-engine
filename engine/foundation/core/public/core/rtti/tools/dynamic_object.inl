@@ -23,10 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/type_info/type_info.h"
-#include "core/rtti/type_info/class_type_info.h"
 #include "core/rtti/type_info/static_type_info.h"
-#include "core/std/typetraits/remove_const.h"
-#include "core/std/typetraits/remove_reference.h"
 
 
 //[-------------------------------------------------------]
@@ -53,7 +50,7 @@ struct Access<T, true> {
 
 	static T get(UntypedVariant<> &cValue, const TypeInfo *pMyTypeInfo) {
 		// If the requested type is a const reference of the actually stored type, we can convert it
-		TypeInfo *pRequestedTypeInfo = StaticTypeInfo<T>::Get();
+		TypeInfo *pRequestedTypeInfo = StaticTypeInfo<T>::get();
 		if (pRequestedTypeInfo->get_type_info_type() == TypeInfoType::ReferenceType &&
 			((ReferenceTypeInfo*)pRequestedTypeInfo)->is_const() &&
 			*((ReferenceTypeInfo*)pRequestedTypeInfo)->get_reference_type() == *pMyTypeInfo) {
@@ -73,7 +70,7 @@ struct Access<T, true> {
 
 	static const T get(const UntypedVariant<> &cValue, const TypeInfo *pMyTypeInfo) {
 		// If the requested type is a const reference of the actually stored type, we can convert it
-		TypeInfo *pRequestedTypeInfo = StaticTypeInfo<T>::Get();
+		TypeInfo *pRequestedTypeInfo = StaticTypeInfo<T>::get();
 		if (pRequestedTypeInfo->get_type_info_type() == TypeInfoType::ReferenceType &&
 			((ReferenceTypeInfo*)pRequestedTypeInfo)->is_const() &&
 			*((ReferenceTypeInfo*)pRequestedTypeInfo)->get_reference_type() == *pMyTypeInfo) {
@@ -136,13 +133,13 @@ inline const TypeInfo* DynamicObject::get_type_info() const {
 template<typename TType>
 const TType DynamicObject::get_as() const {
 	typedef typename remove_const<typename remove_reference<TType>::type>::type NakedType;
-	return Access<TType, StaticTypeInfo<NakedType>::Copyable>::Get(mUntypedVariant, mTypeInfo);
+	return Access<TType, StaticTypeInfo<NakedType>::Copyable>::get(mUntypedVariant, mTypeInfo);
 }
 
 template<typename TType>
 TType DynamicObject::get_as() {
 	typedef typename remove_const<typename remove_reference<TType>::type>::type NakedType;
-	return Access<TType, StaticTypeInfo<NakedType>::Copyable>::Get(mUntypedVariant, mTypeInfo);
+	return Access<TType, StaticTypeInfo<NakedType>::Copyable>::get(mUntypedVariant, mTypeInfo);
 }
 
 

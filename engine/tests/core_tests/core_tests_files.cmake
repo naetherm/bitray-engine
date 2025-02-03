@@ -49,6 +49,7 @@ set(FILES
 
   private/rtti/constructor.cpp
   private/rtti/destructor.cpp
+  private/rtti/dynamic_object.cpp
   private/rtti/enum.cpp
   private/rtti/function_signature.cpp
 

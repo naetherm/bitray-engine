@@ -28,87 +28,30 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/container/hash_map.h"
-#include "core/string/string.h"
-#include "core/rtti/tools/dynamic_object.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include <unittest/unittest.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+namespace core_tests {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class RttiMember {
+class DynamicObjectTests : public unittest::UnitTest {
 public:
+  DynamicObjectTests();
 
-  /**
-   * @brief
-   * Default constructor for the RttiMember class.
-   */
-  RttiMember();
+  ~DynamicObjectTests();
 
-  /**
-   * @brief
-   * The destructor for `RttiMember`.
-   *
-   * Cleans up any dynamically allocated memory used by the `RttiMember`.
-   */
-  virtual ~RttiMember();
+  void test() override;
 
-
-  /**
-   * @brief
-   * Returns true if the RttiMember has a tag with the given name.
-   *
-   * @param name The name of the tag to search for.
-   *
-   * @return true if the RttiMember has a tag with the given name, and false otherwise.
-   */
-  [[nodiscard]] bool has_tag(const String& name) const;
-
-  /**
-   * @brief
-   * Retrieves the value of the tag with the given name.
-   *
-   * @param name The name of the tag to retrieve.
-   *
-   * @return A reference to the DynamicObject associated with the tag.
-   */
-  [[nodiscard]] const DynamicObject& get_tag(const String& name) const;
-
-protected:
-
-  /**
-   * @brief
-   * Adds a tag to the RttiMember.
-   *
-   * @param name The name of the tag.
-   * @param value The value of the tag.
-   */
-  void add_tag(const String& name, const DynamicObject& value);
-protected:
-
-  /** A map of string to dynamic object that stores all the tags that have been added to this RttiMember. */
-  core::hash_map<String, DynamicObject> mTagsMap;
 };
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests

@@ -22,39 +22,71 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/tools/dynamic_object.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "rtti/dynamic_object.h"
+#include <core/rtti/object.h>
+#include <core/rtti/tools/dynamic_object.h>
+#include <core/log/log.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+namespace core_tests {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-DynamicObject::DynamicObject()
-: mTypeInfo(nullptr) {
+DynamicObjectTests::DynamicObjectTests()
+  : UnitTest("DynamicObjectTests") {
+
 }
 
-DynamicObject::DynamicObject(const core::UntypedVariant<>& variant, const TypeInfo* typeInfo)
-: mUntypedVariant(variant)
-, mTypeInfo(typeInfo) {
+DynamicObjectTests::~DynamicObjectTests() {
+
 }
+
+void DynamicObjectTests::test() {
+  {
+    core::DynamicObject v;
+
+    be_expect_true(nullptr == v.get_type_info())
+  }
+
+  {
+    core::int32 i = 5;
+    core::DynamicObject v(i);
+
+    be_expect_eq(i, v.get_as<core::uint32>())
+    be_expect_true(v.get_type_info() != nullptr)
+    be_expect_true(core::get_static_type_info<core::int32>() == v.get_type_info())
+    be_expect_str_eq(core::get_static_type_info<core::int32>()->get_name().c_str(), v.get_type_info()->get_name().c_str())
+  }
+
+  {
+    core::int32 i = 5;
+    core::DynamicObject v;
+
+    v.set(i);
+
+    be_expect_eq(i, v.get_as<core::uint32>())
+    be_expect_true(v.get_type_info() != nullptr)
+    be_expect_true(core::get_static_type_info<core::int32>() == v.get_type_info())
+    be_expect_str_eq(core::get_static_type_info<core::int32>()->get_name().c_str(), v.get_type_info()->get_name().c_str())
+  }
+
+  {
+    core::DynamicObject v1(5);
+    core::DynamicObject v2(10);
+
+    be_expect_false(v1 == v2)
+  }
+}
+
+be_unittest_autoregister(DynamicObjectTests)
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core_tests
