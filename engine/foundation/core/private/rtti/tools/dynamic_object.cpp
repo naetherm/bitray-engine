@@ -44,6 +44,14 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+inline DynamicObject::DynamicObject()
+: mTypeInfo(nullptr) {
+}
+
+inline DynamicObject::DynamicObject(const core::UntypedVariant<>& variant, const TypeInfo* typeInfo)
+: mUntypedVariant(variant)
+, mTypeInfo(typeInfo) {
+}
 
 
 //[-------------------------------------------------------]
