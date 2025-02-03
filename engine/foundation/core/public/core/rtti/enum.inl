@@ -24,7 +24,8 @@
 //[-------------------------------------------------------]
 #include "core/rtti/builder/enum_builder.h"
 #include "core/rtti/rtti.h"
-#include "type_info/static_type_info.h"
+#include "core/rtti/type_info/enum_type_info.h"
+#include "core/rtti/type_info/static_type_info.h"
 
 
 //[-------------------------------------------------------]

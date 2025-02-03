@@ -22,8 +22,10 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/enum.h"
-#include "core/rtti/enum/enum_value.h"
+#include "core/rtti/builder/class_builder.h"
+#include "core/rtti/rtti.h"
+#include "core/rtti/type_info/class_type_info.h"
+#include "core/rtti/type_info/static_type_info.h"
 
 
 //[-------------------------------------------------------]
@@ -38,19 +40,22 @@ namespace core {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-template<typename TEnum>
-EnumBuilder<TEnum>::EnumBuilder(Enum& e)
-: mEnum(&e) {
-}
+template<typename TClass>
+ClassBuilder<TClass> Class::declare(const String& name) {
+  Class* clss = new Class(name);
 
-template<typename TEnum>
-EnumBuilder<TEnum>& EnumBuilder<TEnum>::value(const String& name, core::int32 value) {
-  mEnum->add_enum_value(name, value);
-  return *this;
-}
+  TypeInfo* classTypeInfo = StaticTypeInfo<TClass>::get();
+  ((ClassTypeInfo *)(classTypeInfo))->mClass = clss;
 
+  return ClassBuilder<TClass>(*clss);
+}
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

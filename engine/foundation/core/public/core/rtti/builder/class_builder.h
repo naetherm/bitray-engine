@@ -45,6 +45,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class Class;
 class TypeInfo;
 
 
@@ -54,6 +55,20 @@ class TypeInfo;
 template<typename TClass>
 class ClassBuilder {
 public:
+
+  /**
+   * @brief
+   * Constructs an ClassBuilder object that is used to register the values of a
+   * Class.
+   *
+   * @param c The Class instance that the ClassBuilder will be used to register
+   * constructors, methods, fields, and properties.
+   */
+  explicit ClassBuilder(Class& c);
+
+private:
+
+  Class* mClass;
 };
 
 

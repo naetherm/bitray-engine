@@ -62,6 +62,21 @@ PrimitiveTypeInfo* RttiTypeServer::get_primitive_type(const String& name) {
   return ti.value();
 }
 
+void RttiTypeServer::register_class_type(const String& name, ClassTypeInfo* classTypeInfo) {
+  auto ti = mClassTypeMap.find(name);
+  if (ti == mClassTypeMap.end()) {
+    mClassTypeMap[name] = classTypeInfo;
+  }
+}
+
+ClassTypeInfo* RttiTypeServer::get_class_type(const String& name) {
+  auto ti = mClassTypeMap.find(name);
+  if (ti == mClassTypeMap.end()) {
+    return nullptr;
+  }
+  return ti.value();
+}
+
 void RttiTypeServer::register_enum_type(const String& name, EnumTypeInfo* enumTypeInfo) {
   auto ti = mEnumTypeMap.find(name);
   if (ti == mEnumTypeMap.end()) {

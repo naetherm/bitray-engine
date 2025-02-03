@@ -49,6 +49,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+class ClassTypeInfo;
 class EnumTypeInfo;
 class PrimitiveTypeInfo;
 
@@ -74,6 +75,11 @@ public:
   PrimitiveTypeInfo* get_primitive_type(const String& name);
 
 
+  void register_class_type(const String& name, ClassTypeInfo* classTypeInfo);
+
+  ClassTypeInfo* get_class_type(const String& name);
+
+
   void register_enum_type(const String& name, EnumTypeInfo* enumTypeInfo);
 
   EnumTypeInfo* get_enum_type(const String& name);
@@ -81,6 +87,7 @@ public:
 private:
 
   core::hash_map<String, PrimitiveTypeInfo*> mPrimitiveTypesMap;
+  core::hash_map<String, ClassTypeInfo*> mClassTypeMap;
   core::hash_map<String, EnumTypeInfo*> mEnumTypeMap;
 };
 

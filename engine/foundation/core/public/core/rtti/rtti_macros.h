@@ -57,6 +57,34 @@
   };
 
 
+#define __be_declare_class(CLASS, COPYABLE) \
+  template<> struct core::StaticTypeInfo<CLASS> { \
+    static core::TypeInfo* get() { \
+      static core::ClassTypeInfo info(#CLASS); \
+      static core::ClassTypeInfo* infoPtr = nullptr; \
+      if (!infoPtr) { \
+        core::ClassTypeInfo* regInfo = core::RttiTypeServer::instance().get_class_type(#CLASS); \
+        if (regInfo) { \
+          infoPtr = regInfo; \
+        } else { \
+          core::RttiTypeServer::instance().register_class_type(#CLASS, &info); \
+          infoPtr = &info; \
+        } \
+      } \
+      return infoPtr; \
+    } \
+    enum { Defined = true, Copyable = COPYABLE }; \
+  };
+
+
+#define be_declare_class(CLASS) \
+  __be_declare_class(CLASS, true)
+
+
+#define be_declare_non_copyable_class(CLASS) \
+  __be_declare_class(CLASS, false)
+
+
 #define __be_declare_enum(ENUM) \
   template<> struct core::StaticTypeInfo<ENUM> { \
     static core::TypeInfo* get() { \

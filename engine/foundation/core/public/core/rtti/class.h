@@ -46,13 +46,22 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+template<typename TClass>
+class ClassBuilder;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 class Class : public RttiMember {
+
+  template<typename TClass> friend class ClassBuilder;
+
 public:
+
+  template<typename TClass>
+  static ClassBuilder<TClass> declare(const String& name);
+
 public:
 
   /**
@@ -81,3 +90,9 @@ private:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/rtti/class.inl"
