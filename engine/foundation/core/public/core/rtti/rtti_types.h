@@ -45,6 +45,22 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+/**
+ * @enum
+ * TypeInfoType
+ *
+ * @brief
+ * Specifies the type of TypeInfo object.
+ *
+ * @details
+ * This enum is used to identify the type of TypeInfo object, which can be one
+ * of the following:
+ * - PrimitiveType: A primitive type such as int, float, etc.
+ * - ClassType: A class type such as Vector, String, etc.
+ * - PointerType: A pointer type such as Vector*, String*, etc.
+ * - ReferenceType: A reference type such as Vector&, String&, etc.
+ * - EnumType: An enum type such as Color, etc.
+ */
 enum TypeInfoType {
   ClassType,
   PrimitiveType,
@@ -57,8 +73,6 @@ enum TypeInfoType {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-enum RttiMemberType {
-};
 
 
 //[-------------------------------------------------------]
