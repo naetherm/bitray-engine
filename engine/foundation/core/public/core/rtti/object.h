@@ -55,6 +55,10 @@ class TypeInfo;
 class Object {
 public:
 
+  be_rtti()
+
+public:
+
   Object();
 
   virtual ~Object();
@@ -65,3 +69,5 @@ public:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+be_declare_class(core::Object)
