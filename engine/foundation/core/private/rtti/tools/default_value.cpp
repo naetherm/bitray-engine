@@ -44,6 +44,20 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+DefaultValue::DefaultValue() {
+}
+
+DefaultValue::DefaultValue(const DynamicObject& value)
+: mValue(value) {
+}
+
+const DynamicObject& DefaultValue::get_default_value() const {
+  return mValue;
+}
+
+void DefaultValue::set_default_value(const DynamicObject& value) {
+  mValue = value;
+}
 
 
 //[-------------------------------------------------------]
