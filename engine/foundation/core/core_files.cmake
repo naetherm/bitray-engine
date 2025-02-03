@@ -150,8 +150,14 @@ set(FILES
   private/rtti/rtti_member.cpp
   private/rtti/rtti_type_server.cpp
   private/rtti/enum/enum_value.cpp
+  private/rtti/func/class_constructor.cpp
+  private/rtti/func/class_field.cpp
+  private/rtti/func/class_method.cpp
+  private/rtti/func/class_property.cpp
   private/rtti/func/destructor.cpp
   private/rtti/func/function_signature.cpp
+  private/rtti/tools/default_value.cpp
+  private/rtti/tools/dynamic_object.cpp
   private/rtti/type_info/class_type_info.cpp
   private/rtti/type_info/enum_type_info.cpp
   private/rtti/type_info/pointer_type_info.cpp

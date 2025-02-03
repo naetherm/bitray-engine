@@ -44,19 +44,7 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Module::Module() {
-}
 
-Module::~Module() {
-}
-
-String Module::get_name() const {
-  return mName;
-}
-
-void Module::set_module_info(const String& name) {
-  mName = name;
-}
 
 
 //[-------------------------------------------------------]

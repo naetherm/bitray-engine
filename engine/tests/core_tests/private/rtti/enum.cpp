@@ -27,9 +27,9 @@
 
 
 be_begin_enum(SomeEnum, core_tests)
-.value("FirstValue", core_tests::SomeEnum::FirstValue)
-.value("SecondValue", core_tests::SomeEnum::SecondValue)
-.value("ThirdValue", core_tests::SomeEnum::ThirdValue)
+    .value("FirstValue", core_tests::SomeEnum::FirstValue)
+    .value("SecondValue", core_tests::SomeEnum::SecondValue)
+    .value("ThirdValue", core_tests::SomeEnum::ThirdValue)
 be_end_enum()
 
 
@@ -53,7 +53,6 @@ EnumTests::~EnumTests() {
 
 void EnumTests::test() {
   core::RttiTypeServer& rtti = core::RttiTypeServer::instance();
-  //core::StaticTypeInfo<core_tests::SomeEnum>::get();
 
   {
     core::EnumTypeInfo* enumTypeInfo = rtti.get_enum_type("core_tests::SomeEnum");
