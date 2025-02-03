@@ -44,6 +44,34 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+ClassConstructor::ClassConstructor()
+: mFunc(nullptr) {
+}
+
+ClassConstructor::ClassConstructor(FuncBase* func)
+: mFunc(func) {
+  if (mFunc) {
+    mFunctionSignature = mFunc->get_signature();
+  }
+}
+
+ClassConstructor::~ClassConstructor() {
+}
+
+bool ClassConstructor::operator==(const ClassConstructor& other) const {
+  return (mFunc == other.mFunc);
+}
+
+DynamicObject ClassConstructor::invoke(Vector<DynamicObject>* args) const {
+  if (mFunc) {
+    return mFunc->invoke(args);
+  }
+  return DynamicObject();
+}
+
+const FunctionSignature& ClassConstructor::get_function_signature() const {
+  return mFunctionSignature;
+}
 
 
 //[-------------------------------------------------------]
