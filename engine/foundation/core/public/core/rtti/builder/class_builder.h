@@ -70,6 +70,24 @@ public:
   explicit ClassBuilder(Class& c);
 
 
+  /**
+   * @brief
+   * Specify a base class for the class being registered.
+   *
+   * @param name The name of the base class.
+   *
+   * @return The ClassBuilder instance.
+   */
+  ClassBuilder& base(const String& name);
+
+  /**
+   * @brief
+   * Register a constructor for the class being registered.
+   *
+   * @param func The constructor to be registered.
+   *
+   * @return The ClassBuilder instance.
+   */
   ClassBuilder& constructor(FuncBase* func);
 
 private:

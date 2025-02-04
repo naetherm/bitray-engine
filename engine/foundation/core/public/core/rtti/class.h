@@ -98,6 +98,8 @@ private:
   /** The name of the class */
   String mName;
 
+  /** A list of all the base classes of this class. */
+  Vector<const Class*> mBaseClasses;
 
   /** The default constructor for the class */
   ClassConstructor mDefaultConstructor;

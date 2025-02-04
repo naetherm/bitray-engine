@@ -23,6 +23,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/class.h"
+#include "core/rtti/type_info/class_type_info.h"
+#include "core/rtti/rtti_type_server.h"
 
 
 //[-------------------------------------------------------]
@@ -43,6 +45,20 @@ template<typename TClass>
 ClassBuilder<TClass>::ClassBuilder(Class& c)
 : mClass(&c) {
 }
+
+template<typename TClass>
+ClassBuilder<TClass>& ClassBuilder<TClass>::base(const String& name) {
+  const ClassTypeInfo* baseType = RttiTypeServer::instance().get_class_type(name);
+  if (baseType) {
+    const Class* base = baseType->get_class();
+    if (base) {
+      mClass->mBaseClasses.push_back(base);
+    } else {
+      /// TODO(naetherm): Late binding
+    }
+  }
+}
+
 
 template<typename TClass>
 ClassBuilder<TClass>& ClassBuilder<TClass>::constructor(FuncBase* func) {
