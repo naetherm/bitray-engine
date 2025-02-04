@@ -94,6 +94,50 @@ public:
    */
   ~Class() override;
 
+
+  /**
+   * @brief Get the name of the class.
+   *
+   * @return The name of the class as a constant reference to a String.
+   */
+  [[nodiscard]] const String& get_name() const;
+
+  /**
+   * @brief Get all base classes of this class.
+   *
+   * @return A constant reference to a vector of pointers to base classes.
+   */
+  [[nodiscard]] const Vector<const Class*>& get_base_classes() const;
+
+  /**
+   * @brief Check if this class is derived from a specified base class.
+   *
+   * @param baseClass Pointer to the base class to check against.
+   * @return True if this class is derived from the specified base class, false otherwise.
+   */
+  [[nodiscard]] bool is_derived_from(const Class* baseClass) const;
+
+  /**
+   * @brief Get the default constructor of the class.
+   *
+   * @return A pointer to the default constructor, or nullptr if none exists.
+   */
+  [[nodiscard]] const ClassConstructor* get_default_constructor() const;
+
+  /**
+   * @brief Get all constructors of the class.
+   *
+   * @return A constant reference to a vector of class constructors.
+   */
+  [[nodiscard]] const Vector<ClassConstructor>& get_constructors() const;
+
+  /**
+   * @brief Check if the class has a default constructor.
+   *
+   * @return True if a default constructor exists, false otherwise.
+   */
+  [[nodiscard]] bool has_default_constructor() const;
+
 private:
   /** The name of the class */
   String mName;

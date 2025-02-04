@@ -51,6 +51,40 @@ Class::Class(const String& name)
 Class::~Class() {
 }
 
+const String& Class::get_name() const {
+  return mName;
+}
+
+const Vector<const Class*>& Class::get_base_classes() const {
+  return mBaseClasses;
+}
+
+bool Class::is_derived_from(const Class* baseClass) const {
+  for (auto base: mBaseClasses) {
+    if (base == baseClass) {
+      return true;
+    }
+
+    if (base->is_derived_from(baseClass)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+const ClassConstructor* Class::get_default_constructor() const {
+  return has_default_constructor() ? &mDefaultConstructor : nullptr;
+}
+
+const Vector<ClassConstructor>& Class::get_constructors() const {
+  return mConstructors;
+}
+
+bool Class::has_default_constructor() const {
+  return *mDefaultConstructor.get_function_signature().get_return_type() != *StaticTypeInfo<void>::get();
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
