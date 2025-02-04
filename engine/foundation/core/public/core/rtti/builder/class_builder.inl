@@ -44,6 +44,19 @@ ClassBuilder<TClass>::ClassBuilder(Class& c)
 : mClass(&c) {
 }
 
+template<typename TClass>
+ClassBuilder<TClass>& ClassBuilder<TClass>::constructor(FuncBase* func) {
+  // Check if this is the default constructor
+  if (func->get_signature().get_parameter_types().empty()) {
+    mClass->mDefaultConstructor = ClassConstructor(func);
+    mLastRttiMember = &mClass->mDefaultConstructor;
+  } else {
+    mClass->mConstructors.push_back(ClassConstructor(func));
+    mLastRttiMember = &mClass->mConstructors.back();
+  }
+  return *this;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

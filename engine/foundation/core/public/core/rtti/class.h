@@ -29,7 +29,13 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/container/hash_map.h"
+#include "core/container/vector.h"
 #include "core/rtti/rtti_member.h"
+#include "core/rtti/func/class_constructor.h"
+#include "core/rtti/func/class_method.h"
+#include "core/rtti/func/class_field.h"
+#include "core/rtti/func/class_property.h"
 
 
 //[-------------------------------------------------------]
@@ -59,6 +65,14 @@ class Class : public RttiMember {
 
 public:
 
+  /**
+   * @brief
+   * A static method to create a ClassBuilder instance and start declaring a class.
+   *
+   * @param name The name of the class to be declared.
+   *
+   * @return A ClassBuilder instance for the class with the given name.
+   */
   template<typename TClass>
   static ClassBuilder<TClass> declare(const String& name);
 
@@ -83,6 +97,13 @@ public:
 private:
   /** The name of the class */
   String mName;
+
+
+  /** The default constructor for the class */
+  ClassConstructor mDefaultConstructor;
+
+  /** The list of constructors for the class */
+  Vector<ClassConstructor> mConstructors;
 };
 
 

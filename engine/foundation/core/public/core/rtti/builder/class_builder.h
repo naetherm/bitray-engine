@@ -28,6 +28,8 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include <core/rtti/func/func_base.h>
+
 #include "core/core.h"
 
 
@@ -46,6 +48,7 @@ namespace core {
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
 class Class;
+class DefaultValue;
 class TypeInfo;
 
 
@@ -66,9 +69,14 @@ public:
    */
   explicit ClassBuilder(Class& c);
 
+
+  ClassBuilder& constructor(FuncBase* func);
+
 private:
 
   Class* mClass;
+  RttiMember* mLastRttiMember;
+  DefaultValue* mLastDefaultValue;
 };
 
 
