@@ -36,6 +36,9 @@
 #include "core/rtti/type_info/class_type_info.h"
 #include "core/rtti/type_info/enum_type_info.h"
 #include "core/rtti/type_info/primitive_type_info.h"
+#include "core/rtti/func/func.h"
+#include "core/rtti/func/constructor.h"
+#include "core/rtti/func/class_constructor.h"
 
 
 //[-------------------------------------------------------]
