@@ -111,6 +111,7 @@ public:
    * @return A DynamicObject containing the result of the function invocation.
    */
   DynamicObject invoke(Vector<DynamicObject>* args) override {
+    /// TODO(naetherm): Implement this!
     return DynamicObject();
   }
 
