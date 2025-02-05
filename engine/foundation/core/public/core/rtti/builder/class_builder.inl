@@ -73,6 +73,14 @@ ClassBuilder<TClass>& ClassBuilder<TClass>::constructor(FuncBase* func) {
   return *this;
 }
 
+template<typename TClass>
+ClassBuilder<TClass>& ClassBuilder<TClass>::method(const String& name, FuncBase* func) {
+  mClass->mMethodsMap[name] = ClassMethod(name, func);
+  mLastRttiMember = &mClass->mMethodsMap[name];
+
+  return *this;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

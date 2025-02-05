@@ -90,6 +90,8 @@ public:
    */
   ClassBuilder& constructor(FuncBase* func);
 
+  ClassBuilder& method(const String& name, FuncBase* func);
+
 private:
 
   Class* mClass;

@@ -30,6 +30,7 @@
 //[-------------------------------------------------------]
 be_begin_class(Object, core)
   be_default_constructor()
+  be_method(some_test)
 be_end_class()
 
 
@@ -48,6 +49,9 @@ Object::Object() {
 
 Object::~Object() {
 
+}
+
+void Object::some_test() {
 }
 
 
