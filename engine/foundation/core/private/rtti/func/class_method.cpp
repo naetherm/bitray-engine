@@ -54,6 +54,7 @@ ClassMethod::ClassMethod(const String& name, FuncBase* func)
 }
 
 ClassMethod::~ClassMethod() {
+  mFunc = nullptr;
 }
 
 bool ClassMethod::operator==(const ClassMethod& other) const {

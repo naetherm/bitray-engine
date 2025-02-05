@@ -50,31 +50,101 @@ namespace core {
 //[-------------------------------------------------------]
 
 
-
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * ClassMethod
+ *
+ * @brief
+ * Represents a method for a class.
+ *
+ * This class represents a method for a class. It is used by the RTTI system to
+ * store metadata about a class method.
+ */
 class ClassMethod : public RttiMember {
 public:
 
+  /**
+   * @brief Default constructor for the ClassMethod class.
+   *
+   * Initializes an instance of the ClassMethod class with a default name and a nullptr
+   * as the function to be invoked.
+   */
   ClassMethod();
 
+  /**
+   * @brief Constructor for the ClassMethod class.
+   *
+   * Initializes an instance of the ClassMethod class with a specified name and a
+   * function to be invoked.
+   *
+   * @param name The name of the method.
+   * @param func The function to be invoked.
+   */
   ClassMethod(const String& name, FuncBase* func);
 
+  /**
+   * @brief Destructor for the ClassMethod class.
+   *
+   * Cleans up any resources associated with the ClassMethod instance.
+   */
   ~ClassMethod() override;
 
 
+  /**
+   * @brief
+   * Checks if the current ClassMethod instance is equal to another one.
+   *
+   * This method checks if the current ClassMethod instance is equal to
+   * another ClassMethod instance. Two ClassMethod instances are considered
+   * equal if they have the same name and the same function associated.
+   *
+   * @param[in] other The other ClassMethod instance to compare with.
+   *
+   * @return True if the current ClassMethod instance is equal to the other
+   * one, false otherwise.
+   */
   bool operator==(const ClassMethod& other) const;
 
 
+  /**
+   * @brief
+   * Invokes the method with the specified arguments.
+   *
+   * This method calls the underlying function associated with this ClassMethod
+   * instance, passing the provided arguments to it, and returns the result.
+   *
+   * @param[in] args A vector of DynamicObjects representing the arguments to
+   * invoke the function with.
+   *
+   * @return A DynamicObject containing the result of the method invocation.
+   */
   DynamicObject invoke(Vector<DynamicObject>* args) override;
 
+  /**
+   * @brief
+   * Directly calls the method with the given arguments.
+   *
+   * This method directly calls the method with the given arguments. It is
+   * a low-level call and does not perform any of the additional checks
+   * that the `invoke` method performs.
+   *
+   * @param obj The object to call the method on.
+   * @param args... The arguments to pass to the method.
+   *
+   * @return The return value of the method.
+   */
   template<typename TReturn, typename TObject, typename... TArgs>
-  inline TReturn call_direct(TObject* obj, TArgs... args) const;
+  TReturn call_direct(TObject* obj, TArgs... args) const;
 
 private:
 
+  /** Name of the method. */
   String mName;
+
+  /** Pointer to the function to be invoked. */
   FuncBase* mFunc;
 };
 
