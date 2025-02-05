@@ -44,7 +44,29 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+ClassMethod::ClassMethod()
+: mFunc(nullptr) {
+}
 
+ClassMethod::ClassMethod(const String& name, FuncBase* func)
+: mName(name)
+, mFunc((func)){
+}
+
+ClassMethod::~ClassMethod() {
+}
+
+bool ClassMethod::operator==(const ClassMethod& other) const {
+  return (mFunc == other.mFunc);
+}
+
+DynamicObject ClassMethod::invoke(Vector<DynamicObject>* args) {
+  if (mFunc) {
+    return mFunc->invoke(args);
+  }
+
+  return DynamicObject();
+}
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

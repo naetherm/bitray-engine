@@ -20,23 +20,14 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/rtti/rtti_member.h"
-#include "core/rtti/func/func_base.h"
-#include "core/container/vector.h"
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+#include "core/utility/invokable.h"
 
 
 //[-------------------------------------------------------]
@@ -50,42 +41,18 @@ namespace core {
 //[-------------------------------------------------------]
 
 
-
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class ClassMethod : public RttiMember {
-public:
-
-  ClassMethod();
-
-  ClassMethod(const String& name, FuncBase* func);
-
-  ~ClassMethod() override;
-
-
-  bool operator==(const ClassMethod& other) const;
-
-
-  DynamicObject invoke(Vector<DynamicObject>* args) override;
-
-  template<typename TReturn, typename TObject, typename... TArgs>
-  inline TReturn call_direct(TObject* obj, TArgs... args) const;
-
-private:
-
-  String mName;
-  FuncBase* mFunc;
-};
+template<typename TReturn, typename TObject, typename... TArgs>
+TReturn ClassMethod::call_direct(TObject* obj, TArgs... args) const {
+  typedef Invokable<TReturn, TObject*, TArgs...> InvokableType;
+  InvokableType* casted = (InvokableType*)mFunc;
+  return casted->invoke(args...);
+}
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
-
-
-//[-------------------------------------------------------]
-//[ Includes                                              ]
-//[-------------------------------------------------------]
-#include "core/rtti/func/class_method.inl"
