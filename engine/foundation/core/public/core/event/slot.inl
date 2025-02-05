@@ -81,6 +81,11 @@ void Slot<TArgs...>::invoke(void* obj, TArgs... args) const {
   mCallback(args...);
 }
 
+template<typename... TArgs>
+FunctionSignature Slot<TArgs...>::get_signature() const {
+  return FunctionSignature::from_template<void, void*, TArgs...>();
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

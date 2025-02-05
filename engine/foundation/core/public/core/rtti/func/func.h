@@ -29,7 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
-#include "core/rtti/func/func_base.h"
 #include "core/utility/invokable.h"
 
 
@@ -55,7 +54,7 @@ namespace core {
 template<typename TType> class Func;
 
 template<typename TReturn, class TClass, typename... TArgs>
-class Func<TReturn (TClass::*)(TArgs...)> : public FuncBase, public Invokable<TReturn, TClass*, TArgs...> {
+class Func<TReturn (TClass::*)(TArgs...)> : public Invokable<TReturn, TClass*, TArgs...> {
 public:
 
   typedef Func<TReturn (TClass::*)(TArgs...)> ThisType;

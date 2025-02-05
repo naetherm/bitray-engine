@@ -127,6 +127,19 @@ public:
    */
   void disconnect_all();
 
+public:
+
+  /**
+   * @brief
+   * Returns the function signature of this function.
+   *
+   * The function signature describes the type of the function, including its return type
+   * and its parameter types.
+   *
+   * @return A FunctionSignature object that describes the type of the function.
+   */
+  FunctionSignature get_signature() const override;
+
 private:
   /** List of all connected slots */
   Vector<SlotType*> mAllSlots;

@@ -133,6 +133,19 @@ public:
    */
   void invoke(void* obj, TArgs... args) const override;
 
+public:
+
+  /**
+   * @brief
+   * Returns the function signature of this function.
+   *
+   * The function signature describes the type of the function, including its return type
+   * and its parameter types.
+   *
+   * @return A FunctionSignature object that describes the type of the function.
+   */
+  FunctionSignature get_signature() const override;
+
 protected:
   /** Function wrapper */
   std::function<void(TArgs...)> mCallback;

@@ -72,6 +72,12 @@ void Signal<TArgs...>::disconnect_all() {
   mAllSlots.clear();
 }
 
+template<typename... TArgs>
+FunctionSignature Signal<TArgs...>::get_signature() const {
+  return FunctionSignature::from_template<void, TArgs...>();
+}
+
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/rtti/func/func_base.h"
 
 
 //[-------------------------------------------------------]
@@ -50,7 +51,7 @@ namespace core {
  * and a return type.
  */
 template<typename TReturn, typename... TArgs>
-class Invokable {
+class Invokable : public FuncBase {
 public:
   /**
    * @brief
@@ -95,6 +96,23 @@ public:
    * @return The result of the implemented function.
    */
   virtual TReturn invoke(TArgs... args) const = 0;
+
+public:
+
+  /**
+   * @brief
+   * Invokes the function with the given arguments.
+   *
+   * This function invokes the function with the given arguments and returns the result.
+   *
+   * @param[in] args A vector of DynamicObjects representing the arguments to
+   * invoke the function with.
+   *
+   * @return A DynamicObject containing the result of the function invocation.
+   */
+  DynamicObject invoke(Vector<DynamicObject>* args) override {
+    return DynamicObject();
+  }
 
 protected:
 };
