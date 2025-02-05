@@ -85,6 +85,15 @@ bool Class::has_default_constructor() const {
   return *mDefaultConstructor.get_function_signature().get_return_type() != *StaticTypeInfo<void>::get();
 }
 
+const ClassMethod* Class::get_method(const String& name) const {
+  const auto& meth = mMethodsMap.find(name);
+  if (meth != mMethodsMap.end()) {
+    return &meth.value();
+  }
+
+  return nullptr;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

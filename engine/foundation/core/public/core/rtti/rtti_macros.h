@@ -121,6 +121,8 @@ void NAMESPACE::CLASS::register_reflection() { \
 #define be_constructor(...) \
   .constructor(new core::Constructor<_CLASS, __VA_ARGS__>())
 
+#define be_method(NAME, ...) \
+  .method(#NAME, new core::Func<decltype(&_CLASS::NAME)>(&_CLASS::NAME))
 
 #define __be_declare_enum(ENUM) \
   template<> struct core::StaticTypeInfo<ENUM> { \

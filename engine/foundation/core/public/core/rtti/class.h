@@ -138,6 +138,16 @@ public:
    */
   [[nodiscard]] bool has_default_constructor() const;
 
+
+  /**
+   * @brief Get a method by name.
+   *
+   * @param name The name of the method to retrieve.
+   *
+   * @return A pointer to the method, or nullptr if the method does not exist.
+   */
+  [[nodiscard]] const ClassMethod* get_method(const String& name) const;
+
 private:
   /** The name of the class */
   String mName;
@@ -150,6 +160,8 @@ private:
 
   /** The list of constructors for the class */
   Vector<ClassConstructor> mConstructors;
+
+  core::hash_map<String, ClassMethod> mMethodsMap;
 };
 
 

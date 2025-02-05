@@ -62,6 +62,8 @@ public:
   Object();
 
   virtual ~Object();
+
+  void some_test();
 };
 
 
