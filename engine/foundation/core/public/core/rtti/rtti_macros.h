@@ -102,11 +102,24 @@ struct Register_##NAMESPACE_##CLASS { \
 }; \
 static Register_##NAMESPACE_##CLASS NAMESPACE_##CLASS_declare_class_register; \
 void NAMESPACE::CLASS::register_reflection() { \
+  typedef NAMESPACE::CLASS _CLASS; \
   core::Class::declare<NAMESPACE::CLASS>(#NAMESPACE"::"#CLASS) \
 
 
 #define be_end_class() \
 ;}
+
+
+#define be_base_class(NAME) \
+    .base(#NAME)
+
+
+#define be_default_constructor() \
+    .constructor(new core::Constructor<_CLASS>())
+
+
+#define be_constructor(...) \
+  .constructor(new core::Constructor<_CLASS, __VA_ARGS__>())
 
 
 #define __be_declare_enum(ENUM) \

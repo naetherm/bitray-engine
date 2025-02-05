@@ -29,6 +29,7 @@
 //[ Rtti interface                                        ]
 //[-------------------------------------------------------]
 be_begin_class(Object, core)
+  be_default_constructor()
 be_end_class()
 
 
