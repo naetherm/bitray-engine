@@ -81,6 +81,14 @@ ClassBuilder<TClass>& ClassBuilder<TClass>::method(const String& name, FuncBase*
   return *this;
 }
 
+template<typename TClass>
+ClassBuilder<TClass>& ClassBuilder<TClass>::field(const String& name, core::uint32 offset) {
+  mClass->mFieldsMap[name] = ClassField(name, offset);
+  mLastRttiMember = &mClass->mFieldsMap[name];
+
+  return *this;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

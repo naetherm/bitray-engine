@@ -148,6 +148,8 @@ public:
    */
   [[nodiscard]] const ClassMethod* get_method(const String& name) const;
 
+  [[nodiscard]] const ClassField* get_field(const String& name) const;
+
 private:
   /** The name of the class */
   String mName;
@@ -162,6 +164,8 @@ private:
   Vector<ClassConstructor> mConstructors;
 
   core::hash_map<String, ClassMethod> mMethodsMap;
+
+  core::hash_map<String, ClassField> mFieldsMap;
 };
 
 

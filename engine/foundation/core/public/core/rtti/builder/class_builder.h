@@ -92,6 +92,8 @@ public:
 
   ClassBuilder& method(const String& name, FuncBase* func);
 
+  ClassBuilder& field(const String& name, core::uint32 offset);
+
 private:
 
   Class* mClass;

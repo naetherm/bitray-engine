@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/rtti/rtti_member.h"
 
 
 //[-------------------------------------------------------]
@@ -50,6 +51,21 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+class ClassField : public RttiMember {
+public:
+
+  ClassField();
+
+  ClassField(const String& name, core::uint32 offset);
+
+
+  bool operator==(const ClassField& other) const;
+
+private:
+
+  String mName;
+  core::uint32 mOffset;
+};
 
 
 //[-------------------------------------------------------]

@@ -44,6 +44,18 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+ClassField::ClassField()
+: mOffset(-1) {
+}
+
+ClassField::ClassField(const String& name, core::uint32 offset)
+: mName(name)
+, mOffset(offset) {
+}
+
+bool ClassField::operator==(const ClassField& other) const {
+  return ((mName == other.mName) && (mOffset == other.mOffset));
+}
 
 
 //[-------------------------------------------------------]

@@ -94,6 +94,15 @@ const ClassMethod* Class::get_method(const String& name) const {
   return nullptr;
 }
 
+const ClassField* Class::get_field(const String& name) const {
+  const auto& field = mFieldsMap.find(name);
+  if (field != mFieldsMap.end()) {
+    return &field.value();
+  }
+
+  return nullptr;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
