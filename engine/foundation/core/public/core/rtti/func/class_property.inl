@@ -22,12 +22,12 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/func/class_property.h"
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+#include "core/utility/invokable.h"
 
 
 //[-------------------------------------------------------]
@@ -44,31 +44,13 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-ClassProperty::ClassProperty()
-: mSetter(nullptr)
-, mGetter(nullptr) {
+template<typename TType, class TObject>
+void ClassProperty::set_direct(TObject* obj, TType value) const {
 }
 
-ClassProperty::ClassProperty(const String& name, FuncBase* setter, FuncBase* getter)
-: mName(name)
-, mSetter(setter)
-, mGetter(getter) {
-}
-
-ClassProperty::~ClassProperty() {
-  mSetter = nullptr;
-  mGetter = nullptr;
-}
-
-bool ClassProperty::operator==(const ClassProperty& other) const {
-  return ((mSetter == other.mSetter) && (mGetter == other.mGetter));
-}
-
-void ClassProperty::set(Vector<DynamicObject>* args) const {
-}
-
-DynamicObject ClassProperty::get(Vector<DynamicObject>* args) const {
-  return DynamicObject();
+template<typename TType, class TObject>
+TType ClassProperty::get_direct(TObject* obj) const {
+  return TType();
 }
 
 

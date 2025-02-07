@@ -29,6 +29,9 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/rtti/rtti_member.h"
+#include "core/rtti/func/func_base.h"
+#include "core/container/vector.h"
 
 
 //[-------------------------------------------------------]
@@ -50,9 +53,44 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+class ClassProperty : public RttiMember {
+public:
+
+  ClassProperty();
+
+  ClassProperty(const String& name, FuncBase* setter, FuncBase* getter);
+
+  ~ClassProperty() override;
+
+
+  bool operator==(const ClassProperty& other) const;
+
+
+  void set(Vector<DynamicObject>* args) const;
+
+  DynamicObject get(Vector<DynamicObject>* args) const;
+
+  template<typename TType, class TObject>
+  void set_direct(TObject* obj, TType value) const;
+
+  template<typename TType, class TObject>
+  TType get_direct(TObject* obj) const;
+
+private:
+
+  String mName;
+  FuncBase* mSetter;
+  FuncBase* mGetter;
+};
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/rtti/func/class_property.inl"
