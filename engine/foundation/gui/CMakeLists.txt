@@ -38,11 +38,9 @@ re_add_target(
   BUILD_DEPENDENCIES
     PUBLIC
       core
-      External::glm
   RUNTIME_DEPENDENCIES
     PUBLIC
       core
-      External::glm
   COMPILE_DEFINITIONS
     PUBLIC
       GUI_EXPORTS
