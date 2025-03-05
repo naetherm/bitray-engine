@@ -38,10 +38,9 @@
 #elif defined(__ANDROID__)
 #define VK_USE_PLATFORM_ANDROID_KHR
 #elif defined(LINUX)
-#define VK_USE_PLATFORM_XLIB_KHR
+#define VK_USE_PLATFORM_XLIB_KHR 1
+#define VK_USE_PLATFORM_XCB_KHR 1
 //#define VK_USE_PLATFORM_WAYLAND_KHR
-//#define VK_USE_PLATFORM_XCB_KHR
-//#define VK_USE_PLATFORM_XCB_KHR
 //#define VK_KHR_xcb_surface 1
 #else
 #error "unsupported platform!"
