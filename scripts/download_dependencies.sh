@@ -9,6 +9,7 @@ _deps=(
   "mimalloc-2.0.6-rev1-linux"
   "pcre-8.37-linux"
   "smolv-20200525-linux"
+  "acl-2.0.6-rev1-linux"
 )
 
 for dep in ${_deps[*]}
