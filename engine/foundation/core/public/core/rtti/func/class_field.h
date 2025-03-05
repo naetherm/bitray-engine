@@ -51,19 +51,51 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class ClassField
+ *
+ * @brief
+ * Represents a field for a class.
+ *
+ * This class represents a field for a class and is used by the RTTI system
+ * to store metadata about a class field. It inherits from RttiMember.
+ */
 class ClassField : public RttiMember {
 public:
 
+  /**
+   * @brief
+   * Default constructor.
+   *
+   * The default constructor is declared but not implemented. It is here to
+   * prevent the compiler from generating one.
+   */
   ClassField();
 
+  /**
+   * @brief
+   * Ctor
+   *
+   * @param[in] name The name of the field.
+   * @param[in] offset The offset of the field from the start of the object.
+   */
   ClassField(const String& name, core::uint32 offset);
 
 
+  /**
+   * @brief
+   * Checks if this object is equal to another object.
+   *
+   * @param[in] other The other object to compare to.
+   *
+   * @return true if this object is equal to the other object, false otherwise.
+   */
   bool operator==(const ClassField& other) const;
 
 private:
-
+  /** The name of the field */
   String mName;
+  /** The offset of the field on its class type */
   core::uint32 mOffset;
 };
 

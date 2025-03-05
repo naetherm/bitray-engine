@@ -33,6 +33,46 @@
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 namespace core_tests {
+class InheritedObject : public core::Object {
+public:
+
+  be_rtti()
+
+public:
+
+  InheritedObject()
+  : mOtherProp(13.37f) {}
+
+
+  void some_other_test() {
+    BE_LOG(Info, "Called InheritedObject::some_other_test()");
+  }
+
+  float get_other_prop() const {
+    return mOtherProp;
+  }
+
+  void set_other_prop(float foo) {
+    mOtherProp = foo;
+  }
+
+private:
+
+  float mOtherProp;
+};
+}
+
+be_declare_class(core_tests::InheritedObject)
+
+be_begin_class(InheritedObject, core_tests)
+  be_default_constructor()
+  be_base_class(core::Object)
+  be_method(some_other_test)
+  be_property_getset(OtherProp, get_other_prop, set_other_prop)
+be_end_class()
+
+namespace core_tests {
+
 
 
 //[-------------------------------------------------------]
@@ -56,7 +96,16 @@ void RttiTests::test() {
     be_expect_str_eq("void", ti->get_name().c_str());
   }
 
+  {
+    core::ClassTypeInfo* cls = rttiTypeServer.get_class_type("core::Object");
+
+    core::Object* obj = cls->get_class()->create<core::Object>();
+
+    be_expect_eq(0, obj->get_some_prop());
+  }
+
   core::Object obj;
+  core_tests::InheritedObject obj2;
 
   {
     core::ClassTypeInfo* cls = rttiTypeServer.get_class_type("core::Object");
@@ -76,6 +125,17 @@ void RttiTests::test() {
     }
 
     {
+      const core::ClassMethod* method = cls->get_class()->get_method("some_test");
+
+      be_expect_true(method != nullptr);
+
+      core::Vector<core::DynamicObject> args;
+      args.push_back(&obj);
+
+      method->invoke(&args);
+    }
+
+    {
       const core::ClassProperty* property = cls->get_class()->get_property("SomeProp");
 
       be_expect_true(property != nullptr);
@@ -84,6 +144,29 @@ void RttiTests::test() {
       be_expect_eq(42, property->get_direct<int>(&obj));
       property->set_direct(&obj, 2);
       be_expect_eq(2, property->get_direct<int>(&obj));
+    }
+  }
+
+  {
+    core::ClassTypeInfo* cls = rttiTypeServer.get_class_type("core_tests::InheritedObject");
+    be_expect_true(cls != nullptr);
+    be_expect_str_eq("core_tests::InheritedObject", cls->get_name().c_str());
+
+    {
+      const core::ClassMethod* method = cls->get_class()->get_method("some_other_test");
+
+      be_expect_true(method != nullptr);
+      be_expect_true(cls->get_class()->is_derived_from(rttiTypeServer.get_class_type("core::Object")->get_class()));
+
+      method->call_direct<void>(&obj2);
+    }
+
+    {
+      const core::ClassMethod* method = cls->get_class()->get_method("some_test");
+
+      be_expect_true(method != nullptr);
+
+      method->call_direct<void>(&obj2);
     }
   }
 }

@@ -48,11 +48,22 @@ namespace core {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 template<typename TClass>
+TClass* Class::create() const {
+  if (!has_default_constructor()) {
+    return nullptr;
+  }
+
+  DynamicObject obj = mDefaultConstructor.invoke(nullptr);
+
+  return obj.get_as<TClass*>();
+}
+
+template<typename TClass>
 ClassBuilder<TClass> Class::declare(const String& name) {
   Class* clss = new Class(name);
 
   TypeInfo* classTypeInfo = StaticTypeInfo<TClass>::get();
-  ((ClassTypeInfo *)(classTypeInfo))->mClass = clss;
+  static_cast<ClassTypeInfo *>(classTypeInfo)->mClass = clss;
 
   return ClassBuilder<TClass>(*clss);
 }

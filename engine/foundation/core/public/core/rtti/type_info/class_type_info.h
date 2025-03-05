@@ -52,6 +52,14 @@ class Class;
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class ClassTypeInfo
+ *
+ * @brief
+ * Class type information.
+ *
+ * This class contains information about a class type.
+ */
 class ClassTypeInfo : public TypeInfo {
 
   friend class Class;
@@ -77,10 +85,17 @@ public:
    */
   TypeInfoType get_type_info_type() const override;
 
+  /**
+   * @brief
+   * Get the class associated with this type info.
+   *
+   * @return
+   * A pointer to the class associated with this type info.
+   */
   [[nodiscard]] const Class* get_class() const;
 
 private:
-
+  /** Pointer to the class representation */
   const Class* mClass;
 };
 

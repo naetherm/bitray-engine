@@ -57,6 +57,8 @@ ClassBuilder<TClass>& ClassBuilder<TClass>::base(const String& name) {
       /// TODO(naetherm): Late binding
     }
   }
+
+  return *this;
 }
 
 

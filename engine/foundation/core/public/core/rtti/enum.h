@@ -56,12 +56,30 @@ class EnumBuilder;
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * Enum
+ *
+ * @brief
+ * A class representing a named enumeration in the RTTI system.
+ *
+ * Enum is a part of the RTTI system that allows for the dynamic querying and
+ * registration of named enumerations.
+ */
 class Enum : public RttiMember {
 
   template<typename TEnum> friend class EnumBuilder;
 
 public:
 
+  /**
+   * @brief
+   * A static method to create an EnumBuilder instance and start declaring an enum.
+   *
+   * @param name The name of the enum to be declared.
+   *
+   * @return An EnumBuilder instance for the enum with the given name.
+   */
   template<typename TEnum>
   static EnumBuilder<TEnum> declare(const String& name);
 

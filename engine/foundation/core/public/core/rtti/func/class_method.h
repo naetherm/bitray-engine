@@ -121,7 +121,7 @@ public:
    *
    * @return A DynamicObject containing the result of the method invocation.
    */
-  DynamicObject invoke(Vector<DynamicObject>* args) override;
+  DynamicObject invoke(Vector<DynamicObject>* args) const;
 
   /**
    * @brief

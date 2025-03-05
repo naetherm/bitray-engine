@@ -59,6 +59,15 @@ class ClassBuilder;
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * Class
+ *
+ * @brief
+ * Represents a class.
+ *
+ * This class represents a class. It is used by the RTTI system to store metadata about a class.
+ */
 class Class : public RttiMember {
 
   template<typename TClass> friend class ClassBuilder;
@@ -93,6 +102,17 @@ public:
    * Cleans up any resources allocated by the `Class` instance.
    */
   ~Class() override;
+
+
+  /**
+   * @brief
+   * Create an instance of the class.
+   *
+   * @tparam TClass The type of the class to create an instance of.
+   * @return A pointer to an instance of the class.
+   */
+  template<typename TClass>
+  TClass* create() const;
 
 
   /**
@@ -138,12 +158,32 @@ public:
    */
   [[nodiscard]] bool has_default_constructor() const;
 
+  /**
+   * @brief Get the number of constructors for the class.
+   *
+   * @return The number of constructors as an unsigned 32-bit integer.
+   */
   [[nodiscard]] uint32 get_num_constructors() const;
 
+  /**
+   * @brief Get the number of methods for the class.
+   *
+   * @return The number of methods as an unsigned 32-bit integer.
+   */
   [[nodiscard]] uint32 get_num_methods() const;
 
+  /**
+   * @brief Get the number of fields for the class.
+   *
+   * @return The number of fields as an unsigned 32-bit integer.
+   */
   [[nodiscard]] uint32 get_num_fields() const;
 
+  /**
+   * @brief Get the number of properties for the class.
+   *
+   * @return The number of properties as an unsigned 32-bit integer.
+   */
   [[nodiscard]] uint32 get_num_properties() const;
 
   /**
@@ -155,8 +195,22 @@ public:
    */
   [[nodiscard]] const ClassMethod* get_method(const String& name) const;
 
+  /**
+   * @brief Get a field by name.
+   *
+   * @param name The name of the field to retrieve.
+   *
+   * @return A pointer to the field, or nullptr if the field does not exist.
+   */
   [[nodiscard]] const ClassField* get_field(const String& name) const;
 
+  /**
+   * @brief Get a property by name.
+   *
+   * @param name The name of the property to retrieve.
+   *
+   * @return A pointer to the property, or nullptr if the property does not exist.
+   */
   [[nodiscard]] const ClassProperty* get_property(const String& name) const;
 
 private:
@@ -172,10 +226,13 @@ private:
   /** The list of constructors for the class */
   Vector<ClassConstructor> mConstructors;
 
+  /** The list of methods for the class */
   core::hash_map<String, ClassMethod> mMethodsMap;
 
+  /** The list of fields for the class */
   core::hash_map<String, ClassField> mFieldsMap;
 
+  /** The list of properties for the class */
   core::hash_map<String, ClassProperty> mPropertiesMap;
 };
 

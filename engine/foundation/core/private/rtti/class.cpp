@@ -111,6 +111,13 @@ const ClassMethod* Class::get_method(const String& name) const {
   if (meth != mMethodsMap.end()) {
     return &meth.value();
   }
+  // Check all base classes
+  for (auto base: mBaseClasses) {
+    const ClassMethod* method = base->get_method(name);
+    if (method) {
+      return method;
+    }
+  }
 
   return nullptr;
 }
@@ -120,6 +127,13 @@ const ClassField* Class::get_field(const String& name) const {
   if (field != mFieldsMap.end()) {
     return &field.value();
   }
+  // Check all base classes
+  for (auto base: mBaseClasses) {
+    const ClassField* field = base->get_field(name);
+    if (field) {
+      return field;
+    }
+  }
 
   return nullptr;
 }
@@ -128,6 +142,13 @@ const ClassProperty* Class::get_property(const String& name) const {
   const auto& prop = mPropertiesMap.find(name);
   if (prop != mPropertiesMap.end()) {
     return &prop.value();
+  }
+  // Check all base classes
+  for (auto base: mBaseClasses) {
+    const ClassProperty* property = base->get_property(name);
+    if (property) {
+      return property;
+    }
   }
 
   return nullptr;

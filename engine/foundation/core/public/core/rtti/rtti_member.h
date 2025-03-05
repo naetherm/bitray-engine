@@ -53,6 +53,17 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * RttiMember
+ *
+ * @brief
+ * The base class for all members of a class in the RTTI system.
+ *
+ * This class is the base class for all members of a class in the RTTI system.
+ * It provides a common interface for all members of a class, such as fields,
+ * methods and properties.
+ */
 class RttiMember {
 public:
 
