@@ -68,6 +68,7 @@ be_begin_class(InheritedObject, core_tests)
   be_default_constructor()
   be_base_class(core::Object)
   be_method(some_other_test)
+    be_tag("test", "true")
   be_property_getset(OtherProp, get_other_prop, set_other_prop)
 be_end_class()
 
@@ -154,6 +155,7 @@ void RttiTests::test() {
 
     {
       const core::ClassMethod* method = cls->get_class()->get_method("some_other_test");
+      be_expect_true(method->has_tag("test"));
 
       be_expect_true(method != nullptr);
       be_expect_true(cls->get_class()->is_derived_from(rttiTypeServer.get_class_type("core::Object")->get_class()));

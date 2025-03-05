@@ -110,6 +110,10 @@ void NAMESPACE::CLASS::register_reflection() { \
 ;}
 
 
+#define be_tag(NAME, VALUE) \
+  .add_tag(NAME, VALUE)
+
+
 #define be_base_class(NAME) \
     .base(#NAME)
 

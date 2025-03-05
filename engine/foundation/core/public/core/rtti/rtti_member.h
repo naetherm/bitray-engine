@@ -65,6 +65,10 @@ namespace core {
  * methods and properties.
  */
 class RttiMember {
+
+  template<typename TClass> friend class ClassBuilder;
+  template<typename TClass> friend class EnumBuilder;
+
 public:
 
   /**
@@ -112,6 +116,7 @@ protected:
    * @param value The value of the tag.
    */
   void add_tag(const String& name, const DynamicObject& value);
+
 protected:
 
   /** A map of string to dynamic object that stores all the tags that have been added to this RttiMember. */

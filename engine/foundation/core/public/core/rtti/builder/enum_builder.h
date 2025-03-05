@@ -88,7 +88,7 @@ public:
   EnumBuilder<TEnum>& value(const String& name, core::int32 value);
 
 private:
-
+  /** Pointer to current enum */
   Enum* mEnum;
 };
 

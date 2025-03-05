@@ -99,6 +99,13 @@ ClassBuilder<TClass>& ClassBuilder<TClass>::property(const String& name, FuncBas
   return *this;
 }
 
+template<typename TClass>
+ClassBuilder<TClass>& ClassBuilder<TClass>::add_tag(const String& name, const DynamicObject& value) {
+  mLastRttiMember->add_tag(name, value);
+
+  return *this;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
