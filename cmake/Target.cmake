@@ -347,6 +347,7 @@ macro(re_search_for_external_dependencies TARGET)
   foreach(dep IN LISTS packages_with_components)
     find_package(${dep} REQUIRED MODULE COMPONENTS ${${dep}_components})
 
+    #target_link_libraries(${TARGET} PUBLIC "External::${dep}::${${dep}_components}")
     target_link_libraries(${TARGET} PUBLIC $<TARGET_PROPERTY:External::${dep}::${${dep}_components},INTERFACE_LINK_LIBRARIES>)
     target_include_directories(${TARGET} PUBLIC $<TARGET_PROPERTY:External::${dep}::${${dep}_components},INTERFACE_INCLUDE_DIRECTORIES>)
 
