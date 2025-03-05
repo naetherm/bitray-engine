@@ -86,11 +86,6 @@ re_associate_package(
   PACKAGE_HASH 1dbc14034d775a849714f47ab075eb8725dfbd1ce4fbe45230d6fb84582449e7
 )
 re_associate_package(
-  PACKAGE_NAME rapidjson-1.1.0-rev1-linux
-  TARGETS rapidjson
-  PACKAGE_HASH 920a417378e24924e1f8701e7fb282d7347af8a2e191e200445563307035d2dd
-)
-re_associate_package(
   PACKAGE_NAME rtm-2.1.5-rev1-linux
   TARGETS rtm
   PACKAGE_HASH c5aac4608ef7e5cc5a6e6d8ff3004b4629cf620f6341a5c218e99eebd1608a09

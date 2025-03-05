@@ -11,6 +11,18 @@ _deps=(
   "smolv-20200525-linux"
   "acl-2.0.6-rev1-linux"
   "assimp-5.2.3-rev1-linux"
+  "crunch-1.0.4-rev1-linux"
+  "ies-1.0.1-rev1-linux"
+  "imgui-1.90-rev1-linux"
+  "mcpp-master-rev1-linux"
+  "meshoptimizer-0.17-rev1-linux"
+  "mikktspace-1.0.0-rev1-linux"
+  "mojoshader-master-rev1-linux"
+  "rtm-2.1.5-rev1-linux"
+  "zlib-1.2.11-rev1-linux"
+  "xsimd-7.4.8-rev1-linux"
+  "openal-v1.23.0-rev1-linux"
+  "ogg-v1.3.5-rev1-linux"
 )
 
 for dep in ${_deps[*]}
