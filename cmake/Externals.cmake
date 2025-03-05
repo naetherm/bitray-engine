@@ -18,6 +18,8 @@
 #// DEALINGS IN THE SOFTWARE.
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
+set(CMAKE_MODULE_PATH "")
+
 
 function(re_download_package URL HASH LOCAL_PATH)
   #
@@ -65,7 +67,14 @@ function(re_download_package URL HASH LOCAL_PATH)
 endfunction()
 
 
-function(re_associate_package)
+function(re_add_external_target_path PATH)
+  list(APPEND CMAKE_MODULE_PATH ${PATH})
+  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
+  set_property(GLOBAL APPEND PROPERTY RE_ADDITIONAL_MODULE_PATH ${PATH})
+endfunction()
+
+
+macro(re_associate_package)
   set(_singleValues PACKAGE_NAME PACKAGE_HASH)
   set(_multiValues TARGETS)
 
@@ -92,14 +101,13 @@ function(re_associate_package)
   set_property(GLOBAL PROPERTY RE_PACKAGE_TARGETS_${re_associate_package_PACKAGE_NAME} ${re_associate_package_TARGETS})
 
   # Add to cmake_module_path
-  set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/.bitray_engine/Externals/${re_associate_package_PACKAGE_NAME}" ${CMAKE_MODULE_PATH} PARENT_SCOPE)
-
+  re_add_external_target_path("${CMAKE_SOURCE_DIR}/.bitray_engine/Externals/${re_associate_package_PACKAGE_NAME}")
+  get_property(additional_module_paths GLOBAL PROPERTY RE_ADDITIONAL_MODULE_PATH)
+  set(CMAKE_MODULE_PATH ${additional_module_paths})
   foreach(pkg ${re_associate_package_TARGETS})
-    #find_package(
-    #  ${pkg} REQUIRED #MODULE
-    #PATHS "${RE_EXTERNAL_LIBRARIES}/${re_associate_package_PACKAGE_NAME}")
+    find_package(${pkg} REQUIRED MODULE)
   endforeach()
 
-endfunction()
+endmacro()
 
 include(cmake/Externals/Externals_${PAL_HOST_PLATFORM_NAME_LOWERCASE}.cmake)
