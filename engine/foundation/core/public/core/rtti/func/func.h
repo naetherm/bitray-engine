@@ -74,11 +74,11 @@ private:
 };
 
 template<typename TReturn, class TClass, typename... TArgs>
-class Func<TReturn (TClass::*)(TArgs...) const> : public FuncBase, public Invokable<TReturn, const TClass*, TArgs...> {
+class Func<TReturn (TClass::*)(TArgs...) const> : public Invokable<TReturn, const TClass*, TArgs...> {
 public:
 
   typedef Func<TReturn (TClass::*)(TArgs...) const> ThisType;
-  typedef TReturn (TClass::*FUNC)(TArgs...);
+  typedef TReturn (TClass::*FUNC)(TArgs...) const;
 
 public:
 

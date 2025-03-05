@@ -138,6 +138,13 @@ public:
    */
   [[nodiscard]] bool has_default_constructor() const;
 
+  [[nodiscard]] uint32 get_num_constructors() const;
+
+  [[nodiscard]] uint32 get_num_methods() const;
+
+  [[nodiscard]] uint32 get_num_fields() const;
+
+  [[nodiscard]] uint32 get_num_properties() const;
 
   /**
    * @brief Get a method by name.
@@ -149,6 +156,8 @@ public:
   [[nodiscard]] const ClassMethod* get_method(const String& name) const;
 
   [[nodiscard]] const ClassField* get_field(const String& name) const;
+
+  [[nodiscard]] const ClassProperty* get_property(const String& name) const;
 
 private:
   /** The name of the class */
@@ -166,6 +175,8 @@ private:
   core::hash_map<String, ClassMethod> mMethodsMap;
 
   core::hash_map<String, ClassField> mFieldsMap;
+
+  core::hash_map<String, ClassProperty> mPropertiesMap;
 };
 
 

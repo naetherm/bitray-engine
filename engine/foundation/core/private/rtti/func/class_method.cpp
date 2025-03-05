@@ -63,7 +63,7 @@ bool ClassMethod::operator==(const ClassMethod& other) const {
 
 DynamicObject ClassMethod::invoke(Vector<DynamicObject>* args) {
   if (mFunc) {
-    return mFunc->invoke(args);
+    return mFunc->dyn_invoke(args);
   }
 
   return DynamicObject();

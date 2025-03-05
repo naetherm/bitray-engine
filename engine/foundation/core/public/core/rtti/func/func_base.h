@@ -77,7 +77,7 @@ public:
    *
    * @return A DynamicObject containing the result of the function invocation.
    */
-  virtual DynamicObject invoke(Vector<DynamicObject>* args) = 0;
+  virtual DynamicObject dyn_invoke(Vector<DynamicObject>* args) = 0;
 
   /**
    * @brief

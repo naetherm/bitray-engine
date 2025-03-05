@@ -46,11 +46,23 @@ namespace core {
 //[-------------------------------------------------------]
 template<typename TType, class TObject>
 void ClassProperty::set_direct(TObject* obj, TType value) const {
+  static Vector<DynamicObject> args;
+  args.resize(2);
+
+  args[0] = obj;
+  args[1] = value;
+
+  set(&args);
 }
 
 template<typename TType, class TObject>
 TType ClassProperty::get_direct(TObject* obj) const {
-  return TType();
+  static Vector<DynamicObject> args;
+  args.resize(1);
+
+  args[0] = obj;
+
+  return get(&args).get_as<TType>();
 }
 
 

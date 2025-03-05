@@ -89,6 +89,14 @@ ClassBuilder<TClass>& ClassBuilder<TClass>::field(const String& name, core::uint
   return *this;
 }
 
+template<typename TClass>
+ClassBuilder<TClass>& ClassBuilder<TClass>::property(const String& name, FuncBase* setter, FuncBase* getter) {
+  mClass->mPropertiesMap[name] = ClassProperty(name, setter, getter);
+  mLastRttiMember = &mClass->mPropertiesMap[name];
+
+  return *this;
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]

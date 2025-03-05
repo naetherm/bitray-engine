@@ -48,7 +48,7 @@ template<typename TReturn, typename TObject, typename... TArgs>
 TReturn ClassMethod::call_direct(TObject* obj, TArgs... args) const {
   typedef Invokable<TReturn, TObject*, TArgs...> InvokableType;
   InvokableType* casted = (InvokableType*)mFunc;
-  return casted->invoke(args...);
+  return casted->invoke(obj, args...);
 }
 
 

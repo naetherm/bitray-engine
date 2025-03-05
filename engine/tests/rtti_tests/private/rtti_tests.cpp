@@ -23,10 +23,9 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include <core/rtti/rtti.h>
-#include "rtti_tests.h"
-
 #include <core/log/log.h>
-
+#include <core/rtti/object.h>
+#include "rtti_tests.h"
 #include "some_object.h"
 
 
@@ -51,6 +50,42 @@ RttiTests::~RttiTests() {
 void RttiTests::test() {
   core::RttiTypeServer& rttiTypeServer = core::RttiTypeServer::instance();
 
+  {
+    core::TypeInfo* ti = core::StaticTypeInfo<void>::get();
+
+    be_expect_str_eq("void", ti->get_name().c_str());
+  }
+
+  core::Object obj;
+
+  {
+    core::ClassTypeInfo* cls = rttiTypeServer.get_class_type("core::Object");
+    be_expect_true(cls != nullptr);
+    be_expect_str_eq("core::Object", cls->get_name().c_str());
+    //be_expect_true(cls->get_class()->has_default_constructor());
+    be_expect_eq(1, cls->get_class()->get_num_methods());
+    be_expect_eq(1, cls->get_class()->get_num_properties());
+    be_expect_eq(0, cls->get_class()->get_num_fields());
+
+    {
+      const core::ClassMethod* method = cls->get_class()->get_method("some_test");
+
+      be_expect_true(method != nullptr);
+
+      method->call_direct<void>(&obj);
+    }
+
+    {
+      const core::ClassProperty* property = cls->get_class()->get_property("SomeProp");
+
+      be_expect_true(property != nullptr);
+      be_expect_eq(0, property->get_direct<int>(&obj));
+      obj.set_some_prop(42);
+      be_expect_eq(42, property->get_direct<int>(&obj));
+      property->set_direct(&obj, 2);
+      be_expect_eq(2, property->get_direct<int>(&obj));
+    }
+  }
 }
 
 be_unittest_autoregister(RttiTests)

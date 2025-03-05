@@ -124,6 +124,12 @@ void NAMESPACE::CLASS::register_reflection() { \
 #define be_method(NAME, ...) \
   .method(#NAME, new core::Func<decltype(&_CLASS::NAME)>(&_CLASS::NAME))
 
+//#define be_property(NAME) \
+//  .property(#NAME, new core::Func<decltype(&_CLASS::NAME)>(&_CLASS::NAME))
+
+#define be_property_getset(NAME, GETTER, SETTER) \
+  .property(#NAME, new core::Func<decltype(&_CLASS::SETTER)>(&_CLASS::SETTER), new core::Func<decltype(&_CLASS::GETTER)>(&_CLASS::GETTER))
+
 #define __be_declare_enum(ENUM) \
   template<> struct core::StaticTypeInfo<ENUM> { \
     static core::TypeInfo* get() { \

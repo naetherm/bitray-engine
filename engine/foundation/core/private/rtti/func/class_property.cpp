@@ -65,9 +65,16 @@ bool ClassProperty::operator==(const ClassProperty& other) const {
 }
 
 void ClassProperty::set(Vector<DynamicObject>* args) const {
+  if (mSetter) {
+    mSetter->dyn_invoke(args);
+  }
 }
 
 DynamicObject ClassProperty::get(Vector<DynamicObject>* args) const {
+  if (mGetter) {
+    return mGetter->dyn_invoke(args);
+  }
+
   return DynamicObject();
 }
 

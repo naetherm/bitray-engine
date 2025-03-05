@@ -64,6 +64,15 @@ public:
   virtual ~Object();
 
   void some_test();
+
+
+  void set_some_prop(int foo);
+
+  int get_some_prop() const;
+
+private:
+
+  int mSomeProp;
 };
 
 

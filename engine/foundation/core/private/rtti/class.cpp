@@ -23,6 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/class.h"
+#include "core/rtti/rtti.h"
 
 
 //[-------------------------------------------------------]
@@ -85,6 +86,26 @@ bool Class::has_default_constructor() const {
   return *mDefaultConstructor.get_function_signature().get_return_type() != *StaticTypeInfo<void>::get();
 }
 
+uint32 Class::get_num_constructors() const {
+  uint32 result = has_default_constructor() ? 1 : 0;
+
+  result += mConstructors.size();
+
+  return result;
+}
+
+uint32 Class::get_num_methods() const {
+  return mMethodsMap.size();
+}
+
+uint32 Class::get_num_fields() const {
+  return mFieldsMap.size();
+}
+
+uint32 Class::get_num_properties() const {
+  return mPropertiesMap.size();
+}
+
 const ClassMethod* Class::get_method(const String& name) const {
   const auto& meth = mMethodsMap.find(name);
   if (meth != mMethodsMap.end()) {
@@ -98,6 +119,15 @@ const ClassField* Class::get_field(const String& name) const {
   const auto& field = mFieldsMap.find(name);
   if (field != mFieldsMap.end()) {
     return &field.value();
+  }
+
+  return nullptr;
+}
+
+const ClassProperty* Class::get_property(const String& name) const {
+  const auto& prop = mPropertiesMap.find(name);
+  if (prop != mPropertiesMap.end()) {
+    return &prop.value();
   }
 
   return nullptr;

@@ -23,7 +23,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/rtti/rtti_macros.h"
-#include "core/rtti/type_info/static_type_info.h"
+#include "core/rtti/rtti_type_server.h"
+//#include "core/rtti/type_info/static_type_info.h"
 
 
 //[-------------------------------------------------------]

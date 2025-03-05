@@ -22,18 +22,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/rtti/object.h"
-#include "core/log/log.h"
-
-
-//[-------------------------------------------------------]
-//[ Rtti interface                                        ]
-//[-------------------------------------------------------]
-be_begin_class(Object, core)
-  be_default_constructor()
-  be_method(some_test)
-  be_property_getset(SomeProp, get_some_prop, set_some_prop)
-be_end_class()
 
 
 //[-------------------------------------------------------]
@@ -45,29 +33,10 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Object::Object()
-: mSomeProp(0) {
 
-}
-
-Object::~Object() {
-
-}
-
-void Object::some_test() {
-  BE_LOG(Info, "Called Object::some_test")
-}
-
-void Object::set_some_prop(int foo) {
-  mSomeProp = foo;
-}
-
-int Object::get_some_prop() const {
-  return mSomeProp;
-}
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // core

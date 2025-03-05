@@ -64,7 +64,7 @@ bool ClassConstructor::operator==(const ClassConstructor& other) const {
 
 DynamicObject ClassConstructor::invoke(Vector<DynamicObject>* args) const {
   if (mFunc) {
-    return mFunc->invoke(args);
+    return mFunc->dyn_invoke(args);
   }
   return DynamicObject();
 }

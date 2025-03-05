@@ -30,6 +30,7 @@
 //[-------------------------------------------------------]
 #include "core/core.h"
 #include "core/rtti/func/func_base.h"
+#include "core/rtti/tools/tuple.h"
 
 
 //[-------------------------------------------------------]
@@ -52,6 +53,10 @@ namespace core {
  */
 template<typename TReturn, typename... TArgs>
 class Invokable : public FuncBase {
+public:
+
+  typedef Tuple<TArgs...> TupleType;
+
 public:
   /**
    * @brief
@@ -82,6 +87,12 @@ public:
   TReturn operator()(TArgs... args) const {
     return invoke(args...);
   }
+  TReturn operator()(const TupleType &cTuple) const {
+    return tuple_invoke(cTuple);
+  }
+  TReturn tuple_invoke(const TupleType &cTuple) const {
+    return TupleInvokeHelper(cTuple, MakeIndexSequence<sizeof...(TArgs)>());
+  }
 
 public:
   /**
@@ -110,12 +121,46 @@ public:
    *
    * @return A DynamicObject containing the result of the function invocation.
    */
-  DynamicObject invoke(Vector<DynamicObject>* args) override {
-    /// TODO(naetherm): Implement this!
-    return DynamicObject();
+  DynamicObject dyn_invoke(Vector<DynamicObject>* args) override {
+    // Initialize a tuple of the correct type from the dynamic argument list
+    TupleType t;
+    if (args)
+      TupleFromDynamicObject(args, t);
+
+    // Invoke the function using the tuple
+    DynamicObject ret;
+    DynInvokeHelper<TupleType, TReturn>::call(ret, this, t);
+    return ret;
   }
 
-protected:
+private:
+  /**
+  *  @brief
+  *    Tuple invoke helper
+  */
+  template <int... I>
+  TReturn TupleInvokeHelper(const TupleType &cTuple, IndexSequence<I...>) const
+  {
+    return invoke(TupleGet<I>(cTuple)...);
+  }
+
+private:
+
+  template <class TTuple, typename TRet2>
+    struct DynInvokeHelper {
+
+    static void call(DynamicObject &cRet, const Invokable *pToInvoke, const TTuple &tuple) {
+      cRet.set<TRet2>(pToInvoke->tuple_invoke(tuple));
+    }
+  };
+
+  template <class TTuple>
+  struct DynInvokeHelper<TTuple, void> {
+
+    static void call(DynamicObject &cRet, const Invokable *pToInvoke, const TTuple &tuple) {
+      pToInvoke->tuple_invoke(tuple);
+    }
+  };
 };
 
 
@@ -123,3 +168,9 @@ protected:
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 } // core
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "core/utility/invokable.inl"

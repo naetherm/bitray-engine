@@ -94,6 +94,8 @@ public:
 
   ClassBuilder& field(const String& name, core::uint32 offset);
 
+  ClassBuilder& property(const String& name, FuncBase* setter, FuncBase* getter);
+
 private:
 
   Class* mClass;
