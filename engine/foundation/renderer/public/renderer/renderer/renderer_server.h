@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "renderer/renderer.h"
+#include <core/core/server_impl.h>
 
 
 //[-------------------------------------------------------]
@@ -50,6 +51,36 @@ namespace renderer {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * RendererServer
+ *
+ * @brief
+ * This class is responsible for managing and controlling the rendering operations.
+ *
+ * RendererServer serves as the main interface for rendering tasks, providing
+ * functionalities to initialize and manage rendering resources. It inherits from
+ * core::ServerImpl to leverage core server functionalities.
+ */
+class RendererServer : public core::ServerImpl {
+public:
+
+  /**
+   * @brief Constructor
+   *
+   * Creates an instance of the server
+   */
+  RendererServer();
+
+  /**
+   * @brief Destructor
+   *
+   * Cleans up resources used by the server
+   */
+  ~RendererServer() override;
+
+private:
+};
 
 
 //[-------------------------------------------------------]
