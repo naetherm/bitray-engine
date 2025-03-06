@@ -19,11 +19,38 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(core)
-re_add_subdirectory(audio)
-re_add_subdirectory(rhi)
-re_add_subdirectory(renderer)
-re_add_subdirectory(gui)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME audio SHARED
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/audio_files.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+  RUNTIME_DEPENDENCIES
+    PUBLIC
+      core
+  COMPILE_DEFINITIONS
+    PUBLIC
+      AUDIO_EXPORTS
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+      GLM_FORCE_CXX17
+      # GLM_FORCE_INLINE
+      GLM_FORCE_SIMD_AVX2
+      GLM_FORCE_XYZW_ONLY
+      GLM_FORCE_LEFT_HANDED
+      GLM_FORCE_DEPTH_ZERO_TO_ONE
+      GLM_FORCE_RADIANS
+      GLM_ENABLE_EXPERIMENTAL
+  TARGET_PROPERTIES
+    -fPIC
+)

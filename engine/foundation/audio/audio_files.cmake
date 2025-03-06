@@ -19,11 +19,12 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(core)
-re_add_subdirectory(audio)
-re_add_subdirectory(rhi)
-re_add_subdirectory(renderer)
-re_add_subdirectory(gui)
+set(FILES
+  private/audio.cpp
+
+  # private/audio
+  private/audio/audio_buffer.cpp
+  private/audio/audio_device.cpp
+  private/audio/audio_resource.cpp
+  private/audio/audio_source.cpp
+)
