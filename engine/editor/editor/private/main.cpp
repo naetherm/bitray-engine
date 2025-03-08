@@ -20,39 +20,18 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
+#include <core/main.h>
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
+//[ Program entry point                                   ]
 //[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace core {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
+// This is the real entry point for any BitrayEngine executable. You must define this function if you
+// include <PLCore/Main.h> in your project. The parameters passed by the engine into this function
+// are self-explanatory.
+int be_main(const core::String &sExecutableFilename, const core::Vector<core::String> &lstArguments)
+{
+  return 0;
 }

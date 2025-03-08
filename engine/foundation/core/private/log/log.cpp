@@ -187,7 +187,7 @@ bool Log::write(uint8 nLogLevel, const String &sText) {
             nAndroidLogPriority = ANDROID_LOG_DEBUG;
             break;
         }
-        __android_log_write(nAndroidLogPriority, "RacoonEngine", sLogMessage);
+        __android_log_write(nAndroidLogPriority, "BitrayEngine", sLogMessage);
       }
 #else
       fputs(sLogMessage.c_str(), stdout);

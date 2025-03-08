@@ -35,6 +35,7 @@
 #include "core/rtti/type_info/primitive_type_info.h"
 #include "core/rtti/rtti_type_server.h"
 #include "core/rtti/class.h"
+#include "core/rtti/module_id.h"
 #include "core/rtti/builder/class_builder.h"
 #include "core/rtti/builder/enum_builder.h"
 #include "core/rtti/func/func.h"

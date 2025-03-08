@@ -36,7 +36,7 @@ namespace core_tests {
 //[ Classes                                               ]
 //[-------------------------------------------------------]
 StringViewTests::StringViewTests()
-: UnitTest("core::StringViewests") {
+: UnitTest("core::StringViewTests") {
 
 }
 

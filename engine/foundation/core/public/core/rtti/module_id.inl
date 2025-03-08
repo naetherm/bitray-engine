@@ -43,7 +43,7 @@ core::uint32 ModuleId<TType>::mModuleId = 0;
 //[-------------------------------------------------------]
 template<typename TType>
 core::uint32 ModuleId<TType>::get_module_id() {
-  return ModuleId;
+  return mModuleId;
 }
 
 template<typename TType>

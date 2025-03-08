@@ -109,7 +109,7 @@
 	#undef max
 #elif LINUX
 // get rid of some nasty OS macros
-#undef None	// Linux: Undefine "None", this name is used inside enums defined by RacoonEngine (which gets defined inside "Xlib.h" pulled in by "glx.h")
+#undef None	// Linux: Undefine "None", this name is used inside enums defined by BitrayEngine (which gets defined inside "Xlib.h" pulled in by "glx.h")
 
 #define CALLBACK
 

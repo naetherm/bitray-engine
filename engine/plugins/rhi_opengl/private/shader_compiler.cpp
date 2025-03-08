@@ -364,7 +364,7 @@ ShaderCompiler::shader_source_code_to_shader_bytecode(GLenum shaderType, const G
 
         // GLSL to intermediate
         // -> OpenGL 4.1 (the best OpenGL version Mac OS X 10.11 supports, so lowest version we have to support)
-        // TODO(naetherm) OpenGL GLSL 430 instead of 410 for e.g. "GL_ARB_shader_image_load_store" build in support. Apply dropped OpenGL support so we can probably drop Apple support. If at once point RacoonEngine should run on Apple hardware, we probably will use MoltenVK for Vulkan (yet another RHI API Metal just for Apple hardware is probably to much work for a spare time project).
+        // TODO(naetherm) OpenGL GLSL 430 instead of 410 for e.g. "GL_ARB_shader_image_load_store" build in support. Apply dropped OpenGL support so we can probably drop Apple support. If at once point BitrayEngine should run on Apple hardware, we probably will use MoltenVK for Vulkan (yet another RHI API Metal just for Apple hardware is probably to much work for a spare time project).
         // const int glslVersion = 410;
         const int glslVersion = 430;
         EShLanguage shLanguage = EShLangCount;

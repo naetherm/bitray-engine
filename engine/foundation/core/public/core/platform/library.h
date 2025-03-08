@@ -113,7 +113,7 @@ public:
    * get the path (set within 'Load()') to the dynamic library
    *
    * @return
-   * The path to the dynamic library (e.g. "file://C:/"RacoonEngine/Runtime/x86/PLCore.dll" on Windows)
+   * The path to the dynamic library (e.g. "file://C:/"BitrayEngine/Runtime/x86/PLCore.dll" on Windows)
    */
   [[nodiscard]] inline const Path& get_path() const;
 
@@ -122,7 +122,7 @@ public:
    * get the absolute path to the dynamic library
    *
    * @return
-   * The absolute path to the dynamic library (native path style, e.g. "C:\RacoonEngine\Runtime\x86\PLCore.dll" on Windows)
+   * The absolute path to the dynamic library (native path style, e.g. "C:\BitrayEngine\Runtime\x86\PLCore.dll" on Windows)
    */
   [[nodiscard]] inline String get_abs_path() const;
 

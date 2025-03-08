@@ -130,7 +130,7 @@ static constexpr const char* VALIDATION_LAYER_NAMES[] = {
     return VK_FALSE;
   }
 
-  // TODO(naetherm) File "racoonengine\source\rhi\private\vulkanrhi\vulkanrhi.cpp" | Line 1029 | Critical: Vulkan debug report callback: Object type: "VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT" Object: "4963848" Location: "0" Message code: "0" Layer prefix: "Loader Message" Message: "loader_create_device_chain: Failed to find 'vkGetInstanceProcAddr' in layer C:\Program Files (x86)\Steam\.\SteamOverlayVulkanLayer.dll.  Skipping layer."
+  // TODO(naetherm) File "bitrayengine\source\rhi\private\vulkanrhi\vulkanrhi.cpp" | Line 1029 | Critical: Vulkan debug report callback: Object type: "VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT" Object: "4963848" Location: "0" Message code: "0" Layer prefix: "Loader Message" Message: "loader_create_device_chain: Failed to find 'vkGetInstanceProcAddr' in layer C:\Program Files (x86)\Steam\.\SteamOverlayVulkanLayer.dll.  Skipping layer."
   if (VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT == objectType && object && 0 == location && 0 == messageCode && nullptr != strstr(pMessage, "SteamOverlayVulkanLayer.dll")) {
     return VK_FALSE;
   }
@@ -528,8 +528,8 @@ VkResult VulkanRuntimeLinking::create_vulkan_instance(bool enableValidation) {
   // Create application information
   static constexpr VkApplicationInfo vkApplicationInfo = {
     .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
-    .pApplicationName = "RacoonEngine Application",
-    .pEngineName = "RacoonEngine",
+    .pApplicationName = "BitrayEngine Application",
+    .pEngineName = "BitrayEngine",
     .apiVersion = VK_API_VERSION_1_3};
 
   /*

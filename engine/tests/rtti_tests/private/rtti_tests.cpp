@@ -103,6 +103,8 @@ void RttiTests::test() {
     core::Object* obj = cls->get_class()->create<core::Object>();
 
     be_expect_eq(0, obj->get_some_prop());
+
+    delete obj;
   }
 
   core::Object obj;

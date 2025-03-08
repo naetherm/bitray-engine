@@ -110,8 +110,32 @@ void NAMESPACE::CLASS::register_reflection() { \
 ;}
 
 
+/**
+ * Adds a custom tag to the type.
+ *
+ * @param NAME The name of the tag.
+ * @param VALUE The value of the tag.
+ */
 #define be_tag(NAME, VALUE) \
   .add_tag(NAME, VALUE)
+
+
+/**
+ * Adds a tag with a string value to the type.
+ *
+ * @param NAME The name of the tag.
+ * @param VALUE The value of the tag.
+ */
+#define be_str_tag(NAME, VALUE) \
+  be_tag(NAME, core::String(VALUE))
+
+/**
+ * Adds a description to the type.
+ *
+ * @param DESCRIPTION The description of the type.
+ */
+#define be_desc(DESCRIPTION) \
+  be_str_tag("Description", DESCRIPTION)
 
 
 #define be_base_class(NAME) \
@@ -127,9 +151,6 @@ void NAMESPACE::CLASS::register_reflection() { \
 
 #define be_method(NAME, ...) \
   .method(#NAME, new core::Func<decltype(&_CLASS::NAME)>(&_CLASS::NAME))
-
-//#define be_property(NAME) \
-//  .property(#NAME, new core::Func<decltype(&_CLASS::NAME)>(&_CLASS::NAME))
 
 #define be_property_getset(NAME, GETTER, SETTER) \
   .property(#NAME, new core::Func<decltype(&_CLASS::SETTER)>(&_CLASS::SETTER), new core::Func<decltype(&_CLASS::GETTER)>(&_CLASS::GETTER))
