@@ -51,9 +51,9 @@ re_associate_package(
   PACKAGE_HASH 902ee3879b4506d3544017a95441a1163537ab8c8886bc755891b93340f778d8
 )
 re_associate_package(
-  PACKAGE_NAME imgui-1.90-rev1-linux
+  PACKAGE_NAME imgui-1.91.9-rev1-linux
   TARGETS imgui
-  PACKAGE_HASH 9528a0704a0e2eeb0017a395827d0867deddce9d63b491dcfb5777e5fe2ec8e7
+  PACKAGE_HASH 6cf111ce34cdf818dfa727743e90f2a2b318ef2b0c77177e52f0a965ca81de2d
 )
 re_associate_package(
   PACKAGE_NAME mcpp-master-rev1-linux
