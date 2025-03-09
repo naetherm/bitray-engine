@@ -24,6 +24,8 @@
 ################################################################################
 re_add_subdirectory(00_hello_world)
 re_add_subdirectory(01_system_information)
+re_add_subdirectory(05_sample_plugin)
+re_add_subdirectory(06_sample_plugin_app)
 re_add_subdirectory(10_frontend)
 re_add_subdirectory(11_frontend_multiwindow)
 re_add_subdirectory(20_low_level_rendering)
