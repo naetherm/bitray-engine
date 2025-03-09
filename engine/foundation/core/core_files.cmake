@@ -139,6 +139,10 @@ set(FILES
   private/platform/mutex.cpp
   private/platform/platform.cpp
 
+  # private/plugin
+  private/plugin/plugin.cpp
+  private/plugin/plugin_server.cpp
+
   # private/resource
   private/resource/resource.cpp
 
