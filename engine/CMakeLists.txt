@@ -23,6 +23,7 @@
 # Current package
 ################################################################################
 re_add_subdirectory(foundation)
+re_add_subdirectory(modules)
 re_add_subdirectory(plugins)
 re_add_subdirectory(editor)
 re_add_subdirectory(game)
