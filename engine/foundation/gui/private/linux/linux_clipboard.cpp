@@ -50,6 +50,13 @@ LinuxClipboard::LinuxClipboard() {
 LinuxClipboard::~LinuxClipboard() {
 }
 
+ClipboardData LinuxClipboard::get_data() {
+  return ClipboardData();
+}
+
+void LinuxClipboard::set_data(const ClipboardData& data) {
+}
+
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
