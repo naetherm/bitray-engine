@@ -79,7 +79,9 @@ Application::~Application() {
     mpRHIContext = nullptr;
   }
 
-  mRhiSharedLibrary.unload();
+  if (!mRhiSharedLibrary.unload()) {
+    BE_LOG(Error, "Failed to unload the RHI library")
+  }
 }
 
 

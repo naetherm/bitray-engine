@@ -70,6 +70,7 @@ bool PluginServer::load_plugin(const String& pluginName, const String& filename)
     auto pluginLoader = reinterpret_cast<LOAD_PLUGIN>(library.get_symbol(symbolName));
     if (pluginLoader) {
       Plugin* plugin = pluginLoader();
+      plugin->mFileName = filename;
       plugin->on_install();
       plugin->on_startup();
 
