@@ -34,13 +34,13 @@
 //[-------------------------------------------------------]
 //[ Import/Export                                         ]
 //[-------------------------------------------------------]
-#ifdef GAMETOOLKIT_STATIC
+#ifdef GAME_TOOLKIT_STATIC
 // Static library
-	#define GAMETOOLKIT_API			// -
-#elif defined(GAMETOOLKIT_EXPORTS)
+	#define GAME_TOOLKIT_API			// -
+#elif defined(GAME_TOOLKIT_EXPORTS)
 // To export classes, methods and variables
-#define GAMETOOLKIT_API			BE_GENERIC_API_EXPORT
+#define GAME_TOOLKIT_API			BE_GENERIC_API_EXPORT
 #else
 // To import classes, methods and variables
-#define GAMETOOLKIT_API			BE_GENERIC_API_IMPORT
+#define GAME_TOOLKIT_API			BE_GENERIC_API_IMPORT
 #endif
