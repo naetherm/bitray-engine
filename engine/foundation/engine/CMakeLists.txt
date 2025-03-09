@@ -19,12 +19,33 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(core)
-re_add_subdirectory(audio)
-re_add_subdirectory(rhi)
-re_add_subdirectory(renderer)
-re_add_subdirectory(gui)
-re_add_subdirectory(engine)
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME engine SHARED
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/engine_files.cmake
+  INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+      rhi
+      renderer
+  RUNTIME_DEPENDENCIES
+    PUBLIC
+      core
+      renderer
+  COMPILE_DEFINITIONS
+    PUBLIC
+      ENGINE_EXPORTS
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+  TARGET_PROPERTIES
+    -fPIC
+)

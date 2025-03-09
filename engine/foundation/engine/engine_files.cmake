@@ -19,12 +19,13 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(core)
-re_add_subdirectory(audio)
-re_add_subdirectory(rhi)
-re_add_subdirectory(renderer)
-re_add_subdirectory(gui)
-re_add_subdirectory(engine)
+set(FILES
+  private/engine.cpp
+
+  # private/engine
+  private/engine/engine_server.cpp
+
+  # private/plugin
+  private/plugin/engine_plugin.cpp
+  private/plugin/engine_plugin_server.cpp
+)

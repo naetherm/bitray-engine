@@ -21,4 +21,8 @@
 
 set(FILES
   private/editor_toolkit.cpp
+
+  # private/plugin
+  private/plugin/editor_plugin.cpp
+  private/plugin/editor_plugin_server.cpp
 )
