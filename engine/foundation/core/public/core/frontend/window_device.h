@@ -157,10 +157,11 @@ public:
   /**
    * @brief
    * Creates and returns a nwe window.
-   * @param title
-   * @param shape
-   * @param windowStyle
+   *
+   * @param windowCreateDesc The window creation description.
+   *
    * @return
+   * Pointer to created native window instance.
    */
   [[nodiscard]] inline Window* create_window(const WindowCreateDesc& windowCreateDesc);
 

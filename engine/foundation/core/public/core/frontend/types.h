@@ -135,17 +135,39 @@ struct SWindowBorders {
   float TitlebarMarginRight;
 };
 
+/**
+ * @enum
+ * EWindowState
+ *
+ * @brief
+ * Represents the possible states of a window.
+ */
 enum EWindowState {
+  /** Window is maximized. */
   WindowState_Maximized,
+  /** Window is minimized. */
   WindowState_Minimized,
+  /** Window is in its default state. */
   WindowState_Default
 };
 
+/**
+ * @enum
+ * EWindowStyle
+ *
+ * @brief
+ * Defines various styles and configurations for windows.
+ */
 enum EWindowStyle {
+  /** Window is centered on the screen. */
   WindowStyle_Centered = 1,
+  /** Window has a custom border. */
   WindowStyle_CustomBorder = 2,
+  /** Disable DPI scaling for the window. */
   WindowStyle_NoDPIScaling = 4,
+  /** Window is borderless. */
   WindowStyle_NoBorder = 8,
+  /** Default position and scale for the window. */
   WindowStyle_DefaultPositionAndScale = 16
 };
 
