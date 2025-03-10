@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2024 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -20,29 +20,31 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/gui/gui_impl.h"
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace gui {
+#include <gui/gui/gui_window.h>
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-GuiImpl::GuiImpl(Gui* gui)
-: mGui(gui) {
-}
+class SampleWindow : public gui::GuiWindow {
+public:
+  SampleWindow(core::Ptr<gui::GuiServer>& gui, core::uint32 colorId);
 
-GuiImpl::~GuiImpl() {
-}
+  ~SampleWindow() override;
 
+public:
 
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-}
+  void draw() override;
+
+private:
+
+  core::uint32 mColorId;
+};
