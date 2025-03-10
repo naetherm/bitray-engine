@@ -20,28 +20,56 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/button/abstract_button.h"
+#include <imgui.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+AbstractButton::AbstractButton()
+: mIsHovered(false) {
+
+}
+
+AbstractButton::~AbstractButton() {
+
+}
+
+void AbstractButton::on_update(float deltaTime) {
+  // Nothing to do here
+}
+
+void AbstractButton::on_draw() {
+  // Nothing to do here
+}
+
+void AbstractButton::show_tooltip() {
+  if (mShowTooltip) {
+    ImGui::SetTooltip(mTooltip);
+  }
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+}

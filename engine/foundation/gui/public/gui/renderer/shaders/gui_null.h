@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -19,29 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
-//[ Includes                                              ]
-//[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
-
-
-//[-------------------------------------------------------]
-//[ Import/Export                                         ]
-//[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+{
+	// Error! (unsupported RHI)
+//BE_LOG(Info, core::String("The RHI implementation \"") + mRhi->get_name() + "\" isn't supported by the renderer debug GUI")
+}

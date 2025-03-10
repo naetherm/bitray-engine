@@ -20,28 +20,53 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/layout/multi_slot.h"
+#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+MultiSlot::MultiSlot() {
+
+}
+
+MultiSlot::MultiSlot(const MultiSlot& rhs) {
+
+}
+
+MultiSlot::~MultiSlot() {
+
+}
+
+
+MultiSlot& MultiSlot::operator=(const MultiSlot& rhs) {
+  return *this;
+}
+
+bool MultiSlot::operator==(const MultiSlot &rhs) const {
+  return true;
+}
+
+bool MultiSlot::operator!=(const MultiSlot &rhs) const {
+  return !operator==(rhs);
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

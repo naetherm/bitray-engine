@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -20,28 +20,64 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/text/text.h"
+#include <imgui.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+Text::Text() {
+
+}
+
+Text::~Text() {
+
+}
+
+
+void Text::construct(ConstructionArguments args) {
+  mText = args.getText();
+  mTooltip = args.getTooltip();
+  mShowTooltip = args.getShowTooltip();
+}
+
+void Text::set_text(const core::String& text) {
+  mText = text;
+}
+
+const core::String& Text::get_text() const {
+  return mText;
+}
+
+void Text::on_update(float deltaTime) {
+  // Nothing to do here
+}
+
+void Text::on_draw() {
+  ImGui::Text(mText);
+
+  if (ImGui::IsItemHovered()) {
+    show_tooltip();
+  }
+}
+
+void Text::show_tooltip() {
+  if (mShowTooltip) {
+    ImGui::SetTooltip(mTooltip);
+  }
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

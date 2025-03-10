@@ -29,13 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
-#include <core/core/ptr.h>
-#include <core/core/refcounted.h>
-#include <core/event/signal.h>
-#include <core/event/slot.h>
-#include <core/string/string.h>
-#include "gui/widget/widget_creation_syntax.h"
-#include "gui/widget/widget_types.h"
+#include "gui/widget/layout/box_layout.h"
+#include "gui/layout/slot.h"
 
 
 //[-------------------------------------------------------]
@@ -50,22 +45,132 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class Widget : public core::RefCounted {
+/**
+ * @class
+ * VerticalBoxLayout
+ *
+ * @brief
+ * Layout wrapper for boxes that are ordered in horizontal direction.
+ */
+class VerticalBoxLayout : public BoxLayout {
+public:
+
+  /**
+   * @class
+   * Slot
+   *
+   * @brief
+   * Slot system for horizontal boxes.
+   */
+  class Slot : public BoxLayout::BoxLayoutSlot {
+  public:
+
+    /**
+     * @brief
+     * Default constructor.
+     */
+    Slot();
+
+    /**
+     * @brief
+     * Constructor.
+     *
+     * @param[in] widget
+     * The widget to assign to this slot.
+     */
+    Slot(core::Ptr<Widget> widget);
+
+    /**
+     * @brief
+     * Destructor.
+     */
+    ~Slot() override;
+
+    /**
+     * @brief
+     * Assignment operator.
+     *
+     * @param[in] widget
+     * Adds the widget to this slot.
+     *
+     * @return
+     * Reference to this slot.
+     */
+    Slot& operator[](core::Ptr<Widget> widget);
+  };
+
+public:
+
+  gui_begin_construction_args(VerticalBoxLayout)
+    {}
+    gui_slots(Slot)
+  gui_end_construction_args()
+
 public:
 
   /**
    * @brief
-   * Default constructor.
+   * Constructor.
    */
-  Widget();
+  VerticalBoxLayout();
 
   /**
    * @brief
    * Destructor.
    */
-  ~Widget() override;
+  ~VerticalBoxLayout() override;
+
+
+  /**
+   * @brief
+   * Construct this widget.
+   *
+   * @param[in] args
+   * The declaration data for this widget.
+   */
+  void construct(ConstructionArguments args);
+
+
+  /**
+   * @brief
+   * Adds a new slot empty slot and returns it as reference.
+   *
+   * @return
+   * Reference to newly created slot.
+   */
+  Slot& add_slot();
+
+  /**
+   * @brief
+   * Inserts a new empty slot as the given index position @p index.
+   *
+   * @param[in] index
+   * The position where the new slot should be added.
+   *
+   * @return
+   * Reference to newly created slot.
+   */
+  Slot& insert_slot(core::uint64 index = INVALID_HANDLE);
+
+  /**
+   * @brief
+   * Creates a new slot and add a widget to that slot.
+   *
+   * @param[in] widget
+   * Pointer to the widget to assign to this slot.
+   *
+   * @return
+   * Reference to the widget.
+   */
+  Slot& make_slot(core::Ptr<Widget> widget);
 
 public:
 
@@ -76,22 +181,13 @@ public:
    * @param[in] deltaTime
    * The time between this and the last update in seconds.
    */
-  virtual void on_update(float deltaTime);
+  void on_update(float deltaTime) override;
 
   /**
    * @brief
    * Called in the drawing process.
    */
-  virtual void on_draw();
-  
-
-public:
-
- core::Signal<> SignalClicked;
- core::Signal<> SignalHovered;
- core::Signal<> SignalDoubleClicked;
- core::Signal<> SignalContentChanged;
- core::Signal<> SignalEnterPressed;
+  void on_draw() override;
 };
 
 

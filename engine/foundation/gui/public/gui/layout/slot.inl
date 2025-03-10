@@ -20,28 +20,67 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+template<typename TType>
+TSlot<TType>::TSlot() {
+
+}
+
+template<typename TType>
+TSlot<TType>::TSlot(core::Ptr<Widget> widget)
+: Slot(widget) {}
+
+template<typename TType>
+TSlot<TType>::TSlot(const TSlot<TType>& rhs)
+: Slot(rhs) {
+
+}
+template<typename TType>
+TSlot<TType>& TSlot<TType>::operator=(const TSlot<TType> &rhs) {
+  mWidget = rhs.mWidget;
+
+  return *this;
+}
+
+template<typename TType>
+bool TSlot<TType>::operator==(const TSlot<TType> &rhs) const {
+  return (get_widget() == rhs.get_widget());
+}
+
+template<typename TType>
+TType& TSlot<TType>::operator[](core::Ptr<Widget> widget) {
+  attach_widget(widget);
+
+  return (TType&)(*this);
+}
+
+template<typename TType>
+TType& TSlot<TType>::expose_this(TType *&outType) {
+  outType = (TType*)(this);
+
+  return (TType&)(*this);
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

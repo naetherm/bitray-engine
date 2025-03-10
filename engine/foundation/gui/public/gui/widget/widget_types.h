@@ -28,20 +28,53 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/gui.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+/**
+ * @enum
+ * ESliderOrientation
+ *
+ * @brief
+ * Slider orientation.
+ */
+enum class ESliderOrientation {
+  HORIZONTAL,
+  VERTICAL
+};
+
+/**
+ * @enum
+ * EArrowDirection
+ *
+ * @brief
+ * Arrow direction.
+ */
+enum class EArrowDirection {
+  NONE = -1,
+  LEFT,
+  RIGHT,
+  UP,
+  DOWN
+};
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

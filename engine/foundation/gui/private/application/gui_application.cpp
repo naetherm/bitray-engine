@@ -23,6 +23,10 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/application/gui_application.h"
+#include "gui/gui/gui_context.h"
+#include "gui/gui/gui_server.h"
+#include "gui/gui/gui_window.h"
+#include <core/frontend/window_device.h>
 
 
 //[-------------------------------------------------------]
@@ -37,17 +41,79 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-GuiApplication::GuiApplication() {
+GuiApplication::GuiApplication()
+: mGuiServer(GuiServer::instance()) {
+  // Add default settings to gui settings
+  mGuiSettings.mRhiName = "opengl";
 }
 
 GuiApplication::~GuiApplication() {
+
+}
+    
+
+const core::Ptr<GuiServer>& GuiApplication::get_gui_server() const {
+  return mGuiServer;
+}
+
+core::Ptr<GuiServer>& GuiApplication::get_gui_server() {
+  return mGuiServer;
+}
+
+
+core::Ptr<GuiWindow> GuiApplication::create_window(const core::WindowCreateDesc& windowCreateDesc) {
+  // Create native window
+  core::Window* nativeWindow = get_window_device()->create_window(windowCreateDesc);
+
+  // Create new gui window
+  GuiWindow* guiWindow = new GuiWindow(mGuiServer);
+  get_gui_server()->create_window(guiWindow, nativeWindow);
+  
+  return core::Ptr<GuiWindow>(guiWindow);
+}
+
+bool GuiApplication::on_start() {
+  if (FrontendApplication::on_start()) {
+
+    // Initialize the gui context/renderer?
+    mGuiContext = new GuiContext();
+    if (mGuiContext->initialize(mGuiSettings)) {
+      // Initialize the gui system
+      mGuiServer->initialize(*mGuiContext);
+
+      //
+
+      // Done
+      return true;
+    }
+
+    // Error
+    return false;
+  }
+
+  // Error
+  return false;
+}
+
+void GuiApplication::on_stop() {
+  mGuiServer->shutdown();
+  FrontendApplication::on_stop();
+}
+
+void GuiApplication::on_draw() {
+  FrontendApplication::on_draw();
+
+  mGuiServer->draw();
+}
+
+void GuiApplication::on_update() {
+  FrontendApplication::on_update();
+}
+
+void GuiApplication::main() {
+
 }
 
 

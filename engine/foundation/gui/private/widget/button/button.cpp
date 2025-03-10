@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -20,28 +20,69 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/button/button.h"
+#include "gui/helper/imgui_helper.h"
+#include <imgui_internal.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+Button::Button() {
+  SignalClicked.connect(&SlotOnClicked);
+  SignalHovered.connect(&SlotOnFocused);
+}
+
+Button::~Button() {
+
+}
+
+
+void Button::construct(Button::ConstructionArguments args) {
+  mLabel = args.getText();
+  mSize = args.getSize();
+  mDisabled = args.getDisabled();
+  mTooltip = args.getTooltip();
+  mShowTooltip = args.getShowTooltip();
+  SlotOnClicked = args.mEventSlotOnClicked;
+  SlotOnFocused = args.mEventSlotOnFocused;
+}
+
+
+void Button::on_update(float deltaTime) {
+  // Nothing to do here
+}
+
+void Button::on_draw() {
+
+  ImGui::BeginDisabled(mDisabled);
+  if (ImGui::ButtonEx(mLabel, ImGuiHelper::to_imvec2(mSize))) {
+    SignalClicked();
+  }
+
+  if (mIsHovered = ImGui::IsItemHovered()) {
+    SignalHovered();
+
+    if (mShowTooltip) {
+      show_tooltip();
+    }
+  }
+
+  if (mDisabled) {
+    ImGui::EndDisabled();
+  }
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

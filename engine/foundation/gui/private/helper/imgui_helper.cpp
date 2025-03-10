@@ -20,28 +20,38 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/helper/imgui_helper.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+ImVec2 ImGuiHelper::to_imvec2(const core::Vec2i& v) {
+  return ImVec2(v.get_x(), v.get_y());
+}
+
+core::Vec2i ImGuiHelper::to_vec2i(const ImVec2 &v) {
+  return core::Vec2i(v.x, v.y);
+}
+
+ImVec4 ImGuiHelper::to_imvec4(const core::Color4 &c) {
+  return ImVec4(c.value[0], c.value[1], c.value[2], c.value[3]);
+}
+
+core::Color4 ImGuiHelper::to_color4(const ImVec4 &c) {
+  return core::Color4(c.x, c.y, c.z, c.w);
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

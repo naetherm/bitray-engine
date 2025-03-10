@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -20,28 +20,60 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/panel/panel.h"
+#include "gui/widget/layout/layout.h"
+#include <imgui.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+Panel::Panel()
+: mIsOpen(true) {
+
+}
+
+Panel::~Panel() {
+
+}
+
+void Panel::construct(ConstructionArguments args) {
+  mTitle = args.getTitle();
+  mIsFullscreen = args.getShowFullscreen();
+  mLayout = args.getLayout();
+}
+
+void Panel::on_update(float deltaTime) {
+
+}
+
+void Panel::on_draw() {
+  ImGuiWindowFlags panelFlags = ImGuiWindowFlags_AlwaysAutoResize;
+  if (mIsFullscreen) {
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->WorkPos);
+    ImGui::SetNextWindowSize(viewport->WorkSize);
+    panelFlags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings;
+  } // + mWidgetId
+  if (ImGui::Begin(mTitle, &mIsOpen, panelFlags)) {
+    // Draw internal layout
+    if (mLayout) {
+      mLayout->on_draw();
+    }
+    ImGui::End();
+  }
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

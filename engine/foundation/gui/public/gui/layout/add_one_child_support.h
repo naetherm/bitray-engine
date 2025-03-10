@@ -20,14 +20,17 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "gui/gui.h"
+#include "gui/layout/children.h"
+#include "gui/layout/slot.h"
 
 
 //[-------------------------------------------------------]
@@ -37,26 +40,87 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+/**
+ * @class
+ * AddOneChildSupport
+ *
+ * @tparam TSlotType
+ */
+template<typename TSlotType>
+class AddOneChildSupport : public Children, public TSlot<TSlotType> {
+public:
 
-}
+  /**
+   * @brief
+   * Default constructor.
+   */
+  AddOneChildSupport();
 
-Widget::~Widget() {
+  /**
+   * @brief
+   * Copy constructor.
+   *
+   * @param[in] rhs
+   * Object to copy.
+   */
+  AddOneChildSupport(const AddOneChildSupport& rhs);
 
-}
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~AddOneChildSupport() override;
 
-void Widget::on_update(float deltaTime) {
 
-}
+  /**
+   * @brief
+   * Returns pointer to child widget at index position @p index.
+   *
+   * @param[in] index
+   * Index position.
+   *
+   * @return
+   * Pointer to widget.
+   */
+  core::Ptr<Widget> get_child_at_index(core::uint32 index) override;
 
-void Widget::on_draw() {
+  /**
+   * @brief
+   * Returns pointer to child widget at index position @p index.
+   *
+   * @param[in] index
+   * Index position.
+   *
+   * @return
+   * Pointer to widget.
+   */
+  const core::Ptr<Widget> get_child_at_index(core::uint32 index) const override;
 
-}
+  /**
+   * @brief
+   * Returns number of child widgets.
+   *
+   * @return
+   * Number of child widgets.
+   */
+  core::int32 get_num_of_children() const override;
+};
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // gui
+
+
+//[-------------------------------------------------------]
+//[ Implementation                                        ]
+//[-------------------------------------------------------]
+#include "gui/layout/add_one_child_support.inl"

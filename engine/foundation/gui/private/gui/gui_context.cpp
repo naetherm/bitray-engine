@@ -22,12 +22,14 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+#include "gui/gui/gui_context.h"
+#include <core/log/log.h>
+#include <core/platform/platform.h>
 
 
 //[-------------------------------------------------------]
@@ -39,20 +41,58 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+GuiContext::GuiContext()
+: mRhiLibrary(nullptr) {
 
 }
 
-Widget::~Widget() {
-
+GuiContext::~GuiContext() {
+  if (mRhiLibrary) {
+    re_delete(mRhiLibrary);
+  }
 }
 
-void Widget::on_update(float deltaTime) {
 
+bool GuiContext::initialize_by_name(const core::String &rhiName) {
+  mGuiSettings.mRhiName = rhiName;
+  mRhiLibraryName = core::Platform::instance().get_shared_library_prefix() + "rhi_" + mGuiSettings.mRhiName + "." +
+                    core::Platform::instance().get_shared_library_extension();
+
+  mRhiLibrary = re_new<core::Library>();
+  mRhiLibrary->set_path(core::Path(mRhiLibraryName));
+  // Load shared dynamic library
+  if (mRhiLibrary->load()) {
+    BE_LOG(Info, "Successfully loaded library " + mRhiLibraryName)
+
+
+    return true;
+  }
+
+  BE_LOG(Critical, "Unable to load library " + mRhiLibraryName)
+
+  // Clean library
+  if (mRhiLibrary) {
+    delete mRhiLibrary;
+    mRhiLibrary = nullptr;
+  }
+
+  return false;
 }
 
-void Widget::on_draw() {
+bool GuiContext::initialize(const GuiSettings &guiSettings) {
+  return initialize_by_name(guiSettings.mRhiName);
+}
 
+const core::String& GuiContext::get_rhi_name() const {
+  return mRhiName;
+}
+
+const core::String & GuiContext::get_rhi_library_name() const {
+  return mRhiLibraryName;
+}
+
+core::Library& GuiContext::get_rhi_library() const {
+  return *mRhiLibrary;
 }
 
 

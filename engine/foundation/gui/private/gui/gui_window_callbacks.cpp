@@ -22,12 +22,12 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+#include "gui/gui/gui_window_callback.h"
 
 
 //[-------------------------------------------------------]
@@ -39,19 +39,71 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+GuiWindowCallbacks::GuiWindowCallbacks()
+: mImGuiIO(ImGui::GetIO()) {
 
 }
 
-Widget::~Widget() {
+GuiWindowCallbacks::~GuiWindowCallbacks() {
 
 }
 
-void Widget::on_update(float deltaTime) {
+void GuiWindowCallbacks::on_tick(float deltaTime) {
 
 }
 
-void Widget::on_draw() {
+void GuiWindowCallbacks::on_draw() {
+
+}
+
+void GuiWindowCallbacks::on_size(int x, int y) {
+  mWindowSize.x = x;
+  mWindowSize.y = y;
+  WindowCallbacks::on_size(x, y);
+}
+
+void GuiWindowCallbacks::on_move(int x, int y) {
+
+}
+
+
+void GuiWindowCallbacks::on_leave() {
+
+}
+
+void GuiWindowCallbacks::on_enter() {
+
+}
+
+void GuiWindowCallbacks::on_mouse_position(int x, int y) {
+  mImGuiIO.MousePos.x = static_cast<float>(x) * (mImGuiIO.DisplaySize.x / (float)mWindowSize.x);
+  mImGuiIO.MousePos.y = static_cast<float>(y) * (mImGuiIO.DisplaySize.y / (float)mWindowSize.y);
+}
+
+void GuiWindowCallbacks::on_mouse_move(int x, int y) {
+  mImGuiIO.MousePos.x = static_cast<float>(x) * (mImGuiIO.DisplaySize.x / (float)mWindowSize.x);
+  mImGuiIO.MousePos.y = static_cast<float>(y) * (mImGuiIO.DisplaySize.y / (float)mWindowSize.y);
+}
+
+void GuiWindowCallbacks::on_mouse_wheel(float x) {
+  mImGuiIO.MouseWheel += x;
+}
+
+void GuiWindowCallbacks::on_mouse_button_down(core::InputMouseItem inputMouseItem) {
+  mImGuiIO.MouseDown[inputMouseItem] = true;
+}
+
+void GuiWindowCallbacks::on_mouse_button_up(core::InputMouseItem inputMouseItem) {
+  mImGuiIO.MouseDown[inputMouseItem] = false;
+}
+
+void GuiWindowCallbacks::on_key_press(core::InputKeyboardItem key) {
+  mImGuiIO.KeysDown[key] = true;
+  mImGuiIO.AddInputCharacter(key);
+}
+
+void GuiWindowCallbacks::on_key_release(core::InputKeyboardItem key) {
+  mImGuiIO.KeysDown[key] = false;
 
 }
 

@@ -28,20 +28,70 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+#include "gui/gui.h"
+#include <core/frontend/window_callbacks.h>
+#include <imgui.h>
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+class GuiWindowCallbacks : public core::WindowCallbacks {
+public:
+
+  GuiWindowCallbacks();
+
+  ~GuiWindowCallbacks() override;
+
+public:
+
+  void on_tick(float deltaTime) override;
+
+  void on_draw() override;
+
+  void on_size(int x, int y) override;
+
+  void on_move(int x, int y) override;
+
+
+  void on_leave() override;
+
+  void on_enter() override;
+
+  void on_mouse_position(int x, int y) override;
+
+  void on_mouse_move(int x, int y) override;
+
+  void on_mouse_wheel(float x) override;
+
+  void on_mouse_button_down(core::InputMouseItem inputMouseItem) override;
+
+  void on_mouse_button_up(core::InputMouseItem inputMouseItem) override;
+
+  void on_key_press(core::InputKeyboardItem key) override;
+
+  void on_key_release(core::InputKeyboardItem key) override;
+
+protected:
+
+  ImGuiIO& mImGuiIO;
+
+  core::Vec2i mWindowSize;
+};
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+}

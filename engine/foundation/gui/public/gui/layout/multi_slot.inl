@@ -26,37 +26,70 @@
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+template<typename TType, typename TContainer>
+TMultiSlot<TType, TContainer>::TMultiSlot() {
 
 }
 
-Widget::~Widget() {
+template<typename TType, typename TContainer>
+TMultiSlot<TType, TContainer>::TMultiSlot(const TMultiSlot<TType, TContainer>& rhs)
+: MultiSlot(rhs)
+, mWidgets(rhs.mWidgets) {
 
 }
+template<typename TType, typename TContainer>
+TMultiSlot<TType, TContainer>& TMultiSlot<TType, TContainer>::operator=(const TMultiSlot<TType, TContainer> &rhs) {
+  mWidgets = rhs.mWidgets;
 
-void Widget::on_update(float deltaTime) {
-
+  return *this;
 }
 
-void Widget::on_draw() {
+template<typename TType, typename TContainer>
+bool TMultiSlot<TType, TContainer>::operator==(const TMultiSlot<TType, TContainer> &rhs) const {
+  return (mWidgets == rhs.mWidgets);
+}
 
+template<typename TType, typename TContainer>
+TType& TMultiSlot<TType, TContainer>::operator[](core::Ptr<Widget> widget) {
+  attach_widget(widget);
+
+  return (TType&)(*this);
+}
+
+template<typename TType, typename TContainer>
+core::Ptr<Widget> TMultiSlot<TType, TContainer>::attach_widget(core::Ptr<Widget> widget) {
+  mWidgets.push_back(widget);
+
+  return widget;
+}
+
+template<typename TType, typename TContainer>
+core::Ptr<Widget> TMultiSlot<TType, TContainer>::get_widget(core::uint32 index) const {
+  return mWidgets[index];
+}
+
+template<typename TType, typename TContainer>
+TType& TMultiSlot<TType, TContainer>::expose_this(TType *&outType) {
+  outType = (TType*)(this);
+
+  return (TType&)(*this);
 }
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // gui

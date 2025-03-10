@@ -20,14 +20,16 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "gui/gui.h"
+#include <core/core/ptr.h>
 
 
 //[-------------------------------------------------------]
@@ -37,26 +39,73 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Widget;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+/**
+ * @class
+ * Children
+ *
+ * @brief
+ * Abstract Children representation.
+ */
+class Children {
+public:
 
-}
+  /**
+   * @brief
+   * Default constructor.
+   */
+  Children();
 
-Widget::~Widget() {
+  /**
+   * @brief
+   * Destructor.
+   */
+  virtual ~Children();
 
-}
+  /**
+   * @brief
+   * Returns pointer to child widget at index position @p index.
+   *
+   * @param[in] index
+   * Index position.
+   *
+   * @return
+   * Pointer to widget.
+   */
+  virtual core::Ptr<Widget> get_child_at_index(core::uint32 index);
 
-void Widget::on_update(float deltaTime) {
+  /**
+   * @brief
+   * Returns pointer to child widget at index position @p index.
+   *
+   * @param[in] index
+   * Index position.
+   *
+   * @return
+   * Pointer to widget.
+   */
+  virtual const core::Ptr<Widget> get_child_at_index(core::uint32 index) const;
 
-}
+  /**
+   * @brief
+   * Returns number of child widgets.
+   *
+   * @return
+   * Number of child widgets.
+   */
+  virtual core::int32 get_num_of_children() const;
+};
 
-void Widget::on_draw() {
-
-}
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // gui

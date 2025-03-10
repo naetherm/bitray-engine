@@ -28,20 +28,67 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/gui.h"
+#include <core/color/color4.h>
+#include <core/math/vec2.h>
+#include <imgui.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+/**
+ * @class
+ * ImGuiHelper
+ *
+ * @brief
+ * Helper structure for "POD"-Type conversion.
+ */
+class ImGuiHelper {
+public:
+
+  /** Constructor */
+  ImGuiHelper() = delete;
+
+  /** Destructor */
+  ~ImGuiHelper() = delete;
+
+public:
+
+  /**
+   * @brief
+   * Convert Vec2i to ImGui ImVec2.
+   */
+  static ImVec2 to_imvec2(const core::Vec2i& v);
+
+  /**
+   * @brief
+   * Convert ImGui ImVec2 to Vec2i.
+   */
+  static core::Vec2i to_vec2i(const ImVec2& v);
+
+  /**
+   * @brief
+   * Convert Color4 to ImGui ImVec4.
+   */
+  static ImVec4 to_imvec4(const core::Color4& c);
+
+  /**
+   * @brief
+   * Convert ImGui ImVec4 to Color4.
+   */
+  static core::Color4 to_color4(const ImVec4& c);
+};
+
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

@@ -20,9 +20,17 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include "gui/gui.h"
 #include "gui/widget/widget.h"
+#include <core/event/slot.h>
 
 
 //[-------------------------------------------------------]
@@ -37,23 +45,76 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+/**
+ * @class
+ * AbstractButton
+ *
+ * @brief
+ * Widget that adds a newline.
+ */
+class AbstractButton : public Widget {
 
-}
+public:
 
-Widget::~Widget() {
+  /**
+   * @brief
+   * Default constructor.
+   */
+  AbstractButton();
 
-}
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~AbstractButton() override;
 
-void Widget::on_update(float deltaTime) {
+public:
 
-}
+  /**
+   * @brief
+   * Called when the widget is updated.
+   *
+   * @param[in] deltaTime
+   * The time between this and the last update in seconds.
+   */
+  void on_update(float deltaTime) override;
 
-void Widget::on_draw() {
+  /**
+   * @brief
+   * Called in the drawing process.
+   */
+  void on_draw() override;
 
-}
+protected:
+
+  /**
+   * @brief
+   * Helper class for showing the tooltip information.
+   */
+  void show_tooltip();
+
+public:
+
+  core::Slot<> SlotOnClicked;
+  core::Slot<> SlotOnFocused;
+
+protected:
+
+  /** A tooltip text to show when hovered */
+  core::String mTooltip;
+  /** True if the button is currently hovered */
+  bool mIsHovered;
+  /** If true the tooltip will be shown */
+  bool mShowTooltip;
+};
 
 
 //[-------------------------------------------------------]

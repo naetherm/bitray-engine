@@ -22,7 +22,8 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
+#include "gui/widget/layout/horizontal_box_layout.h"
+#include <imgui.h>
 
 
 //[-------------------------------------------------------]
@@ -37,22 +38,98 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+HorizontalBoxLayout::Slot::Slot() {
 
 }
 
-Widget::~Widget() {
+HorizontalBoxLayout::Slot::Slot(core::Ptr<Widget> widget)
+: BoxLayout::BoxLayoutSlot(widget) {
 
 }
 
-void Widget::on_update(float deltaTime) {
+HorizontalBoxLayout::Slot::~Slot() {
 
 }
 
-void Widget::on_draw() {
 
+
+HorizontalBoxLayout::Slot& HorizontalBoxLayout::Slot::operator[](core::Ptr<Widget> widget) {
+  BoxLayout::BoxLayoutSlot::operator[](widget);
+
+  return *this;
+}
+
+
+HorizontalBoxLayout::HorizontalBoxLayout() {
+
+}
+
+HorizontalBoxLayout::~HorizontalBoxLayout() {
+
+}
+
+
+void HorizontalBoxLayout::construct(ConstructionArguments args) {
+  for (core::uint32 i = 0; i < args.getSlots().size(); ++i) {
+    mChildren.add(args.getSlotByIndex(i));
+  }
+}
+
+HorizontalBoxLayout::Slot &HorizontalBoxLayout::add_slot() {
+  HorizontalBoxLayout::Slot* slot = new HorizontalBoxLayout::Slot();
+
+  mChildren.add(slot);
+
+  return *slot;
+}
+
+HorizontalBoxLayout::Slot &HorizontalBoxLayout::insert_slot(core::uint64 index) {
+  if (index == INVALID_HANDLE) {
+    return add_slot();
+  }
+
+  HorizontalBoxLayout::Slot& slot = *(new HorizontalBoxLayout::Slot());
+
+  mChildren.insert(&slot, index);
+
+  return slot;
+}
+
+HorizontalBoxLayout::Slot& HorizontalBoxLayout::make_slot(core::Ptr<Widget> widget) {
+  HorizontalBoxLayout::Slot* slot = new HorizontalBoxLayout::Slot(widget);
+
+  mChildren.add(slot);
+
+  return *slot;
+}
+
+
+void HorizontalBoxLayout::on_update(float deltaTime) {
+  for (core::uint32 i = 0; i < get_num_of_slots(); ++i) {
+    mChildren[i].get_widget()->on_update(deltaTime);
+  }
+}
+
+void HorizontalBoxLayout::on_draw() {
+  // Act, dependent on number of children
+  core::uint32 numChildren = mChildren.get_num_of_children();
+
+  if (numChildren == 1) {
+    mChildren[0].get_widget()->on_draw();
+  } else if (numChildren > 1) {
+    for (core::uint32 i = 0; i < numChildren - 1; ++i) {
+      mChildren[i].get_widget()->on_draw();
+      ImGui::SameLine();
+    }
+    mChildren[numChildren - 1].get_widget()->on_draw();
+  }
 }
 
 

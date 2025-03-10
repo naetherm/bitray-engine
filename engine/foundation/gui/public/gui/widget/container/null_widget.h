@@ -28,20 +28,87 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/gui.h"
+#include "gui/widget/widget.h"
+#include <core/math/vec2.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+/**
+ * @class
+ * NullWidget
+ *
+ * @brief
+ */
+class NullWidget : public Widget {
+
+  gui_begin_construction_args(NullWidget)
+    {}
+  gui_end_construction_args()
+
+public:
+
+  static core::Ptr<NullWidget> instance();
+
+public:
+
+  /**
+   * @brief
+   * Default constructor.
+   */
+  NullWidget();
+
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~NullWidget() override;
+
+
+  /**
+   * @brief
+   * Construct this widget.
+   *
+   * @param[in] args
+   * The declaration data for this widget.
+   */
+  void construct(ConstructionArguments args);
+
+public:
+
+  /**
+   * @brief
+   * Called when the widget is updated.
+   *
+   * @param[in] deltaTime
+   * The time between this and the last update in seconds.
+   */
+  void on_update(float deltaTime) override;
+
+  /**
+   * @brief
+   * Called in the drawing process.
+   */
+  void on_draw() override;
+
+};
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

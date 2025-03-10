@@ -20,14 +20,29 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
+#include "gui/gui.h"
+#include <core/core/server_impl.h>
+#include <core/core/ptr.h>
+#include <core/container/map.h>
+#include <core/container/vector.h>
+#include <imgui.h>
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+namespace core {
+class FrontendServer;
+class Window;
+}
 
 
 //[-------------------------------------------------------]
@@ -37,23 +52,58 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class GuiContext;
+class GuiRenderer;
+class GuiWindow;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+class GuiServer : public core::ServerImpl {
+  
+  friend class GuiRenderer;
+public:
+  
+  static GuiServer* instance();
+  
+public:
+  
+  GuiServer();
+  
+  ~GuiServer() override;
 
-}
 
-Widget::~Widget() {
+  [[nodiscard]] const core::Ptr<GuiRenderer> get_renderer() const;
 
-}
 
-void Widget::on_update(float deltaTime) {
+  GuiWindow* create_window(GuiWindow* guiWindow, core::Window* window);
 
-}
+public:
 
-void Widget::on_draw() {
+  void initialize(GuiContext& guiContext);
 
-}
+  void shutdown();
+
+public:
+
+  void draw();
+  
+private:
+  /** Pointer to the gui renderer implementation */
+  core::Ptr<GuiRenderer> mGuiRenderer;
+
+  GuiContext* mGuiContext;
+
+  core::Vector<GuiWindow*> mGuiWindows;
+  core::Map<core::handle, GuiWindow*> mGuiWindowsMap;
+
+
+  /** Pointer to imgui context instance, must be valid! */
+  ImGuiContext*	   mImGuiContext;
+};
 
 
 //[-------------------------------------------------------]

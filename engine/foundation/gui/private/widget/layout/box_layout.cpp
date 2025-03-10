@@ -20,28 +20,64 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/layout/box_layout.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+BoxLayout::BoxLayoutSlot::BoxLayoutSlot() {
+
+}
+
+BoxLayout::BoxLayoutSlot::BoxLayoutSlot(core::Ptr<Widget> widget)
+: TSlot<BoxLayoutSlot>::TSlot(widget) {
+
+}
+
+BoxLayout::BoxLayoutSlot::~BoxLayoutSlot() {
+
+}
+
+
+BoxLayout::BoxLayout() {
+
+}
+
+BoxLayout::~BoxLayout() {
+
+}
+
+
+core::uint32 BoxLayout::get_num_of_slots() const {
+  return mChildren.get_num_of_children();
+}
+
+void BoxLayout::clear() {
+  mChildren.clear();
+}
+
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+}

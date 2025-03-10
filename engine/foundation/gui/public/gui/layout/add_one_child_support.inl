@@ -20,28 +20,54 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+template<typename TSlotType>
+AddOneChildSupport<TSlotType>::AddOneChildSupport() {
+
+}
+
+template<typename TSlotType>
+AddOneChildSupport<TSlotType>::AddOneChildSupport(const AddOneChildSupport& rhs)
+: Children(rhs), TSlot<TSlotType>(rhs) {}
+
+template<typename TSlotType>
+AddOneChildSupport<TSlotType>::~AddOneChildSupport() {}
+
+template<typename TSlotType>
+core::Ptr<Widget> AddOneChildSupport<TSlotType>::get_child_at_index(core::uint32 index) {
+  return Slot::get_widget();
+}
+
+template<typename TSlotType>
+const core::Ptr<Widget> AddOneChildSupport<TSlotType>::get_child_at_index(core::uint32 index) const {
+  return Slot::get_widget();
+}
+
+template<typename TSlotType>
+core::int32 AddOneChildSupport<TSlotType>::get_num_of_children() const {
+  return 1;
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

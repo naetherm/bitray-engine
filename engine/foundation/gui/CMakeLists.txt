@@ -27,9 +27,6 @@ re_add_target(
   NAMESPACE RE
   FILES_CMAKE
     ${CMAKE_CURRENT_SOURCE_DIR}/gui_files.cmake
-    ${CMAKE_CURRENT_SOURCE_DIR}/gui_${PAL_PLATFORM_NAME_LOWERCASE}_files.cmake
-  PLATFORM_INCLUDE_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/gui_${PAL_PLATFORM_NAME_LOWERCASE}.cmake
   INCLUDE_DIRECTORIES
     PUBLIC
       ${RE_CONFIG_FILE_LOCATION}
@@ -38,9 +35,13 @@ re_add_target(
   BUILD_DEPENDENCIES
     PUBLIC
       core
+      rhi
+      External::imgui
   RUNTIME_DEPENDENCIES
     PUBLIC
       core
+      rhi
+      External::imgui
   COMPILE_DEFINITIONS
     PUBLIC
       GUI_EXPORTS

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -28,20 +28,89 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/gui.h"
+#include "gui/widget/button/abstract_button.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+
+
+/**
+ * @class
+ * SmallButton
+ *
+ * @brief
+ * Widget that adds a newline.
+ */
+class SmallButton : public AbstractButton {
+
+  gui_begin_construction_args(SmallButton)
+    {}
+    gui_value(core::String, Text)
+    gui_event(core::Slot<>, SlotOnClicked)
+    gui_event(core::Slot<>, SlotOnFocused)
+  gui_end_construction_args()
+
+public:
+
+  /**
+   * @brief
+   * Default constructor.
+   */
+  SmallButton();
+
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~SmallButton() override;
+
+
+  /**
+   * @brief
+   * Construct this widget.
+   *
+   * @param[in] args
+   * The declaration data for this widget.
+   */
+  void construct(ConstructionArguments args);
+
+public:
+
+  /**
+   * @brief
+   * Called when the widget is updated.
+   *
+   * @param[in] deltaTime
+   * The time between the this and the last update in seconds.
+   */
+  void on_update(float deltaTime) override;
+
+  /**
+   * @brief
+   * Called in the drawing process.
+   */
+  void on_draw() override;
+
+protected:
+
+  /** The label of the button */
+  core::String mLabel;
+};
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

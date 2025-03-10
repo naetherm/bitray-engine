@@ -20,28 +20,50 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/container/null_widget.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+core::Ptr<NullWidget> NullWidget::instance() {
+  static core::Ptr<NullWidget> SInstance;
+  return SInstance;
+}
+
+
+NullWidget::NullWidget() {
+
+}
+
+NullWidget::~NullWidget() {
+
+}
+
+
+void NullWidget::construct(ConstructionArguments args) {
+
+}
+
+void NullWidget::on_update(float deltaTime) {
+
+}
+
+void NullWidget::on_draw() {
+
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

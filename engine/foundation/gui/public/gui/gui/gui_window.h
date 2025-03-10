@@ -20,14 +20,32 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+#include "gui/gui.h"
+#include <core/core/refcounted.h>
+#include <core/core/ptr.h>
+#include <imgui.h>
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+namespace core {
+class FrontendServer;
+class Window;
+}
 
 
 //[-------------------------------------------------------]
@@ -37,23 +55,65 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class GuiServer;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+class GuiWindow : public core::RefCounted {
+public:
 
-}
+  GuiWindow(core::Ptr<GuiServer>& guiDevice);
 
-Widget::~Widget() {
+  virtual ~GuiWindow();
 
-}
+  [[nodiscard]] const core::Window* get_window() const;
 
-void Widget::on_update(float deltaTime) {
+  [[nodiscard]] core::handle get_native_window_handle() const;
 
-}
+  [[nodiscard]] const core::FrontendServer* get_frontend() const;
 
-void Widget::on_draw() {
+  [[nodiscard]] const core::Ptr<rhi::RHISwapChain> get_swap_chain() const;
 
-}
+  [[nodiscard]] core::Ptr<rhi::RHISwapChain> get_swap_chain();
+
+  [[nodiscard]] const rhi::RHICommandBuffer& get_command_buffer() const;
+
+  [[nodiscard]] rhi::RHICommandBuffer& get_command_buffer();
+
+  // Debugging
+public:
+
+public:
+
+  void initialize(core::handle windowHandle, core::Ptr<rhi::RHISwapChain> swapChain);
+
+public:
+
+  virtual void draw();
+
+public:
+
+  ImGuiContext* mImGuiContext;
+
+protected:
+  /** Pointer to the global, owning gui device instance */
+  core::Ptr<GuiServer> mGuiServer;
+  /** Pointer to the native window */
+  core::Window* mWindow;
+  /** The native window id */
+  core::handle mNativeWindowId;
+  /** Pointer to the frontend */
+  core::FrontendServer* mFrontend;
+  /** Pointer to the swapchain used by this window for drawing */
+  core::Ptr<rhi::RHISwapChain> mSwapChain;
+  /** The command buffer for this window */
+  rhi::RHICommandBuffer mCommandBuffer;
+};
+
 
 
 //[-------------------------------------------------------]

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -20,28 +20,61 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/widget/button/small_button.h"
+#include <imgui_internal.h>
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+SmallButton::SmallButton() {
+  SignalClicked.connect(&SlotOnClicked);
+  SignalHovered.connect(&SlotOnFocused);
+}
+
+SmallButton::~SmallButton() {
+
+}
+
+
+void SmallButton::construct(ConstructionArguments args) {
+  mLabel = args.getText();
+  SlotOnClicked = args.mEventSlotOnClicked;
+  SlotOnFocused = args.mEventSlotOnFocused;
+}
+
+void SmallButton::on_update(float deltaTime) {
+  // Nothing to do here
+}
+
+void SmallButton::on_draw() {
+
+  ImGuiStyle& style = ImGui::GetStyle();
+
+  if (ImGui::SmallButton(mLabel)) {
+    // On click
+    SignalClicked();
+  }
+
+  if (mIsHovered = ImGui::IsItemHovered()) {
+    SignalHovered();
+
+    if (mShowTooltip) {
+      show_tooltip();
+    }
+  }
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

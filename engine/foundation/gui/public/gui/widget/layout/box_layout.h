@@ -20,9 +20,18 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
+#include "gui/gui.h"
+#include "gui/widget/layout/layout.h"
+#include "gui/layout/slot.h"
+#include "gui/layout/panel_children.h"
 
 
 //[-------------------------------------------------------]
@@ -37,23 +46,86 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+/**
+ * @class
+ * BoxLayout
+ *
+ * @brief
+ */
+class BoxLayout : public Layout {
 
-}
+public:
 
-Widget::~Widget() {
+  /**
+   * @class
+   * BoxLayoutSlot
+   *
+   * @brief
+   * Generic box layout slot definition.
+   */
+  class BoxLayoutSlot : public TSlot<BoxLayoutSlot> {
+  public:
 
-}
+    /**
+     * @brief
+     * Default constructor.
+     */
+    BoxLayoutSlot();
 
-void Widget::on_update(float deltaTime) {
+    /**
+     * @brief
+     * constructor.
+     *
+     * @param[in] widget
+     * Pointer to the widget to assign to this slot.
+     */
+    BoxLayoutSlot(core::Ptr<Widget> widget);
 
-}
+    /**
+     * @brief
+     * Destructor.
+     */
+    ~BoxLayoutSlot() override;
+  };
 
-void Widget::on_draw() {
+public:
 
-}
+  /**
+   * @brief
+   * Constructor.
+   */
+  BoxLayout();
+
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~BoxLayout() override;
+
+  /**
+   * @brief
+   * Returns the number of slots within the layout.
+   *
+   * @return
+   * The number of slots within the layout.
+   */
+  core::uint32 get_num_of_slots() const;
+
+  void clear();
+
+protected:
+
+  /** List of all children of this box layout */
+  PanelChildren<BoxLayoutSlot> mChildren;
+};
 
 
 //[-------------------------------------------------------]

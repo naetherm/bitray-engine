@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -28,20 +28,92 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/gui.h"
+#include "gui/widget/container/compound.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+class Layout;
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+/**
+ * @class
+ * Panel
+ *
+ * @brief
+ */
+class Panel : public Compound {
+
+  gui_begin_construction_args(Panel)
+    : mValueShowFullscreen(false) {}
+    gui_value(core::String, Title)
+    gui_value(bool, ShowFullscreen)
+    gui_widget(gui::Layout, Layout)
+  gui_end_construction_args()
+
+public:
+
+  /**
+   * @brief
+   * Default constructor.
+   */
+  Panel();
+
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~Panel() override;
+
+
+  /**
+   * @brief
+   * Construct this widget.
+   *
+   * @param[in] args
+   * The declaration data for this widget.
+   */
+  void construct(ConstructionArguments args);
+
+public:
+
+  /**
+   * @brief
+   * Called when the widget is updated.
+   *
+   * @param[in] deltaTime
+   * The time between the this and the last update in seconds.
+   */
+  void on_update(float deltaTime) override;
+
+  /**
+   * @brief
+   * Called in the drawing process.
+   */
+  void on_draw() override;
+
+protected:
+
+  core::String mTitle;
+
+  bool mIsFullscreen;
+  bool mIsOpen;
+};
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

@@ -28,20 +28,62 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/gui.h"
+#include "gui/widget/widget.h"
+#include "gui/widget/layout/layout.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Layout;
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+class Compound : public Widget {
+public:
+
+  Compound();
+
+  ~Compound() override;
+
+public:
+
+  /**
+   * @brief
+   * Called when the widget is updated.
+   *
+   * @param[in] deltaTime
+   * The time between this and the last update in seconds.
+   */
+  virtual void on_update(float deltaTime) override;
+
+  /**
+   * @brief
+   * Called in the drawing process.
+   */
+  virtual void on_draw() override;
+
+protected:
+
+  core::Ptr<Layout> mLayout;
+};
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+}

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -29,18 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "gui/gui.h"
-#include <core/core/ptr.h>
-#include <core/core/refcounted.h>
-#include <core/event/signal.h>
-#include <core/event/slot.h>
-#include <core/string/string.h>
-#include "gui/widget/widget_creation_syntax.h"
-#include "gui/widget/widget_types.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
@@ -50,22 +39,71 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class Widget : public core::RefCounted {
+/**
+ * @class
+ * Text
+ *
+ * @brief
+ * Just a simple text without any further special functionality.
+ */
+class Text : public Widget {
+
+  gui_begin_construction_args(Text)
+    : mValueTooltip("")
+    , mValueShowTooltip(false) {}
+    gui_value(core::String, Text)
+    gui_value(core::String, Tooltip)
+    gui_value(bool, ShowTooltip)
+  gui_end_construction_args()
+
 public:
 
   /**
    * @brief
    * Default constructor.
    */
-  Widget();
+  Text();
 
   /**
    * @brief
    * Destructor.
    */
-  ~Widget() override;
+  ~Text() override;
+
+
+  /**
+   * @brief
+   * Construct this widget.
+   *
+   * @param[in] args
+   * The declaration data for this widget.
+   */
+  void construct(ConstructionArguments args);
+
+
+  /**
+   * @brief
+   * Sets the text of the Text.h
+   * @param test
+   */
+  void set_text(const core::String& text);
+
+  /**
+   * @brief
+   * Returns a reference to the text of the Text.h
+   *
+   * @return
+   * Reference to the text of the Text.h
+   */
+  const core::String& get_text() const;
 
 public:
 
@@ -74,28 +112,35 @@ public:
    * Called when the widget is updated.
    *
    * @param[in] deltaTime
-   * The time between this and the last update in seconds.
+   * The time between the this and the last update in seconds.
    */
-  virtual void on_update(float deltaTime);
+  void on_update(float deltaTime) override;
 
   /**
    * @brief
    * Called in the drawing process.
    */
-  virtual void on_draw();
-  
+  void on_draw() override;
 
-public:
+protected:
 
- core::Signal<> SignalClicked;
- core::Signal<> SignalHovered;
- core::Signal<> SignalDoubleClicked;
- core::Signal<> SignalContentChanged;
- core::Signal<> SignalEnterPressed;
+  /**
+   * @brief
+   * Helper class for showing the tooltip information.
+   */
+  void show_tooltip();
+
+protected:
+  /** The text of the this basic Text */
+  core::String mText;
+  /** A tooltip text to show when hovered */
+  core::String mTooltip;
+
+  bool mShowTooltip;
 };
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // gui

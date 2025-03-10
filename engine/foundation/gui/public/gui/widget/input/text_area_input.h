@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -20,14 +20,17 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include "gui/gui.h"
 #include "gui/widget/widget.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include <core/math/vec2.h>
 
 
 //[-------------------------------------------------------]
@@ -37,26 +40,82 @@ namespace gui {
 
 
 //[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+class Gui;
+
+
+//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+/**
+ * @class
+ * TextAreaInput
+ *
+ * @brief
+ */
+class TextAreaInput : public Widget {
 
-}
+  gui_begin_construction_args(TextAreaInput)
+    {}
+    gui_value(core::String, Content)
+    gui_value(core::Vec2i, Size)
+    gui_event(core::Slot<>, SlotOnContentChanged)
+  gui_end_construction_args()
 
-Widget::~Widget() {
+public:
 
-}
+  /**
+   * @brief
+   * Default constructor.
+   */
+  TextAreaInput();
 
-void Widget::on_update(float deltaTime) {
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~TextAreaInput() override;
 
-}
 
-void Widget::on_draw() {
+  /**
+   * @brief
+   * Construct this widget.
+   *
+   * @param[in] args
+   * The declaration data for this widget.
+   */
+  void construct(ConstructionArguments args);
 
-}
+public:
+
+  /**
+   * @brief
+   * Called when the widget is updated.
+   *
+   * @param[in] deltaTime
+   * The time between the this and the last update in seconds.
+   */
+  void on_update(float deltaTime) override;
+
+  /**
+   * @brief
+   * Called in the drawing process.
+   */
+  void on_draw() override;
+
+public:
+
+  core::Slot<> SlotOnContentChanged;
+
+protected:
+
+  core::String mContent;
+  core::Vec2i mSize;
+};
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // gui

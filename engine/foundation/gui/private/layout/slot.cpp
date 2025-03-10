@@ -20,28 +20,78 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <core/core.h>
-#include <rhi/rhi_headers.h>
+#include "gui/layout/slot.h"
+#include "gui/widget/container/null_widget.h"
+#include "gui/widget/widget.h"
 
 
 //[-------------------------------------------------------]
-//[ Import/Export                                         ]
+//[ Namespace                                             ]
 //[-------------------------------------------------------]
-#ifdef GUI_STATIC
-// Static library
-	#define GUI_API			// -
-#elif defined(GUI_EXPORTS)
-// To export classes, methods and variables
-#define GUI_API			BE_GENERIC_API_EXPORT
-#else
-// To import classes, methods and variables
-#define GUI_API			BE_GENERIC_API_IMPORT
-#endif
+namespace gui {
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+
+
+//[-------------------------------------------------------]
+//[ Classes                                               ]
+//[-------------------------------------------------------]
+Slot::Slot()
+: mWidget(NullWidget::instance()) {
+
+}
+
+Slot::Slot(core::Ptr<Widget> widget)
+: mWidget(widget) {
+
+}
+
+Slot::Slot(const Slot& rhs)
+: mWidget(rhs.mWidget) {
+
+}
+
+Slot::~Slot() {
+
+}
+
+
+Slot& Slot::operator=(const Slot& rhs) {
+  mWidget = rhs.mWidget;
+  return *this;
+}
+
+bool Slot::operator==(const Slot &rhs) const {
+  return (mWidget == rhs.mWidget);
+}
+
+bool Slot::operator!=(const Slot &rhs) const {
+  return !operator==(rhs);
+}
+
+core::Ptr<Widget> Slot::attach_widget(core::Ptr<Widget> widget) {
+  mWidget = widget;
+
+  return this->mWidget;
+}
+
+core::Ptr<Widget> Slot::detach_widget() {
+  mWidget = NullWidget::instance();
+
+  return this->mWidget;
+}
+
+core::Ptr<Widget> Slot::get_widget() const {
+  return mWidget;
+}
+
+
+//[-------------------------------------------------------]
+//[ Namespace                                             ]
+//[-------------------------------------------------------]
+} // gui

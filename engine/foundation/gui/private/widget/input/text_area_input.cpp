@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2025 RacoonStudios
+// Copyright (c) 2019 - 2023 RacoonStudios
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -22,12 +22,8 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "gui/widget/widget.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "gui/widget/input/text_area_input.h"
+#include "gui/helper/imgui_helper.h"
 
 
 //[-------------------------------------------------------]
@@ -39,24 +35,52 @@ namespace gui {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Widget::Widget() {
+TextAreaInput::TextAreaInput() {
+  SignalContentChanged.connect(&SlotOnContentChanged);
+}
+
+TextAreaInput::~TextAreaInput() {
 
 }
 
-Widget::~Widget() {
+
+void TextAreaInput::construct(ConstructionArguments args) {
+  mContent = args.getContent();
+  mSize = args.getSize();
+  SlotOnContentChanged = args.mEventSlotOnContentChanged;
+}
+
+void TextAreaInput::on_update(float deltaTime) {
 
 }
 
-void Widget::on_update(float deltaTime) {
+void TextAreaInput::on_draw() {
+  ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
 
-}
+  char* tempContent = const_cast<char*>(mContent.c_str());
+  static char text[1024 * 16] =
+    "/*\n"
+    " The Pentium F00F bug, shorthand for F0 0F C7 C8,\n"
+    " the hexadecimal encoding of one offending instruction,\n"
+    " more formally, the invalid operand with locked CMPXCHG8B\n"
+    " instruction bug, is a design flaw in the majority of\n"
+    " Intel Pentium, Pentium MMX, and Pentium OverDrive\n"
+    " processors (all in the P5 microarchitecture).\n"
+    "*/\n\n"
+    "label:\n"
+    "\tlock cmpxchg8b eax\n";
 
-void Widget::on_draw() {
-
+  if (ImGui::InputTextMultiline(
+    "##source",
+    text, // mContent
+    1024 * 16, ImVec2(mSize.get_x(), ImGui::GetTextLineHeight() * mSize.get_y()),
+    flags)) {
+    printf("When called?");
+  }
 }
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-}
+} // gui

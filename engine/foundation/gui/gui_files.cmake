@@ -26,27 +26,41 @@ set(FILES
   private/application/gui_application.cpp
 
   # private/gui
-  private/gui/clipboard.cpp
-  private/gui/clipboard_impl.cpp
-  private/gui/graphics.cpp
-  private/gui/graphics_impl.cpp
-  private/gui/gui.cpp
-  private/gui/gui_impl.cpp
-  private/gui/gui_message.cpp
-  private/gui/data/clipboard_data.cpp
-  private/gui/event/gui_event.cpp
+  private/gui/gui_context.cpp
+  private/gui/gui_server.cpp
+  private/gui/gui_window.cpp
+  private/gui/gui_window_callbacks.cpp
+
+  # private/helper
+  private/helper/imgui_helper.cpp
 
   # private/layout
-  private/layout/layout.cpp
+  private/layout/basic_slot.cpp
+  private/layout/children.cpp
+  private/layout/multi_slot.cpp
+  private/layout/no_children.cpp
+  private/layout/slot.cpp
 
-  # private/menu
-  private/menu/menu.cpp
-  private/menu/menu_item.cpp
+  # private/renderer
+  private/renderer/gui_renderer.cpp
+  private/renderer/gui_texture.cpp
+  private/renderer/gui_window_render_data.cpp
 
-  # private/theme
-  private/theme/theme.cpp
-  private/theme/theme_server.cpp
+  # private/ui
+  private/ui/ui.cpp
 
   # private/widget
   private/widget/widget.cpp
+  private/widget/button/abstract_button.cpp
+  private/widget/button/button.cpp
+  private/widget/button/small_button.cpp
+  private/widget/container/compound.cpp
+  private/widget/container/null_widget.cpp
+  private/widget/input/text_area_input.cpp
+  private/widget/layout/box_layout.cpp
+  private/widget/layout/horizontal_box_layout.cpp
+  private/widget/layout/layout.cpp
+  private/widget/layout/vertical_box_layout.cpp
+  private/widget/panel/panel.cpp
+  private/widget/text/text.cpp
 )
