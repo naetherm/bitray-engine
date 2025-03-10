@@ -13,7 +13,7 @@ _deps=(
   "assimp-5.2.3-rev1-linux"
   "crunch-1.0.4-rev1-linux"
   "ies-1.0.1-rev1-linux"
-  "imgui-1.91.9-rev1-linux"
+  "imgui-1.90-rev1-linux"
   "mcpp-master-rev1-linux"
   "meshoptimizer-0.17-rev1-linux"
   "mikktspace-1.0.0-rev1-linux"
