@@ -23,7 +23,7 @@
 ## Project
 ##################################################
 re_add_target(
-  NAME core SHARED
+  NAME core SHARED INSTALL
   NAMESPACE RE
   FILES_CMAKE
     ${CMAKE_CURRENT_SOURCE_DIR}/core_files.cmake

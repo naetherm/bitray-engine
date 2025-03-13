@@ -44,37 +44,12 @@ function(re_add_target)
   unset(RE_CURRENT_SOURCES)
 
   # Arguments
-  set(flags STATIC SHARED MODULE PLUGIN_STATIC PLUGIN_MODULE HEADERONLY EXECUTABLE APPLICATION IMPORTED AUTOMOC AUTOUIC AUTORCC NO_UNITY REFLECT)
+  set(flags STATIC SHARED MODULE PLUGIN_STATIC PLUGIN_MODULE HEADERONLY EXECUTABLE APPLICATION IMPORTED AUTOMOC AUTOUIC AUTORCC NO_UNITY REFLECT INSTALL)
   set(oneValueArgs NAME NAMESPACE OUTPUT_SUBDIRECTORY OUTPUT_NAME)
   set(multiValueArgs FILES_CMAKE CONDITIONAL_INCLUDES GENERATED_FILES INCLUDE_DIRECTORIES COMPILE_DEFINITIONS BUILD_DEPENDENCIES RUNTIME_DEPENDENCIES EXTERNAL_DEPENDENCIES PLATFORM_INCLUDE_FILES TARGET_PROPERTIES AUTOGEN_RULES)
 
   # Parse arguments
   cmake_parse_arguments(re_add_target "${flags}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
-
-  #
-  # Before doing anything else, let's first check whether this library should be reflected
-  #
-  if (re_add_target_REFLECT)
-    # (0) set variables
-    set(RTTI_PROCESS_DIRECTORIES "'''${CMAKE_CURRENT_SOURCE_DIR}/Public'''")
-    set(RTTI_IGNORED_DIRECTORIES "'''${CMAKE_CURRENT_SOURCE_DIR}/Generated'''")
-    set(RTTI_OUTPUT_DIRECTORY "'''${CMAKE_CURRENT_SOURCE_DIR}/Generated'''")
-    # TODO(naetherm): Add all dependencies too
-    set(RTTI_INCLUDED_DIRECTORIES "'''${CMAKE_CURRENT_SOURCE_DIR}/Public'''")
-
-    # (1) Copy and Configure the ReflectionGeneration.toml file
-    configure_file(
-      "${RE_ROOT_DIR}/cmake/Config/ReflectionGeneration.toml.in"
-      "${CMAKE_CURRENT_SOURCE_DIR}/ReflectionGeneration.toml"
-    )
-
-    # (2) Add the directory "${CMAKE_CURRENT_SOURCE_DIR}/Generated" to list of include directories
-
-    # (3) Generate the reflection information
-  endif()
-  #
-  #
-  #
 
   #message("\n\n\n STARTING ${re_add_target_NAME}")
   # Configure project
@@ -270,6 +245,19 @@ function(re_add_target)
       message(FATAL_ERROR "Target ${re_add_target_NAME} contains AUTOUIC but doesnt have any .ui file")
     endif()
     ly_qt_uic_target(${re_add_target_NAME})
+  endif()
+
+  install(
+    TARGETS ${re_add_target_NAME}
+    RUNTIME DESTINATION ${RE_BIN_DIR}
+    LIBRARY DESTINATION ${RE_LIB_DIR}
+    ARCHIVE DESTINATION ${RE_LIB_DIR}
+  )
+  if (re_add_target_INSTALL)
+    install(
+      DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/public/${re_add_target_NAME}
+      DESTINATION ${RE_INCLUDE_DIR}
+    )
   endif()
 
 endfunction(re_add_target)
