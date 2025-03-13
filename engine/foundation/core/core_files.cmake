@@ -128,6 +128,7 @@ set(FILES
 
   # private/memory
   private/memory/memory.cpp
+  private/memory/memory_tracker.cpp
   private/memory/mimalloc_allocator.cpp
   private/memory/std_allocator.cpp
 
