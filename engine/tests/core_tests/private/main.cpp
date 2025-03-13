@@ -22,11 +22,13 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include <core/memory/memory_tracker.h>
 #include <unittest/unittest.h>
 
 
 int main(int argc, char** argv) {
   unittest::UnitTestRegistry::instance().runAll();
 
+  core::MemoryTracker::instance().print_stats();
   return 0;
 }
