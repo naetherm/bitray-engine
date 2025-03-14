@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/core.h"
+#include "core/std/typetraits/is_nothrow_move_assignable.h"
 
 
 //[-------------------------------------------------------]
@@ -123,7 +124,7 @@ public:
    * @param[in] other The const pair to construct from.
    */
   template<typename U1, typename U2>
-  constexpr Pair(const Pair<U1, U2>& other);
+  constexpr explicit Pair(const Pair<U1, U2>& other);
 
   /**
    * @brief
@@ -132,7 +133,7 @@ public:
    * @param[in] other The movable pair to construct from.
    */
   template<typename U1, typename U2>
-  constexpr Pair(Pair<U1, U2>&& other);
+  constexpr explicit Pair(Pair<U1, U2>&& other);
 
   /**
    * @brief
@@ -153,8 +154,7 @@ public:
    * @return
    * A reference to this pair after assignment.
    */
-  constexpr Pair& operator=(Pair&& other)
-      noexcept(std::is_nothrow_move_assignable_v<T1> && std::is_nothrow_move_assignable_v<T2>) = default;
+  constexpr Pair& operator=(Pair&& other) noexcept(core::is_nothrow_move_assignable_v<T1> && core::is_nothrow_move_assignable_v<T2>) = default;
 
 /**
  * @brief
