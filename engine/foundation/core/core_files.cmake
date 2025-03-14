@@ -127,9 +127,12 @@ set(FILES
   private/math/transform.cpp
 
   # private/memory
+  private/memory/linear_allocator.cpp
   private/memory/memory.cpp
   private/memory/memory_tracker.cpp
   private/memory/mimalloc_allocator.cpp
+  private/memory/pool_allocator.cpp
+  private/memory/stack_allocator.cpp
   private/memory/std_allocator.cpp
 
   # private/platform

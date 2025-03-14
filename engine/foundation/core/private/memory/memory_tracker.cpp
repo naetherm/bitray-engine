@@ -146,7 +146,8 @@ void MemoryTracker::leak_report() const {
     BE_LOG(Info, "=== No memory leaks detected ===")
 
     for (auto& info: mAllocations) {
-      String msg = "Unresolved allocation from " + core::to_string(info.second.line) + " in " + String(info.second.file);
+      String msg = "Unresolved allocation from " + core::to_string(info.second.line) + " in " + String(info.second.function);
+      BE_LOG(Warning, msg)
     }
   }
 }

@@ -29,6 +29,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/container/vector.h"
+#include "core/memory/memory_tracker.h"
 #include "core/string/string.h"
 #if defined(WIN32)
 #endif
