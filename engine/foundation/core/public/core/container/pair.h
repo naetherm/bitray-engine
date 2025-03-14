@@ -50,6 +50,13 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+/**
+ * @class
+ * Pair
+ *
+ * @brief
+ * A pair of objects.
+ */
 template <typename T1, typename T2>
 class Pair {
 public:
@@ -60,45 +67,135 @@ public:
   T1 first;
   T2 second;
 
-  // Default constructor
+
+  /**
+   * @brief
+   * Construct a pair from nothing.
+   *
+   * @warning
+   * This function is marked as `noexcept` to indicate that it never throws an exception.
+   */
   constexpr Pair() noexcept;
 
-  // Constructor from values
+  /**
+   * @brief
+   * Construct a pair from two values.
+   *
+   * @param[in] x The first value.
+   * @param[in] y The second value.
+   */
   constexpr Pair(const T1& x, const T2& y);
 
-  // Constructor from value and movable value
+  /**
+   * @brief
+   * Construct a pair from a movable value and a const value.
+   *
+   * @param[in] x The first movable value.
+   * @param[in] y The second const value.
+   */
   template<typename U1 = T1, typename U2 = T2>
   constexpr Pair(U1&& x, const U2& y);
 
-  // Constructor from const value and movable value
+  /**
+   * @brief
+   * Construct a pair from a const value and a movable value.
+   *
+   * @param[in] x The first const value.
+   * @param[in] y The second movable value.
+   */
   template<typename U1 = T1, typename U2 = T2>
   constexpr Pair(const U1& x, U2&& y);
 
-  // Constructor from movable values
+  /**
+   * @brief
+   * Construct a pair from two movable values.
+   *
+   * @param[in] x The first movable value.
+   * @param[in] y The second movable value.
+   */
   template<typename U1 = T1, typename U2 = T2>
   constexpr Pair(U1&& x, U2&& y);
 
-  // Constructor from different Pair
+  /**
+   * @brief
+   * Construct a pair from a const pair.
+   *
+   * @param[in] other The const pair to construct from.
+   */
   template<typename U1, typename U2>
   constexpr Pair(const Pair<U1, U2>& other);
 
-  // Constructor from different movable Pair
+  /**
+   * @brief
+   * Construct a pair from a movable pair.
+   *
+   * @param[in] other The movable pair to construct from.
+   */
   template<typename U1, typename U2>
   constexpr Pair(Pair<U1, U2>&& other);
 
-  // Assignment operators
+  /**
+   * @brief
+   * Assignment operators.
+   */
   constexpr Pair& operator=(const Pair& other) = default;
 
+  /**
+   * @brief
+   * Move assignment operator.
+   *
+   * @details
+   * Assigns the contents of another pair to this pair using move semantics.
+   * This operator is marked as `noexcept` if both `T1` and `T2` are nothrow move assignable.
+   *
+   * @param[in] other The pair to move from.
+   *
+   * @return
+   * A reference to this pair after assignment.
+   */
   constexpr Pair& operator=(Pair&& other)
       noexcept(std::is_nothrow_move_assignable_v<T1> && std::is_nothrow_move_assignable_v<T2>) = default;
 
+/**
+ * @brief
+ * Assigns the contents of another pair to this pair.
+ *
+ * @param[in] other The pair whose contents are to be assigned.
+ *
+ * @return
+ * A reference to this pair after assignment.
+ */
   template<typename U1, typename U2>
   constexpr Pair& operator=(const Pair<U1, U2>& other);
 
+  /**
+   * @brief
+   * Assigns the contents of another pair to this pair.
+   *
+   * @details
+   * This assignment operator is implemented by calling the assignment operators of the
+   * first and second types. The assignment operators for the first and second types are
+   * called in order to assign the contents of another pair to this pair.
+   *
+   * @param[in] other The pair whose contents are to be assigned.
+   *
+   * @return
+   * A reference to this pair after assignment.
+   */
   template<typename U1, typename U2>
   constexpr Pair& operator=(Pair<U1, U2>&& other);
 
-  // Swap function
+  /**
+   * @brief
+   * Swaps the contents of this pair with another pair.
+   *
+   * @details
+   * This function swaps the first and second elements of this pair with the
+   * first and second elements of the provided pair. This operation is
+   * marked as `noexcept`, indicating it does not throw exceptions.
+   *
+   * @param[in,out] other The pair to swap contents with.
+   */
   constexpr void swap(Pair& other) noexcept;
 };
 
