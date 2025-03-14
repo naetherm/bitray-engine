@@ -54,8 +54,22 @@ UnitTestRegistry &UnitTestRegistry::instance() {
 
 
 UnitTestRegistry::~UnitTestRegistry() {
+  clear();
+}
+
+void UnitTestRegistry::runAll() {
+  printf("\033[32;1m= Starting Unit Tests =\033[0m\n");
+  for(auto ut: mlstUnitTests) {
+    printf("\033[32;1m=== Running '%s' ===\033[0m\n", ut->name());
+    ut->test();
+  }
+
+  clear();
+}
+
+void UnitTestRegistry::clear() {
   for (UnitTest* ut: mlstUnitTests) {
-    delete ut;
+    re_delete(ut);
   }
   mlstUnitTests.clear();
 }

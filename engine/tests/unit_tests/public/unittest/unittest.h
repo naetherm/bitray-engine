@@ -137,13 +137,9 @@ public:
    * @brief
    * Runs through all registered tests.
    */
-  void runAll() {
-    printf("\033[32;1m= Starting Unit Tests =\033[0m\n");
-    for(auto ut: mlstUnitTests) {
-      printf("\033[32;1m=== Running '%s' ===\033[0m\n", ut->name());
-      ut->test();
-    }
-  }
+  void runAll();
+
+  void clear();
 
 private:
 
