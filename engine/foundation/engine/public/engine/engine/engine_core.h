@@ -20,84 +20,87 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/plugin/plugin_server.h"
-#include "core/platform/library.h"
-#include "core/plugin/plugin.h"
+#include "engine/engine.h"
+#include <core/container/map.h>
+#include <core/container/vector.h>
+#include <core/string/string.h>
+
+
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+namespace core {
+class ServerImpl;
+}
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
+namespace engine {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-PluginServer::PluginServer() {
-}
+class EngineCore {
+public:
 
-PluginServer::~PluginServer() {
-  unload_all_plugins();
-}
+  EngineCore();
 
-const Vector<Plugin*>& PluginServer::get_plugins() const {
-  return mPlugins;
-}
+  ~EngineCore();
 
-void PluginServer::add_plugin(Plugin& plugin) {
-  if (std::find(mPlugins.begin(), mPlugins.end(), &plugin) == mPlugins.end()) {
-    mPlugins.push_back(&plugin);
-  }
-}
 
-bool PluginServer::load_plugin(const String& pluginName, const String& filename) {
-  // Check if we can find this plugin in the current list
-  for (auto* plugin : mPlugins) {
-    if (plugin->get_filename() == filename) return false;
-  }
+  void clear();
 
-  // Load the plugin
-  Library library;
-  library.set_path(Path(filename));
-  if (library.load()) {
-    // Get the correct plugin loading symbol
-    // Construct the correct plugin name
-    String symbolName = "load_plugin";
-    typedef Plugin* (*LOAD_PLUGIN)();
-    auto pluginLoader = reinterpret_cast<LOAD_PLUGIN>(library.get_symbol(symbolName));
-    if (pluginLoader) {
-      Plugin* plugin = pluginLoader();
-      plugin->mFileName = filename;
-      plugin->on_install();
-      plugin->on_startup();
 
-      mPlugins.push_back(plugin);
+  [[nodiscard]] core::uint32 get_number_of_servers() const;
 
-      return true;
-    }
-  }
+  [[nodiscard]] const core::Vector<core::ServerImpl*>& get_all_servers() const;
 
-  // Error
-  return false;
-}
+  [[nodiscard]] const core::ServerImpl* get_server_by_index(core::uint32 index) const;
 
-void PluginServer::unload_all_plugins() {
-  for (auto* plugin : mPlugins) {
-    plugin->on_shutdown();
+  [[nodiscard]] const core::ServerImpl* get_server_by_name(const core::String& name) const;
 
-    plugin->on_uninstall();
+  [[nodiscard]] bool has_server_with_name(const core::String& name) const;
 
-    delete plugin;;
-  }
 
-  mPlugins.clear();
-}
+  void register_server(core::ServerImpl* server, const core::String& name);
+
+  template<typename TServer>
+  const TServer* get_server(const core::String& name) const;
+
+  template<typename TServer>
+  TServer* get_server(const core::String& name);
+
+protected:
+
+  void register_core_services();
+
+private:
+
+  core::Vector<core::ServerImpl*> mServersList;
+  core::Map<core::String, core::ServerImpl*> mServersMap;
+};
+
+
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+//[-------------------------------------------------------]
+//[ Includes                                              ]
+//[-------------------------------------------------------]
+#include "engine/engine/engine_core.inl"

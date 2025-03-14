@@ -23,6 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "engine/plugin/engine_plugin_server.h"
+#
 
 
 //[-------------------------------------------------------]
@@ -44,6 +45,13 @@ namespace engine {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+EnginePluginServer::EnginePluginServer(EngineCore* engine)
+: core::PluginServer<EnginePlugin, EngineCore>("load_engine_plugin", engine) {
+}
+
+EnginePluginServer::~EnginePluginServer() {
+
+}
 
 
 //[-------------------------------------------------------]

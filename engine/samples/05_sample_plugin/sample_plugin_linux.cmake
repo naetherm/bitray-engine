@@ -19,9 +19,13 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(sample_plugin)
-re_add_subdirectory(rhi_opengl)
-re_add_subdirectory(rhi_vulkan)
+set(RE_BUILD_DEPENDENCIES
+  #  PUBLIC
+  pthread
+  dl
+  atomic
+  ncurses
+  ${LINUX_X11_LIBS}
+  ${DBUS_LIBRARIES}
+  stdc++fs
+  )

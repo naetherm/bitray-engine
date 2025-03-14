@@ -18,10 +18,33 @@
 #// DEALINGS IN THE SOFTWARE.
 #////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-################################################################################
-# Current package
-################################################################################
-re_add_subdirectory(sample_plugin)
-re_add_subdirectory(rhi_opengl)
-re_add_subdirectory(rhi_vulkan)
+# /usr/lib/amdgpu-pro/:
+##################################################
+## Project
+##################################################
+re_add_target(
+  NAME sample_plugin SHARED
+  NAMESPACE RE
+  FILES_CMAKE
+    ${CMAKE_CURRENT_SOURCE_DIR}/sample_plugin_files.cmake
+    INCLUDE_DIRECTORIES
+    PUBLIC
+      ${RE_CONFIG_FILE_LOCATION}
+      ${CMAKE_CURRENT_SOURCE_DIR}/public
+      ${CMAKE_CURRENT_SOURCE_DIR}/private
+  BUILD_DEPENDENCIES
+    PUBLIC
+      core
+      engine
+  RUNTIME_DEPENDENCIES
+    PUBLIC
+      core
+      engine
+  COMPILE_DEFINITIONS
+    PUBLIC
+      SAMPLE_PLUGIN_EXPORTS
+      ${${PAL_PLATFORM_NAME_UPPERCASE}_COMPILE_DEFS}
+      ${PAL_PLATFORM_NAME_UPPERCASE}
+  TARGET_PROPERTIES
+    -fPIC
+)

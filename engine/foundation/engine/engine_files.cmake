@@ -22,8 +22,11 @@
 set(FILES
   private/engine.cpp
 
+  # private/application
+  private/application/engine_application.cpp
+
   # private/engine
-  private/engine/engine_server.cpp
+  private/engine/engine_core.cpp
 
   # private/plugin
   private/plugin/engine_plugin.cpp

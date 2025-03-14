@@ -48,7 +48,6 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-class Plugin;
 
 
 //[-------------------------------------------------------]
@@ -62,7 +61,11 @@ class Plugin;
  * PluginServer is an abstract interface for managing plugins.
  *
  * It provides methods for loading, unloading and getting plugins.
+ *
+ * @tparam TPlugin
+ * @tparam TCore
  */
+template<typename TPlugin, typename TCore>
 class PluginServer : public ServerImpl {
 public:
 
@@ -70,7 +73,7 @@ public:
    * @brief
    * The default constructor for the PluginServer class.
    */
-  PluginServer();
+  PluginServer(const String& loaderMethod, TCore* core);
 
   /**
    * @brief
@@ -86,7 +89,7 @@ public:
    *
    * @return A constant reference to the vector of plugins.
    */
-  const Vector<Plugin*>& get_plugins() const;
+  const Vector<TPlugin*>& get_plugins() const;
 
   /**
    * @brief
@@ -97,7 +100,7 @@ public:
    *
    * @param plugin The plugin to add.
    */
-  void add_plugin(Plugin& plugin);
+  void add_plugin(TPlugin& plugin);
 
   /**
    * @brief
@@ -122,12 +125,32 @@ public:
   void unload_all_plugins();
 
 protected:
-  /** List of all loaded plugins */
-  Vector<Plugin*> mPlugins;
-};
 
+  /**
+   * @brief
+   * Create and load a plugin from the specified shared library.
+   *
+   * This method attempts to load a plugin from the given shared library file. If successful,
+   * the plugin is instantiated, initialized, and added to the list of managed plugins.
+   *
+   * @param pluginName The name of the plugin to create.
+   * @param filename The filename of the shared library containing the plugin.
+   *
+   * @return A pointer to the created plugin if successful, nullptr otherwise.
+   */
+  TPlugin* create_plugin(const String& pluginName, const String& filename);
+
+protected:
+  String mLoaderMethod;
+  TCore* mCore;
+  /** List of all loaded plugins */
+  Vector<TPlugin*> mPlugins;
+};
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
 }
+
+
+#include "core/plugin/plugin_server.inl"

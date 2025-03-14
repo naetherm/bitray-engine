@@ -29,6 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "engine/engine.h"
+#include "engine/engine/engine_core.h"
+#include "engine/plugin/engine_plugin.h"
 #include <core/plugin/plugin_server.h>
 
 
@@ -51,8 +53,19 @@ namespace engine {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class EnginePluginServer : public core::PluginServer {
+class EnginePluginServer : public core::PluginServer<EnginePlugin, EngineCore> {
 public:
+  /**
+   * @brief
+   * Constructor.
+   */
+  EnginePluginServer(EngineCore* engine);
+
+  /**
+   * @brief
+   * Destructor.
+   */
+  ~EnginePluginServer() override;
 };
 
 

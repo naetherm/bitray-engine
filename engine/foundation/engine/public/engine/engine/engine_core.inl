@@ -20,20 +20,7 @@
 
 
 //[-------------------------------------------------------]
-//[ Header guard                                          ]
-//[-------------------------------------------------------]
-#pragma once
-
-
-//[-------------------------------------------------------]
 //[ Includes                                              ]
-//[-------------------------------------------------------]
-#include "engine/engine.h"
-#include <core/plugin/plugin.h>
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
 //[-------------------------------------------------------]
 
 
@@ -44,68 +31,24 @@ namespace engine {
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-class EngineCore;
-
-
-//[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * EnginePlugin
- *
- * @brief
- * A base class for plugins associated with the engine.
- *
- * The EnginePlugin class provides a foundation for creating plugins in a software application
- * associated with the engine, inheriting from Plugin to prevent copying.
- */
-class EnginePlugin : public core::Plugin {
-public:
-  /**
-   * @brief
-   * Constructor.
-   */
-  EnginePlugin();
+template<typename TServer>
+const TServer* EngineCore::get_server(const core::String& name) const {
+  if (has_server_with_name(name)) {
+    return static_cast<const TServer*>(get_server_by_name(name));
+  }
+  return nullptr;
+}
 
-  /**
-   * @brief
-   * Destructor.
-   */
-  ~EnginePlugin() override;
 
-public:
-
-  /**
-   * @brief
-   * Function called when the plugin is installed.
-   *
-   * @return true if the plugin was successfully installed, false otherwise.
-   */
-  bool on_install() override;
-
-  /**
-   * @brief
-   * Function called when the plugin is started up.
-   *
-   * @return true if the plugin was successfully started, false otherwise.
-   */
-  bool on_startup() override;
-
-  /**
-   * @brief
-   * Function called when the plugin is shut down.
-   */
-  void on_shutdown() override;
-
-  /**
-   * @brief
-   * Function called when the plugin is uninstalled.
-   */
-  void on_uninstall() override;
-};
+template<typename TServer>
+TServer* EngineCore::get_server(const core::String& name) {
+  if (has_server_with_name(name)) {
+    return static_cast<TServer*>(get_server_by_name(name));
+  }
+  return nullptr;
+}
 
 
 //[-------------------------------------------------------]

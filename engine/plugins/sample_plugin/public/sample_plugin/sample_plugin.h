@@ -20,39 +20,27 @@
 
 
 //[-------------------------------------------------------]
+//[ Header guard                                          ]
+//[-------------------------------------------------------]
+#pragma once
+
+
+//[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "editor_toolkit/plugin/editor_plugin_server.h"
+#include <core/core.h>
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
+//[ Import/Export                                         ]
 //[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace editor_toolkit {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-EditorPluginServer::EditorPluginServer(EditorCore* core)
-: core::PluginServer<EditorPlugin, EditorCore>("load_editor_plugin", core) {
-}
-
-EditorPluginServer::~EditorPluginServer() {
-}
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-}
+#ifdef SAMPLE_PLUGIN_STATIC
+// Static library
+	#define ENGINE_API			// -
+#elif defined(SAMPLE_PLUGIN_EXPORTS)
+// To export classes, methods and variables
+#define SAMPLE_PLUGIN_API			BE_GENERIC_API_EXPORT
+#else
+// To import classes, methods and variables
+#define SAMPLE_PLUGIN_API			BE_GENERIC_API_IMPORT
+#endif

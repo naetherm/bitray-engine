@@ -44,6 +44,26 @@ namespace engine {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
+EnginePlugin::EnginePlugin() {
+}
+
+EnginePlugin::~EnginePlugin() {
+}
+
+
+bool EnginePlugin::on_install() {
+  return true;
+}
+
+bool EnginePlugin::on_startup() {
+  return true;
+}
+
+void EnginePlugin::on_shutdown() {
+}
+
+void EnginePlugin::on_uninstall() {
+}
 
 
 //[-------------------------------------------------------]

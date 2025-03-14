@@ -38,7 +38,8 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Public methods                                        ]
 //[-------------------------------------------------------]
-Mutex::Mutex() {
+Mutex::Mutex()
+: mMutexImpl(nullptr) {
 #if defined(LINUX)
   mMutexImpl = new LinuxMutex();
 #endif
@@ -46,6 +47,7 @@ Mutex::Mutex() {
 
 Mutex::~Mutex() {
   delete mMutexImpl;
+  mMutexImpl = nullptr;
 }
 
 

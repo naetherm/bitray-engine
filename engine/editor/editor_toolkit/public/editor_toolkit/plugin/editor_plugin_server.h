@@ -29,6 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "editor_toolkit/editor_toolkit.h"
+#include "editor_toolkit/editor/editor_core.h"
+#include "editor_toolkit/plugin/editor_plugin.h"
 #include <core/plugin/plugin_server.h>
 
 
@@ -51,8 +53,14 @@ namespace editor_toolkit {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-class EditorPluginServer : public core::PluginServer {
+class EditorPluginServer : public core::PluginServer<EditorPlugin, EditorCore> {
 public:
+
+  EditorPluginServer(EditorCore* core);
+
+  ~EditorPluginServer() override;
+
+private:
 };
 
 

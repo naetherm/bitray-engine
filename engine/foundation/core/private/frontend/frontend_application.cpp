@@ -60,6 +60,8 @@ bool FrontendApplication::on_start() {
 }
 
 void FrontendApplication::on_stop() {
+  mFrontend->get_display_device()->clear();
+  mFrontend->get_window_device()->clear();
   CoreApplication::on_stop();
 }
 

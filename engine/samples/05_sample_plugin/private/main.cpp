@@ -22,37 +22,25 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "editor_toolkit/plugin/editor_plugin_server.h"
+#include <core/main.h>
+#include "application.h"
 
 
 //[-------------------------------------------------------]
-//[ Forward declarations                                  ]
+//[ Program entry point                                   ]
 //[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace editor_toolkit {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Classes                                               ]
-//[-------------------------------------------------------]
-EditorPluginServer::EditorPluginServer(EditorCore* core)
-: core::PluginServer<EditorPlugin, EditorCore>("load_editor_plugin", core) {
-}
-
-EditorPluginServer::~EditorPluginServer() {
-}
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
+// This is the real entry point for any BitrayEngine executable. You must define this function if you
+// include <PLCore/Main.h> in your project. The parameters passed by the engine into this function
+// are self-explanatory.
+int be_main(const core::String &sExecutableFilename, const core::Vector<core::String> &lstArguments)
+{
+  // We just create an instance of our very basic application class and run it. This will result
+  // in the engine being initialized into usable state and the above Application::Main method
+  // being called. Note that only the very essential engine systems are initialized, such as log
+  // and plugin system. We will explore the initialization of more advanced systems (such as renderer)
+  // in future exercises.
+  Application cApplication;
+  int result = cApplication.run(sExecutableFilename, lstArguments);
+  core::MemoryTracker::instance().print_stats();
+  return result;
 }

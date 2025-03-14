@@ -28,87 +28,33 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "engine/engine.h"
-#include <core/plugin/plugin.h>
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace engine {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-class EngineCore;
+#include <core/app/core_application.h>
+#include <engine/engine/engine_core.h>
+#include <engine/plugin/engine_plugin_server.h>
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * EnginePlugin
- *
- * @brief
- * A base class for plugins associated with the engine.
- *
- * The EnginePlugin class provides a foundation for creating plugins in a software application
- * associated with the engine, inheriting from Plugin to prevent copying.
- */
-class EnginePlugin : public core::Plugin {
+class Application : public core::CoreApplication {
 public:
-  /**
-   * @brief
-   * Constructor.
-   */
-  EnginePlugin();
 
-  /**
-   * @brief
-   * Destructor.
-   */
-  ~EnginePlugin() override;
+  Application();
+
+  ~Application() override;
 
 public:
 
-  /**
-   * @brief
-   * Function called when the plugin is installed.
-   *
-   * @return true if the plugin was successfully installed, false otherwise.
-   */
-  bool on_install() override;
+  void main() override;
 
   /**
    * @brief
-   * Function called when the plugin is started up.
-   *
-   * @return true if the plugin was successfully started, false otherwise.
+   * Called before the object is going to be finally destroyed
    */
-  bool on_startup() override;
+  void on_destroy() override;
 
-  /**
-   * @brief
-   * Function called when the plugin is shut down.
-   */
-  void on_shutdown() override;
+private:
 
-  /**
-   * @brief
-   * Function called when the plugin is uninstalled.
-   */
-  void on_uninstall() override;
+  engine::EngineCore* mEngineCore;
+  engine::EnginePluginServer mEnginePluginServer;
 };
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-}

@@ -22,33 +22,70 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "editor_toolkit/plugin/editor_plugin_server.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "engine/engine/engine_core.h"
+#include <core/core/server_impl.h>
+#include <core/config/config_server.h>
+#include <core/io/io_server.h>
 
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace editor_toolkit {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+namespace engine {
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-EditorPluginServer::EditorPluginServer(EditorCore* core)
-: core::PluginServer<EditorPlugin, EditorCore>("load_editor_plugin", core) {
+EngineCore::EngineCore() {
+  register_core_services();
 }
 
-EditorPluginServer::~EditorPluginServer() {
+EngineCore::~EngineCore() {
+  clear();
+}
+
+
+void EngineCore::clear() {
+  for (auto* server: mServersList) {
+    delete server;
+    server = nullptr;
+  }
+
+  mServersList.clear();
+}
+
+
+core::uint32 EngineCore::get_number_of_servers() const {
+  return mServersList.size();
+}
+
+const core::Vector<core::ServerImpl*>& EngineCore::get_all_servers() const {
+  return mServersList;
+}
+
+const core::ServerImpl* EngineCore::get_server_by_index(core::uint32 index) const {
+  return mServersList[index];
+}
+
+const core::ServerImpl* EngineCore::get_server_by_name(const core::String& name) const {
+  return mServersMap[name];
+}
+
+bool EngineCore::has_server_with_name(const core::String& name) const {
+  return mServersMap.find(name) != mServersMap.end();
+}
+
+void EngineCore::register_server(core::ServerImpl* server, const core::String& name) {
+  if (mServersMap.find(name) != mServersMap.end()) {
+    mServersList.push_back(server);
+    mServersMap[name] = server;
+  }
+}
+
+void EngineCore::register_core_services() {
+  // Register core services
+  register_server(new core::ConfigServer(), BE_CONFIG_SERVER_NAME);
 }
 
 

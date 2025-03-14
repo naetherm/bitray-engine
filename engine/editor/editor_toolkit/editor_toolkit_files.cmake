@@ -25,6 +25,9 @@ set(FILES
   # private/application
   private/application/base_editor_application.cpp
 
+  # private/editor
+  private/editor/editor_core.cpp
+
   # private/plugin
   private/plugin/editor_plugin.cpp
   private/plugin/editor_plugin_server.cpp

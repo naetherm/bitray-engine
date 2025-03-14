@@ -23,6 +23,7 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include "core/plugin/plugin.h"
+#include "core/platform/library.h"
 
 
 //[-------------------------------------------------------]
@@ -34,7 +35,8 @@ namespace core {
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-Plugin::Plugin() {
+Plugin::Plugin()
+: mLibrary(nullptr) {
 }
 
 Plugin::~Plugin() {
@@ -42,6 +44,18 @@ Plugin::~Plugin() {
 
 const String& Plugin::get_filename() const {
   return mFileName;
+}
+
+void Plugin::set_filename(const String& filename) {
+  mFileName = filename;
+}
+
+Library* Plugin::get_library() {
+  return mLibrary;
+}
+
+void Plugin::set_library(Library* library) {
+  mLibrary = library;
 }
 
 

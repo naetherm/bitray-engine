@@ -28,9 +28,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "core/core.h"
-#include "core/core/non_copyable.h"
-#include "core/string/string.h"
+#include "editor_toolkit/editor_toolkit.h"
 
 
 //[-------------------------------------------------------]
@@ -41,114 +39,19 @@
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-namespace core {
+namespace editor_toolkit {
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-class Library;
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-/**
- * @class
- * Plugin
- *
- * @brief
- * A base class for plugins, ensuring plugins are non-copyable.
- *
- * The Plugin class provides a foundation for creating plugins in a
- * software application, inheriting from NonCopyable to prevent copying.
- */
-class Plugin : public NonCopyable {
-
-  template<typename TPlugin, typename TCore> friend class PluginServer;
-
+class EditorCore {
 public:
-
-  /**
-   * @brief
-   * Default constructor.
-   */
-  Plugin();
-
-  /**
-   * @brief
-   * Destructor.
-   */
-  ~Plugin() override;
-
-
-  /**
-   * @brief Get the filename of the plugin.
-   *
-   * @return The filename as a constant reference to a String.
-   */
-  const String& get_filename() const;
-
-  /**
-   * @brief Set the filename for the plugin.
-   *
-   * @param filename The filename to set as a constant reference to a String.
-   */
-  void set_filename(const String& filename);
-
-  /**
-   * @brief
-   * Get the dynamic library associated with the plugin.
-   *
-   * @return
-   * The dynamic library associated with the plugin, or a null pointer if
-   * no library has been set.
-   */
-  Library* get_library();
-
-  /**
-   * @brief
-   * Sets the dynamic library associated with the plugin.
-   *
-   * @param[in] library
-   * The dynamic library to associate with the plugin.
-   */
-  void set_library(Library* library);
-
-public:
-
-  /**
-   * @brief
-   * Function called when the plugin is installed.
-   *
-   * @return true if the plugin was successfully installed, false otherwise.
-   */
-  virtual bool on_install() = 0;
-
-  /**
-   * @brief
-   * Function called when the plugin is started up.
-   *
-   * @return true if the plugin was successfully started, false otherwise.
-   */
-  virtual bool on_startup() = 0;
-
-  /**
-   * @brief
-   * Function called when the plugin is shut down.
-   */
-  virtual void on_shutdown() = 0;
-
-  /**
-   * @brief
-   * Function called when the plugin is uninstalled.
-   */
-  virtual void on_uninstall() = 0;
-
-protected:
-  /** The filename of the plugin */
-  String mFileName;
-  Library* mLibrary;
 };
 
 

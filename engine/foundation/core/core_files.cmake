@@ -145,7 +145,6 @@ set(FILES
 
   # private/plugin
   private/plugin/plugin.cpp
-  private/plugin/plugin_server.cpp
 
   # private/resource
   private/resource/resource.cpp

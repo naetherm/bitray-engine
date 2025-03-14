@@ -22,37 +22,36 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "editor_toolkit/plugin/editor_plugin_server.h"
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
-
-
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
-namespace editor_toolkit {
-
-
-//[-------------------------------------------------------]
-//[ Forward declarations                                  ]
-//[-------------------------------------------------------]
+#include "application.h"
+#include <cstdio>
+#include <core/platform/platform.h>
 
 
 //[-------------------------------------------------------]
 //[ Classes                                               ]
 //[-------------------------------------------------------]
-EditorPluginServer::EditorPluginServer(EditorCore* core)
-: core::PluginServer<EditorPlugin, EditorCore>("load_editor_plugin", core) {
+Application::Application()
+: mEngineCore(re_new<engine::EngineCore>())
+, mEnginePluginServer(mEngineCore) {
+
 }
 
-EditorPluginServer::~EditorPluginServer() {
+Application::~Application() {
+
 }
 
+void Application::main() {
+  printf("Hello Plugin :)\n");
 
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
+  core::String pluginPath = core::Platform::instance().get_shared_library_prefix() + "sample_plugin." + core::Platform::instance().get_shared_library_extension();
+  mEnginePluginServer.load_plugin("sample_plugin", pluginPath);
+
+}
+
+void Application::on_destroy() {
+  mEnginePluginServer.unload_all_plugins();
+
+  re_delete(mEngineCore);
+
+  CoreApplication::on_destroy();
 }
